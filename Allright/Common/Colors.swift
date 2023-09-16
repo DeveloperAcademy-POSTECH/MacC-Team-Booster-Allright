@@ -25,4 +25,5 @@ struct Colors {
     static var gray300 = Color(hex: "C4C8B6")
     static var gray100 = Color(hex: "ECEDE8")
     static var gray50 = Color(hex: "F6F6F0")
+    static var white = Color(hex: "FFFFFF")
 }
