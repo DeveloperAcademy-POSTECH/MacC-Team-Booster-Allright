@@ -44,7 +44,7 @@ struct RecordView: View {
                     Button("취소", role: .cancel) {
                         
                     }
-                    Button("확인", role: .destructive) {
+                    Button("확인", role: .none) {
                         
                     }
                 }

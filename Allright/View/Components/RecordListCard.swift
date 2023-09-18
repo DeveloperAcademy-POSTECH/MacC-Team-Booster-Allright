@@ -9,14 +9,15 @@ import SwiftUI
 
 struct RecordListCard: View {
     @State var recordOffset: CGFloat = .zero
+    @State var rectangleColor: Color = Colors.green400
     
     var body: some View {
         // MARK: - Rectangle
         ZStack {
             recordRectangle(Colors.white)
-            recordRectangle(Colors.green400)
+            recordRectangle(rectangleColor)
                 .mask(alignment: .leading) {
-                    Colors.green400
+                    rectangleColor
                         .frame(width: UIScreen.getWidth(recordOffset))
                 }
                 .gesture(
@@ -30,7 +31,7 @@ struct RecordListCard: View {
         .overlay {
             HStack {
                 VStack(alignment: .leading, spacing: 6) {
-                    recordListSyllableBlock
+                    recordListSyllable1Block
                     
                     ZStack {
                         recordDate(Colors.gray500)
@@ -63,7 +64,7 @@ struct RecordListCard: View {
             .foregroundColor(color)
     }
     
-    var recordListSyllableBlock: some View {
+    var recordListSyllable1Block: some View {
         RoundedRectangle(cornerRadius: 4)
             .foregroundColor(Colors.gray50)
             .frame(width: UIScreen.getWidth(52), height: UIScreen.getHeight(22))
@@ -77,13 +78,27 @@ struct RecordListCard: View {
             }
     }
     
+    var recordListSyllable2Block: some View {
+        RoundedRectangle(cornerRadius: 4)
+            .foregroundColor(Colors.gray50)
+            .frame(width: UIScreen.getWidth(52), height: UIScreen.getHeight(22))
+            .overlay {
+                HStack {
+                    Text("음절")
+                    Image(systemName: "2.circle.fill")
+                }
+                .foregroundColor(Colors.green600)
+                .font(Font.caption1())
+            }
+    }
+    
     var recordListSenteceBlock: some View {
         RoundedRectangle(cornerRadius: 4)
             .foregroundColor(Colors.gray50)
             .frame(width: UIScreen.getWidth(38), height: UIScreen.getHeight(22))
             .overlay {
                 Text("문장")
-                    .foregroundColor(Colors.green600)
+                    .foregroundColor(Colors.green700)
                     .font(Font.caption1())
             }
     }
