@@ -34,12 +34,20 @@ struct RecordView: View {
         VStack(alignment: .leading, spacing: 0) {
             HStack(alignment: .center, spacing: 0) {
                 Button {
-                    //
+                    recordVM.isAlertShow = true
                 } label: {
                     deleteButton
                 }
                 .disabled(recordVM.isEditMode ? false : true)
                 .opacity(recordVM.isEditMode ? 1 : 0)
+                .alert("녹음기록을 삭제할까요?", isPresented: $recordVM.isAlertShow) {
+                    Button("취소", role: .cancel) {
+                        
+                    }
+                    Button("확인", role: .destructive) {
+                        
+                    }
+                }
                 
                 editButton
             }

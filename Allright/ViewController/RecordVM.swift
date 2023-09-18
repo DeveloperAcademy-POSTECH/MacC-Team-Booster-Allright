@@ -10,4 +10,5 @@ import SwiftUI
 final class RecordVM: ObservableObject {
     @Published var isEditMode: Bool = false
     @Published var isPlaying: Bool = false
+    @Published var isAlertShow: Bool = false
 }
