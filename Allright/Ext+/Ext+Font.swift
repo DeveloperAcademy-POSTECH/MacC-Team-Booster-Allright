@@ -87,11 +87,11 @@ extension Font {
         self.register(name: NanumFont.bold, withExtension: "ttf")
         self.register(name: NanumFont.extraBold, withExtension: "ttf")
         self.register(name: NanumFont.light, withExtension: "ttf")
-        self.register(name: NanumFont.regular, withExtension: "otf")
+        self.register(name: NanumFont.regular, withExtension: "ttf")
         self.register(name: NanumFont.otfBold, withExtension: "otf")
         self.register(name: NanumFont.otfExtraBold, withExtension: "otf")
         self.register(name: NanumFont.otfLight, withExtension: "otf")
-        self.register(name: NanumFont.oftRegular, withExtension: "ttf")
+        self.register(name: NanumFont.oftRegular, withExtension: "otf")
     }
     
     static func register(name: String, withExtension: String) {
