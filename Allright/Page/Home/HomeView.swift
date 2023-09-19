@@ -14,10 +14,12 @@ struct HomeView: View {
         NavigationStack {
             VStack(spacing: UIScreen.getHeight(16)) {
                 topBanner
-                Spacer().frame(height: UIScreen.getHeight(60))
-                HomeStepCard(step: .syllable)
+                Spacer()
+                HomeStepCard(step: .step1)
+                HomeStepCard(step: .step2)
                 HomeStepCard(step: .sentance)
                 Spacer()
+                Spacer().frame(height: UITabBarController().height)
             }
         }
     }
@@ -35,7 +37,7 @@ struct HomeView: View {
                             .font(Font.body())
                         Text("발음 연습")
                             .font(Font.largeTitle())
-                    }.padding(.bottom, 20)
+                    }.padding(.bottom, UIScreen.getHeight(20))
                     Spacer()
                 }.padding()
             }.foregroundColor(Colors.white)

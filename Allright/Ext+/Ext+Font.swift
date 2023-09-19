@@ -20,6 +20,12 @@ struct NanumFont {
 
 
 extension Font {
+    static func overlayTitle() -> Font {
+        return Font.custom(NanumFont.extraBold, size: 40 * setFontSize())
+    }
+    static func playImage() -> Font {
+        return Font.custom(NanumFont.extraBold, size: 40 * setFontSize())
+    }
     static func cardBig() -> Font {
         return Font.custom(NanumFont.otfBold, size: 100 * setFontSize())
     }
@@ -32,6 +38,9 @@ extension Font {
     static func largeTitle() -> Font {
         return Font.custom(NanumFont.otfBold, size: 32 * setFontSize())
     }
+    static func selectionTitle() -> Font {
+        return Font.custom(NanumFont.otfBold, size: 28 * setFontSize())
+    }
     static func title1() -> Font {
         return Font.custom(NanumFont.otfBold, size: 20 * setFontSize())
     }
@@ -42,7 +51,7 @@ extension Font {
         return Font.custom(NanumFont.otfBold, size: 14 * setFontSize())
     }
     static func caption1() -> Font {
-        return Font.custom(NanumFont.otfBold, size: 10 * setFontSize())
+        return Font.custom(NanumFont.otfBold, size: 12 * setFontSize())
     }
 
     
