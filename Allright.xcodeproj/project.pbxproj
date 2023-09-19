@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		0DE7C2342AB58E88007701E6 /* Ext+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE7C2332AB58E88007701E6 /* Ext+Color.swift */; };
 		0DE7C2372AB58F94007701E6 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE7C2362AB58F94007701E6 /* Colors.swift */; };
-		0DE7C2392AB59242007701E6 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE7C2382AB59242007701E6 /* Strings.swift */; };
 		0DE7C23B2AB59485007701E6 /* Ext+UIScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE7C23A2AB59485007701E6 /* Ext+UIScreen.swift */; };
 		0DE7C23D2AB594B4007701E6 /* Ext+Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE7C23C2AB594B4007701E6 /* Ext+Font.swift */; };
 		0DE7C23F2AB597D7007701E6 /* HomeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE7C23E2AB597D7007701E6 /* HomeVM.swift */; };
@@ -31,6 +30,11 @@
 		0DE7C28C2AB799F2007701E6 /* TrainingSteps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE7C28B2AB799F2007701E6 /* TrainingSteps.swift */; };
 		0DE7C28E2AB8273F007701E6 /* Ext+UITabBarControlelr.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE7C28D2AB8273F007701E6 /* Ext+UITabBarControlelr.swift */; };
 		0DF080B22AB987C500002D96 /* WordCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF080B12AB987C500002D96 /* WordCard.swift */; };
+		0DF080B42AB9AC1600002D96 /* RecordVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF080B32AB9AC1600002D96 /* RecordVM.swift */; };
+		0DF080B62AB9AC2700002D96 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF080B52AB9AC2700002D96 /* Strings.swift */; };
+		0DF080B82AB9AC5200002D96 /* RecordListCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF080B72AB9AC5200002D96 /* RecordListCard.swift */; };
+		0DF080BA2AB9AD3E00002D96 /* Voicerecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF080B92AB9AD3E00002D96 /* Voicerecord.swift */; };
+		0DF080BC2AB9AD4F00002D96 /* VoicerecordVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF080BB2AB9AD4F00002D96 /* VoicerecordVM.swift */; };
 		DBB9F6AE2AB4A87000E7A5C0 /* AllrightApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB9F6AD2AB4A87000E7A5C0 /* AllrightApp.swift */; };
 		DBB9F6B02AB4A87000E7A5C0 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB9F6AF2AB4A87000E7A5C0 /* HomeView.swift */; };
 		DBB9F6B22AB4A87100E7A5C0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBB9F6B12AB4A87100E7A5C0 /* Assets.xcassets */; };
@@ -40,7 +44,6 @@
 /* Begin PBXFileReference section */
 		0DE7C2332AB58E88007701E6 /* Ext+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+Color.swift"; sourceTree = "<group>"; };
 		0DE7C2362AB58F94007701E6 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
-		0DE7C2382AB59242007701E6 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		0DE7C23A2AB59485007701E6 /* Ext+UIScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+UIScreen.swift"; sourceTree = "<group>"; };
 		0DE7C23C2AB594B4007701E6 /* Ext+Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+Font.swift"; sourceTree = "<group>"; };
 		0DE7C23E2AB597D7007701E6 /* HomeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVM.swift; sourceTree = "<group>"; };
@@ -63,6 +66,11 @@
 		0DE7C28B2AB799F2007701E6 /* TrainingSteps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingSteps.swift; sourceTree = "<group>"; };
 		0DE7C28D2AB8273F007701E6 /* Ext+UITabBarControlelr.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+UITabBarControlelr.swift"; sourceTree = "<group>"; };
 		0DF080B12AB987C500002D96 /* WordCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordCard.swift; sourceTree = "<group>"; };
+		0DF080B32AB9AC1600002D96 /* RecordVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordVM.swift; sourceTree = "<group>"; };
+		0DF080B52AB9AC2700002D96 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
+		0DF080B72AB9AC5200002D96 /* RecordListCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordListCard.swift; sourceTree = "<group>"; };
+		0DF080B92AB9AD3E00002D96 /* Voicerecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Voicerecord.swift; sourceTree = "<group>"; };
+		0DF080BB2AB9AD4F00002D96 /* VoicerecordVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoicerecordVM.swift; sourceTree = "<group>"; };
 		DBB9F6AA2AB4A87000E7A5C0 /* Allright.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Allright.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBB9F6AD2AB4A87000E7A5C0 /* AllrightApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllrightApp.swift; sourceTree = "<group>"; };
 		DBB9F6AF2AB4A87000E7A5C0 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -84,6 +92,7 @@
 		0DE7C2302AB58E04007701E6 /* Page */ = {
 			isa = PBXGroup;
 			children = (
+				0DF080BB2AB9AD4F00002D96 /* VoicerecordVM.swift */,
 				0DE7C27D2AB5A7F0007701E6 /* Component */,
 				0DE7C2312AB58E0A007701E6 /* Home */,
 				0DE7C28F2AB83E4B007701E6 /* Record */,
@@ -117,8 +126,8 @@
 		0DE7C2352AB58F84007701E6 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				0DF080B52AB9AC2700002D96 /* Strings.swift */,
 				0DE7C2362AB58F94007701E6 /* Colors.swift */,
-				0DE7C2382AB59242007701E6 /* Strings.swift */,
 				0DE7C2822AB788D1007701E6 /* NavigationModefier.swift */,
 			);
 			path = Common;
@@ -142,6 +151,7 @@
 		0DE7C27D2AB5A7F0007701E6 /* Component */ = {
 			isa = PBXGroup;
 			children = (
+				0DF080B72AB9AC5200002D96 /* RecordListCard.swift */,
 				0DE7C27E2AB5A806007701E6 /* HomeStepCard.swift */,
 				0DF080B12AB987C500002D96 /* WordCard.swift */,
 			);
@@ -151,6 +161,7 @@
 		0DE7C2882AB79950007701E6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				0DF080B92AB9AD3E00002D96 /* Voicerecord.swift */,
 				0DE7C28B2AB799F2007701E6 /* TrainingSteps.swift */,
 			);
 			path = Model;
@@ -159,6 +170,7 @@
 		0DE7C28F2AB83E4B007701E6 /* Record */ = {
 			isa = PBXGroup;
 			children = (
+				0DF080B32AB9AC1600002D96 /* RecordVM.swift */,
 				0DE7C27B2AB5A1AA007701E6 /* RecordView.swift */,
 			);
 			path = Record;
@@ -299,17 +311,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0DF080B82AB9AC5200002D96 /* RecordListCard.swift in Sources */,
 				0DE7C2872AB78D5E007701E6 /* ReadVM.swift in Sources */,
 				0DE7C2342AB58E88007701E6 /* Ext+Color.swift in Sources */,
 				0DE7C2372AB58F94007701E6 /* Colors.swift in Sources */,
 				0DE7C28C2AB799F2007701E6 /* TrainingSteps.swift in Sources */,
-				0DE7C2392AB59242007701E6 /* Strings.swift in Sources */,
 				0DE7C27C2AB5A1AA007701E6 /* RecordView.swift in Sources */,
+				0DF080B62AB9AC2700002D96 /* Strings.swift in Sources */,
 				0DE7C2832AB788D1007701E6 /* NavigationModefier.swift in Sources */,
 				0DE7C2812AB5DED5007701E6 /* ReadView.swift in Sources */,
 				0DE7C27F2AB5A806007701E6 /* HomeStepCard.swift in Sources */,
+				0DF080B42AB9AC1600002D96 /* RecordVM.swift in Sources */,
 				0DF080B22AB987C500002D96 /* WordCard.swift in Sources */,
 				0DE7C23F2AB597D7007701E6 /* HomeVM.swift in Sources */,
+				0DF080BA2AB9AD3E00002D96 /* Voicerecord.swift in Sources */,
+				0DF080BC2AB9AD4F00002D96 /* VoicerecordVM.swift in Sources */,
 				0DE7C28E2AB8273F007701E6 /* Ext+UITabBarControlelr.swift in Sources */,
 				0DE7C23B2AB59485007701E6 /* Ext+UIScreen.swift in Sources */,
 				DBB9F6B02AB4A87000E7A5C0 /* HomeView.swift in Sources */,

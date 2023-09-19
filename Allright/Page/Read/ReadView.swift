@@ -94,7 +94,7 @@ struct ReadView: View {
     var wordCard: some View {
         ScrollViewReader { idx in
             ScrollView(.horizontal) {
-                HStack {
+                HStack(spacing: UIScreen.getWidth(16)) {
                     ForEach(step.wordCard, id: \.self) { word in
                         RoundedRectangle(cornerRadius: 20)
                             .frame(width: UIScreen.getWidth(290), height: UIScreen.getHeight(301))
