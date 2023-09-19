@@ -12,6 +12,9 @@ struct AllrightApp: App {
     var body: some Scene {
         WindowGroup {
             HomeView()
+                .onAppear {
+                    Font.registerFonts()
+                }
         }
     }
 }
