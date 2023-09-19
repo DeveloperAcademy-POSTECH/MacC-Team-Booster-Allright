@@ -23,8 +23,6 @@ struct RecordView: View {
                         recordList
                         recordList
                         recordList
-                        recordList
-                        recordList
                     }
                 }
             }

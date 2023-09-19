@@ -9,11 +9,13 @@ import SwiftUI
 
 @main
 struct AllrightApp: App {
+    
+
     var body: some Scene {
         WindowGroup {
-            HomeView()
+            MainView()
                 .onAppear {
-                    Font.registerFonts()
+                    VoicerecordVM.requestMicrophonePermission()
                 }
         }
     }
