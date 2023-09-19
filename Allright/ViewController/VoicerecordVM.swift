@@ -8,13 +8,13 @@
 import Foundation
 import AVFoundation
 
-class VoiceVM : NSObject, ObservableObject , AVAudioPlayerDelegate{
+class VoicerecordVM : NSObject, ObservableObject , AVAudioPlayerDelegate{
     var audioRecorder : AVAudioRecorder!
     var audioPlayer : AVAudioPlayer!
     var indexOfPlayer = 0
     
     @Published var isRecording : Bool = false
-    @Published var recordingsList: [VoiceRecord] = []
+    @Published var recordingsList: [Voicerecord] = []
     @Published var countSec = 0
     @Published var timerCount : Timer?
     @Published var blinkingCount : Timer?
@@ -27,6 +27,16 @@ class VoiceVM : NSObject, ObservableObject , AVAudioPlayerDelegate{
         super.init()
         
         fetchAllRecording()
+    }
+    
+    static func requestMicrophonePermission(){
+        AVAudioSession.sharedInstance().requestRecordPermission({(granted: Bool)-> Void in
+            if granted {
+                print("Permission Accept")
+            } else {
+                print("Permission Deny")
+            }
+        })
     }
     
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
@@ -89,7 +99,7 @@ class VoiceVM : NSObject, ObservableObject , AVAudioPlayerDelegate{
         let directoryContents = try! FileManager.default.contentsOfDirectory(at: path, includingPropertiesForKeys: nil)
 
         for i in directoryContents {
-            recordingsList.append(VoiceRecord(fileURL : i, createdAt:getFileDate(for: i), isPlaying: false))
+            recordingsList.append(Voicerecord(fileURL : i, createdAt:getFileDate(for: i), isPlaying: false))
         }
         
         recordingsList.sort(by: { $0.createdAt.compare($1.createdAt) == .orderedDescending})

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct VoiceRecord : Equatable {
+struct Voicerecord : Equatable {
     let fileURL : URL
     let createdAt : Date
     var isPlaying : Bool
