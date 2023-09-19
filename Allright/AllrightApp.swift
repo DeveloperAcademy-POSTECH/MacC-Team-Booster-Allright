@@ -10,6 +10,7 @@ import SwiftUI
 @main
 struct AllrightApp: App {
     
+    
     var body: some Scene {
         WindowGroup {
             MainView()
