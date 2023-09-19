@@ -5,11 +5,12 @@
 //  Created by 최진용 on 2023/09/16.
 //
 
+import Lottie
 import SwiftUI
 
 struct ReadView: View {
     let step: TrainingSteps
-    @StateObject var readVM = ReadVM()
+    @StateObject private var readVM = ReadVM()
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @GestureState private var dragOffset: CGFloat = 0
     
@@ -27,6 +28,11 @@ struct ReadView: View {
                 wordCard
                 progressbar
                 Spacer().frame(height: UITabBarController().height)
+            }
+            VStack {
+                Spacer()
+                LottieView(isPlay: $readVM.isPlayLottie)
+                    .frame(width: UIScreen.getWidth(200), height: UIScreen.getHeight(200))
             }
             VStack {
                 Spacer()
@@ -51,17 +57,25 @@ struct ReadView: View {
     //MARK: - UIComponents
     var playButton: some View {
         Button {
-            print("hi")
+            readVM.isPlayLottie.toggle()
         } label: {
             RoundedRectangle(cornerRadius: 100)
                 .frame(width: UIScreen.getWidth(106), height: UIScreen.getWidth(106))
-                .foregroundColor(Colors.orange)
+                .foregroundColor(readVM.isPlayLottie ? Colors.white : Colors.orange)
                 .overlay {
-                    Image(systemName: "play.fill")
-                        .font(.playImage())
-                        .foregroundColor(Colors.white)
+                    if !readVM.isPlayLottie {
+                        Image(systemName: "play.fill")
+                            .font(.playImage())
+                            .foregroundColor(Colors.white)
+                    }
+                    else {
+                        Image(systemName: "mic.fill")
+                            .font(.playImage())
+                            .foregroundColor(Colors.orange)
+                    }
                 }
         }
+        
     }
     
     var progressbar: some View {
@@ -130,18 +144,17 @@ struct ReadView: View {
         }.gesture(
             DragGesture()
                 .onEnded({ value in
-                let threshold: CGFloat = 50
-                if value.translation.width > threshold {
-                    withAnimation {
-                        readVM.currentIndex = max(0, readVM.currentIndex - 1)
+                    let threshold: CGFloat = 50
+                    if value.translation.width > threshold {
+                        withAnimation {
+                            readVM.currentIndex = max(0, readVM.currentIndex - 1)
+                        }
+                    } else if value.translation.width < -threshold {
+                        withAnimation {
+                            readVM.currentIndex = min(step.wordCard.count - 1, readVM.currentIndex + 1)
+                        }
                     }
-                } else if value.translation.width < -threshold {
-                    withAnimation {
-                        readVM.currentIndex = min(step.wordCard.count - 1, readVM.currentIndex + 1)
-                    }
-                }
-            })
-        
+                })
         )
     }
     

@@ -13,5 +13,6 @@ class ReadVM: ObservableObject {
     @Published var currentCard = 0
     @Published var currentIndex: Int = 0
     @GestureState var dragOffset = 0
+    @Published var isPlayLottie = false
 //    280/totalcount * current
 }
