@@ -91,8 +91,6 @@ extension Font {
     }
 }
 
-
-
 extension Font {
     static func registerFonts() {
         self.register(name: NanumFont.bold, withExtension: "ttf")
