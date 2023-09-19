@@ -9,6 +9,7 @@ import SwiftUI
 
 struct RecordView: View {
     @StateObject var recordVM = RecordVM()
+    @StateObject var voiceRecordVM = VoiceVM()
     
     var body: some View {
         Colors.gray100.ignoresSafeArea()
@@ -17,8 +18,29 @@ struct RecordView: View {
                     topBanner
                     
                     VStack {
-                        recordList
-                        recordList
+                        Button {
+                            if voiceRecordVM.isRecording {
+                                voiceRecordVM.stopRecording()
+                                print(voiceRecordVM.recordingsList)
+                            }
+                            else {
+                                voiceRecordVM.startRecording()
+                            }
+                        } label: {
+                            if voiceRecordVM.isRecording {
+                                Text("녹음 테스트 종료")
+                            }
+                            else {
+                                Text("녹음 테스트 시작")
+                            }
+                        }
+                        Button {
+                            voiceRecordVM.startPlaying(url: voiceRecordVM.recordingsList[0].fileURL)
+                        } label: {
+                            Text("\(voiceRecordVM.recordingsList[0].fileURL)")
+                        }
+
+                        Text("\(voiceRecordVM.recordingsList.count)")
                         recordList
                         recordList
                         recordList

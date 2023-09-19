@@ -7,14 +7,8 @@
 
 import SwiftUI
 
-struct VoiceRecords: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
-
-struct VoiceRecords_Previews: PreviewProvider {
-    static var previews: some View {
-        VoiceRecords()
-    }
+struct VoiceRecord : Equatable {
+    let fileURL : URL
+    let createdAt : Date
+    var isPlaying : Bool
 }
