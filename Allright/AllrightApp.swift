@@ -11,7 +11,10 @@ import SwiftUI
 struct AllrightApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            HomeView()
+                .onAppear {
+                    Font.registerFonts()
+                }
         }
     }
 }
