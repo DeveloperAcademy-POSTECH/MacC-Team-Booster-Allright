@@ -24,6 +24,13 @@
 		0DE7C27A2AB5A165007701E6 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE7C2792AB5A165007701E6 /* MainView.swift */; };
 		0DE7C27C2AB5A1AA007701E6 /* RecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE7C27B2AB5A1AA007701E6 /* RecordView.swift */; };
 		0DE7C27F2AB5A806007701E6 /* HomeStepCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE7C27E2AB5A806007701E6 /* HomeStepCard.swift */; };
+		0DE7C2812AB5DED5007701E6 /* ReadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE7C2802AB5DED5007701E6 /* ReadView.swift */; };
+		0DE7C2832AB788D1007701E6 /* NavigationModefier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE7C2822AB788D1007701E6 /* NavigationModefier.swift */; };
+		0DE7C2852AB788E5007701E6 /* Ext+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE7C2842AB788E5007701E6 /* Ext+View.swift */; };
+		0DE7C2872AB78D5E007701E6 /* ReadVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE7C2862AB78D5E007701E6 /* ReadVM.swift */; };
+		0DE7C28C2AB799F2007701E6 /* TrainingSteps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE7C28B2AB799F2007701E6 /* TrainingSteps.swift */; };
+		0DE7C28E2AB8273F007701E6 /* Ext+UITabBarControlelr.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE7C28D2AB8273F007701E6 /* Ext+UITabBarControlelr.swift */; };
+		0DF080B22AB987C500002D96 /* WordCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF080B12AB987C500002D96 /* WordCard.swift */; };
 		DBB9F6AE2AB4A87000E7A5C0 /* AllrightApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB9F6AD2AB4A87000E7A5C0 /* AllrightApp.swift */; };
 		DBB9F6B02AB4A87000E7A5C0 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB9F6AF2AB4A87000E7A5C0 /* HomeView.swift */; };
 		DBB9F6B22AB4A87100E7A5C0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBB9F6B12AB4A87100E7A5C0 /* Assets.xcassets */; };
@@ -49,6 +56,13 @@
 		0DE7C2792AB5A165007701E6 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		0DE7C27B2AB5A1AA007701E6 /* RecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordView.swift; sourceTree = "<group>"; };
 		0DE7C27E2AB5A806007701E6 /* HomeStepCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeStepCard.swift; sourceTree = "<group>"; };
+		0DE7C2802AB5DED5007701E6 /* ReadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadView.swift; sourceTree = "<group>"; };
+		0DE7C2822AB788D1007701E6 /* NavigationModefier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationModefier.swift; sourceTree = "<group>"; };
+		0DE7C2842AB788E5007701E6 /* Ext+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+View.swift"; sourceTree = "<group>"; };
+		0DE7C2862AB78D5E007701E6 /* ReadVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadVM.swift; sourceTree = "<group>"; };
+		0DE7C28B2AB799F2007701E6 /* TrainingSteps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingSteps.swift; sourceTree = "<group>"; };
+		0DE7C28D2AB8273F007701E6 /* Ext+UITabBarControlelr.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+UITabBarControlelr.swift"; sourceTree = "<group>"; };
+		0DF080B12AB987C500002D96 /* WordCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordCard.swift; sourceTree = "<group>"; };
 		DBB9F6AA2AB4A87000E7A5C0 /* Allright.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Allright.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBB9F6AD2AB4A87000E7A5C0 /* AllrightApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllrightApp.swift; sourceTree = "<group>"; };
 		DBB9F6AF2AB4A87000E7A5C0 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -67,31 +81,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0DE7C2302AB58E04007701E6 /* View */ = {
+		0DE7C2302AB58E04007701E6 /* Page */ = {
 			isa = PBXGroup;
 			children = (
-				0DE7C27D2AB5A7F0007701E6 /* Components */,
-				DBB9F6AF2AB4A87000E7A5C0 /* HomeView.swift */,
-				0DE7C27B2AB5A1AA007701E6 /* RecordView.swift */,
-				0DE7C2792AB5A165007701E6 /* MainView.swift */,
+				0DE7C27D2AB5A7F0007701E6 /* Component */,
+				0DE7C2312AB58E0A007701E6 /* Home */,
+				0DE7C28F2AB83E4B007701E6 /* Record */,
+				0DE7C2902AB83E52007701E6 /* Read */,
+				0DE7C2912AB83E63007701E6 /* Main */,
 			);
-			path = View;
+			path = Page;
 			sourceTree = "<group>";
 		};
-		0DE7C2312AB58E0A007701E6 /* ViewController */ = {
+		0DE7C2312AB58E0A007701E6 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				DBB9F6AF2AB4A87000E7A5C0 /* HomeView.swift */,
 				0DE7C23E2AB597D7007701E6 /* HomeVM.swift */,
 			);
-			path = ViewController;
+			path = Home;
 			sourceTree = "<group>";
 		};
 		0DE7C2322AB58E78007701E6 /* Ext+ */ = {
 			isa = PBXGroup;
 			children = (
 				0DE7C2332AB58E88007701E6 /* Ext+Color.swift */,
+				0DE7C2842AB788E5007701E6 /* Ext+View.swift */,
 				0DE7C23A2AB59485007701E6 /* Ext+UIScreen.swift */,
 				0DE7C23C2AB594B4007701E6 /* Ext+Font.swift */,
+				0DE7C28D2AB8273F007701E6 /* Ext+UITabBarControlelr.swift */,
 			);
 			path = "Ext+";
 			sourceTree = "<group>";
@@ -101,6 +119,7 @@
 			children = (
 				0DE7C2362AB58F94007701E6 /* Colors.swift */,
 				0DE7C2382AB59242007701E6 /* Strings.swift */,
+				0DE7C2822AB788D1007701E6 /* NavigationModefier.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -120,12 +139,46 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
-		0DE7C27D2AB5A7F0007701E6 /* Components */ = {
+		0DE7C27D2AB5A7F0007701E6 /* Component */ = {
 			isa = PBXGroup;
 			children = (
 				0DE7C27E2AB5A806007701E6 /* HomeStepCard.swift */,
+				0DF080B12AB987C500002D96 /* WordCard.swift */,
 			);
-			path = Components;
+			path = Component;
+			sourceTree = "<group>";
+		};
+		0DE7C2882AB79950007701E6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0DE7C28B2AB799F2007701E6 /* TrainingSteps.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		0DE7C28F2AB83E4B007701E6 /* Record */ = {
+			isa = PBXGroup;
+			children = (
+				0DE7C27B2AB5A1AA007701E6 /* RecordView.swift */,
+			);
+			path = Record;
+			sourceTree = "<group>";
+		};
+		0DE7C2902AB83E52007701E6 /* Read */ = {
+			isa = PBXGroup;
+			children = (
+				0DE7C2802AB5DED5007701E6 /* ReadView.swift */,
+				0DE7C2862AB78D5E007701E6 /* ReadVM.swift */,
+			);
+			path = Read;
+			sourceTree = "<group>";
+		};
+		0DE7C2912AB83E63007701E6 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				0DE7C2792AB5A165007701E6 /* MainView.swift */,
+			);
+			path = Main;
 			sourceTree = "<group>";
 		};
 		DBB9F6A12AB4A87000E7A5C0 = {
@@ -151,8 +204,8 @@
 				0DE7C24B2AB59E57007701E6 /* Fonts */,
 				0DE7C2352AB58F84007701E6 /* Common */,
 				0DE7C2322AB58E78007701E6 /* Ext+ */,
-				0DE7C2312AB58E0A007701E6 /* ViewController */,
-				0DE7C2302AB58E04007701E6 /* View */,
+				0DE7C2882AB79950007701E6 /* Model */,
+				0DE7C2302AB58E04007701E6 /* Page */,
 				DBB9F6AD2AB4A87000E7A5C0 /* AllrightApp.swift */,
 				DBB9F6B12AB4A87100E7A5C0 /* Assets.xcassets */,
 				DBB9F6B32AB4A87100E7A5C0 /* Preview Content */,
@@ -246,14 +299,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0DE7C2872AB78D5E007701E6 /* ReadVM.swift in Sources */,
 				0DE7C2342AB58E88007701E6 /* Ext+Color.swift in Sources */,
 				0DE7C2372AB58F94007701E6 /* Colors.swift in Sources */,
+				0DE7C28C2AB799F2007701E6 /* TrainingSteps.swift in Sources */,
 				0DE7C2392AB59242007701E6 /* Strings.swift in Sources */,
 				0DE7C27C2AB5A1AA007701E6 /* RecordView.swift in Sources */,
+				0DE7C2832AB788D1007701E6 /* NavigationModefier.swift in Sources */,
+				0DE7C2812AB5DED5007701E6 /* ReadView.swift in Sources */,
 				0DE7C27F2AB5A806007701E6 /* HomeStepCard.swift in Sources */,
+				0DF080B22AB987C500002D96 /* WordCard.swift in Sources */,
 				0DE7C23F2AB597D7007701E6 /* HomeVM.swift in Sources */,
+				0DE7C28E2AB8273F007701E6 /* Ext+UITabBarControlelr.swift in Sources */,
 				0DE7C23B2AB59485007701E6 /* Ext+UIScreen.swift in Sources */,
 				DBB9F6B02AB4A87000E7A5C0 /* HomeView.swift in Sources */,
+				0DE7C2852AB788E5007701E6 /* Ext+View.swift in Sources */,
 				0DE7C23D2AB594B4007701E6 /* Ext+Font.swift in Sources */,
 				0DE7C27A2AB5A165007701E6 /* MainView.swift in Sources */,
 				DBB9F6AE2AB4A87000E7A5C0 /* AllrightApp.swift in Sources */,
