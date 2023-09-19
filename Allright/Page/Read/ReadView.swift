@@ -11,6 +11,7 @@ struct ReadView: View {
     let step: TrainingSteps
     @StateObject var readVM = ReadVM()
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @GestureState private var dragOffset: CGFloat = 0
     
     var body: some View {
         ZStack {
@@ -29,14 +30,7 @@ struct ReadView: View {
             }
             VStack {
                 Spacer()
-                RoundedRectangle(cornerRadius: 100)
-                    .frame(width: UIScreen.getWidth(106), height: UIScreen.getWidth(106))
-                    .foregroundColor(Colors.orange)
-                    .overlay {
-                        Image(systemName: "play.fill")
-                            .font(.playImage())
-                            .foregroundColor(Colors.white)
-                    }
+                playButton
                 Spacer().frame(height: UITabBarController().height)
             }
         }
@@ -55,6 +49,20 @@ struct ReadView: View {
     
     
     //MARK: - UIComponents
+    var playButton: some View {
+        Button {
+            print("hi")
+        } label: {
+            RoundedRectangle(cornerRadius: 100)
+                .frame(width: UIScreen.getWidth(106), height: UIScreen.getWidth(106))
+                .foregroundColor(Colors.orange)
+                .overlay {
+                    Image(systemName: "play.fill")
+                        .font(.playImage())
+                        .foregroundColor(Colors.white)
+                }
+        }
+    }
     
     var progressbar: some View {
         ZStack(alignment: .leading) {
@@ -62,7 +70,7 @@ struct ReadView: View {
                 .frame(width: UIScreen.getWidth(280), height: UIScreen.getHeight(4))
                 .foregroundColor(Colors.green600)
             RoundedRectangle(cornerRadius: 100)
-                .frame(width: UIScreen.getWidth(280) / CGFloat(step.wordCard.count) * CGFloat(readVM.currentCard), height: UIScreen.getHeight(4))
+                .frame(width: UIScreen.getWidth(280) / CGFloat(step.wordCard.count - 1) * CGFloat(readVM.currentIndex), height: UIScreen.getHeight(4))
                 .foregroundColor(Colors.green100)
         }
     }
@@ -92,28 +100,49 @@ struct ReadView: View {
     }
     
     var wordCard: some View {
-        ScrollViewReader { idx in
-            ScrollView(.horizontal) {
-                HStack(spacing: UIScreen.getWidth(16)) {
-                    ForEach(step.wordCard, id: \.self) { word in
-                        RoundedRectangle(cornerRadius: 20)
-                            .frame(width: UIScreen.getWidth(290), height: UIScreen.getHeight(301))
-                            .foregroundColor(Colors.white)
-                            .overlay {
-                                Text(word)
-                                    .font(.cardBig())
-                                    .multilineTextAlignment(.center)
-                            }
+        ZStack {
+            ForEach(0..<step.wordCard.count, id: \.self) { idx in
+                RoundedRectangle(cornerRadius: 20)
+                    .frame(width: UIScreen.getWidth(290), height: UIScreen.getHeight(301))
+                    .foregroundColor(Colors.white)
+                    .overlay {
+                        switch step {
+                        case .step1:
+                            Text(step.wordCard[idx])
+                                .font(.cardBig())
+                                .multilineTextAlignment(.center)
+                        case .step2:
+                            Text(step.wordCard[idx])
+                                .font(.cardMedium())
+                                .multilineTextAlignment(.center)
+                                .padding()
+                        case .sentance:
+                            Text(step.wordCard[idx])
+                                .font(.cardSmall())
+                                .multilineTextAlignment(.center)
+                                .padding()
+                        }
+                    }
+                    .opacity(readVM.currentIndex == idx ? 1.0 : 0.7)
+                    .scaleEffect(readVM.currentIndex == idx ? 1 : 0.8)
+                    .offset(x: CGFloat(idx - readVM.currentIndex) * UIScreen.getWidth(280) + dragOffset)
+            }
+        }.gesture(
+            DragGesture()
+                .onEnded({ value in
+                let threshold: CGFloat = 50
+                if value.translation.width > threshold {
+                    withAnimation {
+                        readVM.currentIndex = max(0, readVM.currentIndex - 1)
+                    }
+                } else if value.translation.width < -threshold {
+                    withAnimation {
+                        readVM.currentIndex = min(step.wordCard.count - 1, readVM.currentIndex + 1)
                     }
                 }
-                .onAppear {
-                    UIScrollView.appearance().isPagingEnabled = true
-                }
-//                .onChange(of: idx) {
-//                    readVM.currentCard = idx
-//                }
-            }
-        }.scrollIndicators(.hidden)
+            })
+        
+        )
     }
     
     var backButton: some View {

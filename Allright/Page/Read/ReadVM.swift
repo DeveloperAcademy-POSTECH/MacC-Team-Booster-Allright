@@ -11,6 +11,7 @@ import SwiftUI
 class ReadVM: ObservableObject {
     @Published var isSoundOn = false
     @Published var currentCard = 0
-    
+    @Published var currentIndex: Int = 0
+    @GestureState var dragOffset = 0
 //    280/totalcount * current
 }
