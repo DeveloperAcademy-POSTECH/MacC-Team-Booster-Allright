@@ -8,62 +8,96 @@
 import Foundation
 import AVFoundation
 
-class VoicerecordVM : NSObject, ObservableObject , AVAudioPlayerDelegate{
-    var audioRecorder : AVAudioRecorder!
-    var audioPlayer : AVAudioPlayer!
-    var indexOfPlayer = 0
+class VoicerecordVM: NSObject, ObservableObject, AVAudioPlayerDelegate {
+    var audioRecorder: AVAudioRecorder!
+    var audioPlayer: AVAudioPlayer!
     
-    @Published var isRecording : Bool = false
-    @Published var recordingsList: [Voicerecord] = []
-    @Published var countSec = 0
-    @Published var timerCount : Timer?
-    @Published var blinkingCount : Timer?
-    @Published var timer : String = "0:00"
-    @Published var toggleColor : Bool = false
+    @Published var isRecording: Bool = false
+    @Published var voicerecordList: [Voicerecord] = []
     
-    var playingURL : URL?
+    var playingURL: URL?
     
-    override init(){
+    override init() {
         super.init()
         
-        fetchAllRecording()
+        fetchVoicerecordFile()
     }
     
-    static func requestMicrophonePermission(){
-        AVAudioSession.sharedInstance().requestRecordPermission({(granted: Bool)-> Void in
-            if granted {
-                print("Permission Accept")
-            } else {
+    static func requestMicrophonePermission() {
+        AVAudioSession.sharedInstance().requestRecordPermission { (granted: Bool) -> Void in
+            if granted { return }
+            else {
                 print("Permission Deny")
-            }
-        })
-    }
-    
-    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        for i in 0..<recordingsList.count {
-            if recordingsList[i].fileURL == playingURL {
-                recordingsList[i].isPlaying = false
             }
         }
     }
     
-    func startRecording() {
+    func fetchVoicerecordFile() {
+        voicerecordList = []
+        
+        let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let directoryContents = try! FileManager.default.contentsOfDirectory(at: path, includingPropertiesForKeys: nil)
+        
+        let _ = directoryContents.map {
+            if !$0.lastPathComponent.contains(".IMA4") { return }
+            
+            var type: TrainingSteps
+            
+            if $0.lastPathComponent.contains("Step1") {
+                type = TrainingSteps.step1
+            }
+            else if $0.lastPathComponent.contains("Step2") {
+                type = TrainingSteps.step2
+            }
+            else if $0.lastPathComponent.contains("Sentence") {
+                type = TrainingSteps.sentance
+            }
+            else {
+                return
+            }
+            
+            var playtime: String = ""
+            
+            do {
+                let duration: Double = try AVAudioPlayer(contentsOf: $0).duration
+                
+                let playtimeMin = Int(duration).quotientAndRemainder(dividingBy: 60).quotient
+                let playtimeSec = Int(duration).quotientAndRemainder(dividingBy: 60).remainder
+                
+                playtime = "\(playtimeMin):\(playtimeSec)"
+            } catch {
+                print("Playtime parse failed")
+            }
+            
+            voicerecordList.append(Voicerecord(fileURL: $0, createdAt: getFileDate(for: $0), type: type, playtime: playtime, isPlaying: false))
+        }
+        
+        voicerecordList.sort(by: { $0.createdAt.compare($1.createdAt) == .orderedDescending })
+    }
+    
+    
+    func startRecording(typeIs type: String) {
         let recordingSession = AVAudioSession.sharedInstance()
+        
         do {
-            try recordingSession.setCategory(.playAndRecord, mode: .default)
+            try recordingSession.setCategory(.record, mode: .default)
             try recordingSession.setActive(true)
         } catch {
             print("Cannot setup the Recording")
         }
         
         let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let fileName = path.appendingPathComponent("VoiceRecord.m4a")
+        let dateFommater = DateFormatter()
+        dateFommater.dateFormat = "yyyy.MM.dd_HHmmss"
+        let dateString = dateFommater.string(from: Date())
+        
+        let fileName = path.appendingPathComponent("\(type)_\(dateString).IMA4")
         
         let settings = [
-            AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
-            AVSampleRateKey: 12000,
+            AVFormatIDKey: Int(kAudioFormatAppleIMA4),
+            AVSampleRateKey: 32000,
             AVNumberOfChannelsKey: 1,
-            AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
+            AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue,
         ]
         
         do {
@@ -71,109 +105,37 @@ class VoicerecordVM : NSObject, ObservableObject , AVAudioPlayerDelegate{
             audioRecorder.prepareToRecord()
             audioRecorder.record()
             isRecording = true
-            
-            timerCount = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (value) in
-                self.countSec += 1
-                self.timer = "\(self.countSec.quotientAndRemainder(dividingBy: 60).quotient):\(self.countSec.quotientAndRemainder(dividingBy: 60).remainder)"
-            })
-            blinkColor()
-            
         } catch {
             print("Failed to Setup the Recording")
         }
     }
     
-    func stopRecording(){
+    func stopRecording() {
         audioRecorder.stop()
-        
         isRecording = false
         
-        self.countSec = 0
-        
-        timerCount!.invalidate()
-        blinkingCount!.invalidate()
+        fetchVoicerecordFile()
     }
     
-    func fetchAllRecording(){
-        let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let directoryContents = try! FileManager.default.contentsOfDirectory(at: path, includingPropertiesForKeys: nil)
-
-        for i in directoryContents {
-            recordingsList.append(Voicerecord(fileURL : i, createdAt:getFileDate(for: i), isPlaying: false))
-        }
-        
-        recordingsList.sort(by: { $0.createdAt.compare($1.createdAt) == .orderedDescending})
-    }
-    
-    func startPlaying(url : URL) {
-        playingURL = url
-        
-        let playSession = AVAudioSession.sharedInstance()
-        
-        do {
-            try playSession.overrideOutputAudioPort(AVAudioSession.PortOverride.speaker)
-        } catch {
-            print("Playing failed in Device")
-        }
-        
-        do {
-            audioPlayer = try AVAudioPlayer(contentsOf: url)
-            audioPlayer.delegate = self
-            audioPlayer.prepareToPlay()
-            audioPlayer.play()
-            
-            for i in 0..<recordingsList.count {
-                if recordingsList[i].fileURL == url {
-                    recordingsList[i].isPlaying = true
-                }
-            }
-        } catch {
-            print("Playing failed")
-        }
-    }
-    
-    func stopPlaying(url : URL) {
-        audioPlayer.stop()
-        
-        for i in 0..<recordingsList.count {
-            if recordingsList[i].fileURL == url {
-                recordingsList[i].isPlaying = false
-            }
-        }
-    }
-    
-    func deleteRecording(url : URL) {
+    func deleteRecording(_ url: URL) {
         do {
             try FileManager.default.removeItem(at: url)
         } catch {
             print("Can't delete")
         }
         
-        for i in 0..<recordingsList.count {
-            
-            if recordingsList[i].fileURL == url {
-                if recordingsList[i].isPlaying == true{
-                    stopPlaying(url: recordingsList[i].fileURL)
-                }
-                recordingsList.remove(at: i)
-                
-                break
-            }
-        }
+        fetchVoicerecordFile()
     }
     
-    func blinkColor() {
-        blinkingCount = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: true, block: { (value) in
-            self.toggleColor.toggle()
-        })
-    }
-    
-    func getFileDate(for file: URL) -> Date {
+    func getFileDate(for file: URL) -> String {
         if let attributes = try? FileManager.default.attributesOfItem(atPath: file.path) as [FileAttributeKey: Any],
-            let creationDate = attributes[FileAttributeKey.creationDate] as? Date {
-            return creationDate
+           let creationDate = attributes[FileAttributeKey.creationDate] as? Date {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yy-MM-dd HH:mm:ss"
+            
+            return dateFormatter.string(from: creationDate)
         } else {
-            return Date()
+            return "00-00-00 00:00:00"
         }
     }
 }

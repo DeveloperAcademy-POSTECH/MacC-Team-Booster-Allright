@@ -7,8 +7,10 @@
 
 import SwiftUI
 
-struct Voicerecord : Equatable {
-    let fileURL : URL
-    let createdAt : Date
-    var isPlaying : Bool
+struct Voicerecord: Equatable, Hashable {
+    let fileURL: URL
+    let createdAt: String
+    let type: TrainingSteps
+    let playtime: String
+    var isPlaying: Bool
 }

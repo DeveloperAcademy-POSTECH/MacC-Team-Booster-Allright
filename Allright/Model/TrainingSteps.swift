@@ -5,7 +5,7 @@
 //  Created by 최진용 on 2023/09/18.
 //
 
-import Foundation
+import SwiftUI
 
 enum TrainingSteps {
     case step1, step2, sentance
@@ -23,6 +23,46 @@ enum TrainingSteps {
         case .step1: return "한 음절씩 천천히 읽기"
         case .step2: return "한 호흡에 전부 읽기"
         case .sentance: return "하루 한 문장 도전"
+        }
+    }
+    
+    var type: String {
+        switch self {
+        case .step1: return "Step1"
+        case .step2: return "Step2"
+        case .sentance: return "Sentence"
+        }
+    }
+    
+    var blockSize: CGSize {
+        switch self {
+        case .step1: return CGSize(width: 52, height: 22)
+        case .step2: return CGSize(width: 52, height: 22)
+        case .sentance: return CGSize(width: 38, height: 22)
+        }
+    }
+    
+    var blockWord: String {
+        switch self {
+        case .step1: return "음절"
+        case .step2: return "음절"
+        case .sentance: return "문장"
+        }
+    }
+    
+    var blockImage: Image? {
+        switch self {
+        case .step1: return Image(systemName: "1.circle.fill")
+        case .step2: return Image(systemName: "2.circle.fill")
+        case .sentance: return nil
+        }
+    }
+    
+    var blockColor: Color {
+        switch self {
+        case .step1: return Colors.green400
+        case .step2: return Colors.green600
+        case .sentance: return Colors.green700
         }
     }
     

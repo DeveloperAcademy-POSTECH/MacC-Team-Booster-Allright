@@ -35,6 +35,8 @@
 		0DF080B82AB9AC5200002D96 /* RecordListCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF080B72AB9AC5200002D96 /* RecordListCard.swift */; };
 		0DF080BA2AB9AD3E00002D96 /* Voicerecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF080B92AB9AD3E00002D96 /* Voicerecord.swift */; };
 		0DF080BC2AB9AD4F00002D96 /* VoicerecordVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF080BB2AB9AD4F00002D96 /* VoicerecordVM.swift */; };
+		622A781D2ABAD4D4004CAEF2 /* VoicePlayerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622A781C2ABAD4D4004CAEF2 /* VoicePlayerVM.swift */; };
+		622A781F2ABAFA15004CAEF2 /* PlayerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622A781E2ABAFA15004CAEF2 /* PlayerState.swift */; };
 		0DFD87C02ABA19C600C0DC8D /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 0DFD87BF2ABA19C600C0DC8D /* Lottie */; };
 		0DFD87C22ABA1C7E00C0DC8D /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DFD87C12ABA1C7E00C0DC8D /* LottieView.swift */; };
 		0DFD87CC2ABAECD900C0DC8D /* micAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 0DFD87CB2ABAECD900C0DC8D /* micAnimation.json */; };
@@ -74,6 +76,8 @@
 		0DF080B72AB9AC5200002D96 /* RecordListCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordListCard.swift; sourceTree = "<group>"; };
 		0DF080B92AB9AD3E00002D96 /* Voicerecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Voicerecord.swift; sourceTree = "<group>"; };
 		0DF080BB2AB9AD4F00002D96 /* VoicerecordVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoicerecordVM.swift; sourceTree = "<group>"; };
+		622A781C2ABAD4D4004CAEF2 /* VoicePlayerVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoicePlayerVM.swift; sourceTree = "<group>"; };
+		622A781E2ABAFA15004CAEF2 /* PlayerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerState.swift; sourceTree = "<group>"; };
 		0DFD87C12ABA1C7E00C0DC8D /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		0DFD87CB2ABAECD900C0DC8D /* micAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = micAnimation.json; sourceTree = "<group>"; };
 		DBB9F6AA2AB4A87000E7A5C0 /* Allright.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Allright.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -99,6 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				0DF080BB2AB9AD4F00002D96 /* VoicerecordVM.swift */,
+				622A781C2ABAD4D4004CAEF2 /* VoicePlayerVM.swift */,
 				0DE7C27D2AB5A7F0007701E6 /* Component */,
 				0DE7C2312AB58E0A007701E6 /* Home */,
 				0DE7C28F2AB83E4B007701E6 /* Record */,
@@ -170,6 +175,7 @@
 			children = (
 				0DF080B92AB9AD3E00002D96 /* Voicerecord.swift */,
 				0DE7C28B2AB799F2007701E6 /* TrainingSteps.swift */,
+				622A781E2ABAFA15004CAEF2 /* PlayerState.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -331,11 +337,13 @@
 				0DE7C2342AB58E88007701E6 /* Ext+Color.swift in Sources */,
 				0DFD87C22ABA1C7E00C0DC8D /* LottieView.swift in Sources */,
 				0DE7C2372AB58F94007701E6 /* Colors.swift in Sources */,
+				622A781D2ABAD4D4004CAEF2 /* VoicePlayerVM.swift in Sources */,
 				0DE7C28C2AB799F2007701E6 /* TrainingSteps.swift in Sources */,
 				0DE7C27C2AB5A1AA007701E6 /* RecordView.swift in Sources */,
 				0DF080B62AB9AC2700002D96 /* Strings.swift in Sources */,
 				0DE7C2832AB788D1007701E6 /* NavigationModefier.swift in Sources */,
 				0DE7C2812AB5DED5007701E6 /* ReadView.swift in Sources */,
+				622A781F2ABAFA15004CAEF2 /* PlayerState.swift in Sources */,
 				0DE7C27F2AB5A806007701E6 /* HomeStepCard.swift in Sources */,
 				0DF080B42AB9AC1600002D96 /* RecordVM.swift in Sources */,
 				0DF080B22AB987C500002D96 /* WordCard.swift in Sources */,

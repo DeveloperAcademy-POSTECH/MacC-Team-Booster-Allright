@@ -14,6 +14,8 @@ struct ReadView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
     
+    @StateObject var voicerecordVM = VoicerecordVM()
+    
     var body: some View {
         ZStack {
             background.ignoresSafeArea()

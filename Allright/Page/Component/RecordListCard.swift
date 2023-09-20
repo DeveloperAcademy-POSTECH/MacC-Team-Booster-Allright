@@ -8,54 +8,70 @@
 import SwiftUI
 
 struct RecordListCard: View {
-    @State var recordOffset: CGFloat = .zero
-    @State var rectangleColor: Color = Colors.green400
+    @State var record: Voicerecord
+    @State var isEditMode: Bool
+    @StateObject var playerVM = VoicePlayerVM()
     
     var body: some View {
-        // MARK: - Rectangle
         ZStack {
             recordRectangle(Colors.white)
-            recordRectangle(rectangleColor)
-                .mask(alignment: .leading) {
-                    rectangleColor
-                        .frame(width: UIScreen.getWidth(recordOffset))
+                .overlay {
+                    HStack {
+                        VStack(alignment: .leading, spacing: 6) {
+                            recordListBlock
+                            recordDate(Colors.gray500)
+                        }
+                        Spacer()
+                        recordPlayStatus(Colors.gray700)
+                    }
+                    .padding(.leading, 16)
+                    .padding(.trailing, 28)
+                }
+            
+            // MARK: - Mask
+            recordRectangle(record.type.blockColor)
+                .overlay {
+                    HStack {
+                        VStack(alignment: .leading, spacing: 6) {
+                            recordListBlock
+                            recordDate(Colors.white)
+                        }
+                        Spacer()
+                        recordPlayStatus(Colors.white)
+                    }
+                    .padding(.leading, 16)
+                    .padding(.trailing, 28)
                 }
                 .gesture(
                     DragGesture()
                         .onChanged { value in
-                            recordOffset = value.location.x
+                            switch playerVM.playerState {
+                            case .play:
+                                playerVM.stopPlaying(.pause)
+                            case .pause:
+                                playerVM.playOffset = value.location.x
+                            case .stop: break
+                            }
+                        }
+                        .onEnded { value in
+                            switch playerVM.playerState {
+                            case .play: break
+                            case .pause:
+                                playerVM.playOffset = value.location.x
+                                playerVM.startPlaying(record: record)
+                            case .stop: break
+                            }
                         }
                 )
-        } //: - Rectangle
-        // MARK: - Components
-        .overlay {
-            HStack {
-                VStack(alignment: .leading, spacing: 6) {
-                    recordListSyllable1Block
-                    
-                    ZStack {
-                        recordDate(Colors.gray500)
-                        recordDate(Colors.white)
-                            .mask(alignment: .leading) {
-                                Colors.white
-                                    .frame(width: UIScreen.getWidth(recordOffset - 16))
-                            }
-                    }
-                }
-                Spacer()
-                
-                ZStack {
-                    recordPlayStatus(Colors.gray700)
-                    recordPlayStatus(Colors.white)
-                        .mask(alignment: .leading) {
-                            Colors.white
-                                .frame(width: UIScreen.getWidth(recordOffset - 245))
-                        }
-                }
-            }
-            .padding(.leading, 16)
-            .padding(.trailing, 28)
-        } //: - Components
+                .mask {
+                    Color.black
+                        .frame(width: UIScreen.getWidth(playerVM.playOffset))
+                        .frame(minWidth: 0, maxWidth: UIScreen.getWidth(342), alignment: .leading)
+                } //: - Mask
+        }
+        .onDisappear {
+            playerVM.stopPlaying()
+        }
     }
     
     func recordRectangle(_ color: Color) -> some View {
@@ -64,63 +80,41 @@ struct RecordListCard: View {
             .foregroundColor(color)
     }
     
-    var recordListSyllable1Block: some View {
+    var recordListBlock: some View {
         RoundedRectangle(cornerRadius: 4)
             .foregroundColor(Colors.gray50)
-            .frame(width: UIScreen.getWidth(52), height: UIScreen.getHeight(22))
+            .frame(width: UIScreen.getWidth(record.type.blockSize.width), height: UIScreen.getHeight(record.type.blockSize.height))
             .overlay {
                 HStack {
-                    Text("음절")
-                    Image(systemName: "1.circle.fill")
+                    Text(record.type.blockWord)
+                    record.type.blockImage
                 }
-                .foregroundColor(Colors.green400)
+                .foregroundColor(record.type.blockColor)
                 .font(Font.caption1())
-            }
-    }
-    
-    var recordListSyllable2Block: some View {
-        RoundedRectangle(cornerRadius: 4)
-            .foregroundColor(Colors.gray50)
-            .frame(width: UIScreen.getWidth(52), height: UIScreen.getHeight(22))
-            .overlay {
-                HStack {
-                    Text("음절")
-                    Image(systemName: "2.circle.fill")
-                }
-                .foregroundColor(Colors.green600)
-                .font(Font.caption1())
-            }
-    }
-    
-    var recordListSenteceBlock: some View {
-        RoundedRectangle(cornerRadius: 4)
-            .foregroundColor(Colors.gray50)
-            .frame(width: UIScreen.getWidth(38), height: UIScreen.getHeight(22))
-            .overlay {
-                Text("문장")
-                    .foregroundColor(Colors.green700)
-                    .font(Font.caption1())
             }
     }
     
     func recordDate(_ color: Color) -> some View {
-        Text("2023.05.15.")
+        Text(record.createdAt.description)
             .foregroundColor(color)
             .font(Font.body())
     }
     
     func recordPlayStatus(_ color: Color) -> some View {
         HStack(spacing: 15) {
-            Text("02:32")
-            Image(systemName: "play.fill")
+            Text(record.playtime)
+            
+            Button {
+                switch playerVM.playerState {
+                case .play: return playerVM.stopPlaying()
+                case .pause: return playerVM.startPlaying(record: record)
+                case .stop: return playerVM.startPlaying(record: record)
+                }
+            } label: {
+                playerVM.playerState.labelImage
+            }
         }
         .foregroundColor(color)
         .font(Font.title2())
-    }
-}
-
-struct RecordListCard_Previews: PreviewProvider {
-    static var previews: some View {
-        RecordListCard()
     }
 }
