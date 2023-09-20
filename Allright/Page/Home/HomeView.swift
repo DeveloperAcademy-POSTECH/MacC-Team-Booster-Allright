@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HomeView: View {
-    @StateObject var homeVM = HomeVM()
+    @StateObject private var homeVM = HomeVM()
     
     var body: some View {
         NavigationStack {

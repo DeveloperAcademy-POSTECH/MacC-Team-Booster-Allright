@@ -35,6 +35,9 @@
 		0DF080B82AB9AC5200002D96 /* RecordListCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF080B72AB9AC5200002D96 /* RecordListCard.swift */; };
 		0DF080BA2AB9AD3E00002D96 /* Voicerecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF080B92AB9AD3E00002D96 /* Voicerecord.swift */; };
 		0DF080BC2AB9AD4F00002D96 /* VoicerecordVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF080BB2AB9AD4F00002D96 /* VoicerecordVM.swift */; };
+		0DFD87C02ABA19C600C0DC8D /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 0DFD87BF2ABA19C600C0DC8D /* Lottie */; };
+		0DFD87C22ABA1C7E00C0DC8D /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DFD87C12ABA1C7E00C0DC8D /* LottieView.swift */; };
+		0DFD87C42ABA1F4F00C0DC8D /* micbutton.json in Resources */ = {isa = PBXBuildFile; fileRef = 0DFD87C32ABA1F4F00C0DC8D /* micbutton.json */; };
 		DBB9F6AE2AB4A87000E7A5C0 /* AllrightApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB9F6AD2AB4A87000E7A5C0 /* AllrightApp.swift */; };
 		DBB9F6B02AB4A87000E7A5C0 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB9F6AF2AB4A87000E7A5C0 /* HomeView.swift */; };
 		DBB9F6B22AB4A87100E7A5C0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBB9F6B12AB4A87100E7A5C0 /* Assets.xcassets */; };
@@ -71,6 +74,8 @@
 		0DF080B72AB9AC5200002D96 /* RecordListCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordListCard.swift; sourceTree = "<group>"; };
 		0DF080B92AB9AD3E00002D96 /* Voicerecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Voicerecord.swift; sourceTree = "<group>"; };
 		0DF080BB2AB9AD4F00002D96 /* VoicerecordVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoicerecordVM.swift; sourceTree = "<group>"; };
+		0DFD87C12ABA1C7E00C0DC8D /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
+		0DFD87C32ABA1F4F00C0DC8D /* micbutton.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = micbutton.json; sourceTree = "<group>"; };
 		DBB9F6AA2AB4A87000E7A5C0 /* Allright.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Allright.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBB9F6AD2AB4A87000E7A5C0 /* AllrightApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllrightApp.swift; sourceTree = "<group>"; };
 		DBB9F6AF2AB4A87000E7A5C0 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -83,6 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0DFD87C02ABA19C600C0DC8D /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -107,8 +113,6 @@
 			children = (
 				DBB9F6AF2AB4A87000E7A5C0 /* HomeView.swift */,
 				0DE7C23E2AB597D7007701E6 /* HomeVM.swift */,
-				623514452AB839E100548F19 /* RecordVM.swift */,
-				623514492AB892FE00548F19 /* VoicerecordVM.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -156,6 +160,7 @@
 				0DF080B72AB9AC5200002D96 /* RecordListCard.swift */,
 				0DE7C27E2AB5A806007701E6 /* HomeStepCard.swift */,
 				0DF080B12AB987C500002D96 /* WordCard.swift */,
+				0DFD87C12ABA1C7E00C0DC8D /* LottieView.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -221,6 +226,7 @@
 				0DE7C2882AB79950007701E6 /* Model */,
 				0DE7C2302AB58E04007701E6 /* Page */,
 				DBB9F6AD2AB4A87000E7A5C0 /* AllrightApp.swift */,
+				0DFD87C32ABA1F4F00C0DC8D /* micbutton.json */,
 				DBB9F6B12AB4A87100E7A5C0 /* Assets.xcassets */,
 				DBB9F6B32AB4A87100E7A5C0 /* Preview Content */,
 			);
@@ -251,6 +257,9 @@
 			dependencies = (
 			);
 			name = Allright;
+			packageProductDependencies = (
+				0DFD87BF2ABA19C600C0DC8D /* Lottie */,
+			);
 			productName = Allright;
 			productReference = DBB9F6AA2AB4A87000E7A5C0 /* Allright.app */;
 			productType = "com.apple.product-type.application";
@@ -279,6 +288,9 @@
 				Base,
 			);
 			mainGroup = DBB9F6A12AB4A87000E7A5C0;
+			packageReferences = (
+				0DFD87BE2ABA19C600C0DC8D /* XCRemoteSwiftPackageReference "lottie-ios" */,
+			);
 			productRefGroup = DBB9F6AB2AB4A87000E7A5C0 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -299,6 +311,7 @@
 				0DE7C2652AB59E74007701E6 /* NanumSquareRoundOTFL.otf in Resources */,
 				0DE7C2602AB59E74007701E6 /* NanumSquareRoundEB.ttf in Resources */,
 				0DE7C25E2AB59E74007701E6 /* NanumSquareRoundL.ttf in Resources */,
+				0DFD87C42ABA1F4F00C0DC8D /* micbutton.json in Resources */,
 				0DE7C2612AB59E74007701E6 /* NanumSquareRoundOTFB.otf in Resources */,
 				0DE7C25F2AB59E74007701E6 /* NanumSquareRoundOTFR.otf in Resources */,
 				0DE7C2632AB59E74007701E6 /* NanumSquareRoundR.ttf in Resources */,
@@ -316,6 +329,7 @@
 				0DF080B82AB9AC5200002D96 /* RecordListCard.swift in Sources */,
 				0DE7C2872AB78D5E007701E6 /* ReadVM.swift in Sources */,
 				0DE7C2342AB58E88007701E6 /* Ext+Color.swift in Sources */,
+				0DFD87C22ABA1C7E00C0DC8D /* LottieView.swift in Sources */,
 				0DE7C2372AB58F94007701E6 /* Colors.swift in Sources */,
 				0DE7C28C2AB799F2007701E6 /* TrainingSteps.swift in Sources */,
 				0DE7C27C2AB5A1AA007701E6 /* RecordView.swift in Sources */,
@@ -330,12 +344,10 @@
 				0DF080BC2AB9AD4F00002D96 /* VoicerecordVM.swift in Sources */,
 				0DE7C28E2AB8273F007701E6 /* Ext+UITabBarControlelr.swift in Sources */,
 				0DE7C23B2AB59485007701E6 /* Ext+UIScreen.swift in Sources */,
-				623514482AB839F300548F19 /* RecordListCard.swift in Sources */,
 				DBB9F6B02AB4A87000E7A5C0 /* HomeView.swift in Sources */,
 				0DE7C2852AB788E5007701E6 /* Ext+View.swift in Sources */,
 				0DE7C23D2AB594B4007701E6 /* Ext+Font.swift in Sources */,
 				0DE7C27A2AB5A165007701E6 /* MainView.swift in Sources */,
-				6235144A2AB892FE00548F19 /* VoicerecordVM.swift in Sources */,
 				DBB9F6AE2AB4A87000E7A5C0 /* AllrightApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -543,6 +555,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		0DFD87BE2ABA19C600C0DC8D /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0DFD87BF2ABA19C600C0DC8D /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0DFD87BE2ABA19C600C0DC8D /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = DBB9F6A22AB4A87000E7A5C0 /* Project object */;
 }
