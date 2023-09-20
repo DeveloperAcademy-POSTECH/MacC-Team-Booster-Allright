@@ -14,12 +14,18 @@ struct MainView: View {
                 HomeView()
                     .tag(0)
                     .tabItem {
-                        Text("home")
+                        VStack {
+                            Image(systemName: "house")
+                            Text("홈")
+                        }
                     }
                 RecordView()
                     .tag(1)
                     .tabItem {
-                        Text("record")
+                        VStack {
+                            Image(systemName: "recordingtape")
+                            Text("녹음기록")
+                        }
                     }
             }
         }
