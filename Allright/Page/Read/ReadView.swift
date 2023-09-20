@@ -14,6 +14,8 @@ struct ReadView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @GestureState private var dragOffset: CGFloat = 0
     
+    @StateObject var voicerecordVM = VoicerecordVM()
+    
     var body: some View {
         ZStack {
             Colors.green400.ignoresSafeArea()
