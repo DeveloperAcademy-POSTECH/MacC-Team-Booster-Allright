@@ -12,13 +12,13 @@ struct ReadView: View {
     let step: TrainingSteps
     @StateObject private var readVM = ReadVM()
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @GestureState private var dragOffset: CGFloat = 0
+
     
     @StateObject var voicerecordVM = VoicerecordVM()
     
     var body: some View {
         ZStack {
-            Colors.green400.ignoresSafeArea()
+            background.ignoresSafeArea()
             VStack {
                 Spacer().frame(height: UIScreen.getHeight(60))
                 Text(step.description)
@@ -33,7 +33,7 @@ struct ReadView: View {
             }
             VStack {
                 Spacer()
-                LottieView(isPlay: $readVM.isPlayLottie)
+                LottieView(isPlay: $readVM.isPlaying)
                     .frame(width: UIScreen.getWidth(200), height: UIScreen.getHeight(200))
             }
             VStack {
@@ -41,6 +41,9 @@ struct ReadView: View {
                 playButton
                 Spacer().frame(height: UITabBarController().height)
             }
+        }
+        .onAppear {
+            readVM.numberOfWords = step.wordCard.count
         }
         .navigationTitle(step.title)
         .navigationBarBackButtonHidden(true)
@@ -57,15 +60,41 @@ struct ReadView: View {
     
     
     //MARK: - UIComponents
+    var timerNumberView: some View {
+        switch step {
+        case .step1:
+            return Text("\(readVM.startCountDown)")
+                .font(.cardBig())
+        case .step2:
+            return Text("\(readVM.startCountDown)")
+                .font(.cardBig())
+        case .sentance:
+            return Text("\(readVM.startCountDown)")
+                .font(.cardBig())
+        }
+    }
+    
+    var background: some View {
+        switch step {
+        case .step1:
+            return Colors.green400
+        case .step2:
+            return Colors.green600
+        case .sentance:
+            return Colors.green700
+        }
+    }
+    
+    
     var playButton: some View {
         Button {
-            readVM.isPlayLottie.toggle()
+            readVM.toggleAnimation()
         } label: {
             RoundedRectangle(cornerRadius: 100)
                 .frame(width: UIScreen.getWidth(106), height: UIScreen.getWidth(106))
-                .foregroundColor(readVM.isPlayLottie ? Colors.white : Colors.orange)
+                .foregroundColor(readVM.isPlaying ? Colors.white : Colors.orange)
                 .overlay {
-                    if !readVM.isPlayLottie {
+                    if !readVM.isPlaying {
                         Image(systemName: "play.fill")
                             .font(.playImage())
                             .foregroundColor(Colors.white)
@@ -84,7 +113,7 @@ struct ReadView: View {
         ZStack(alignment: .leading) {
             RoundedRectangle(cornerRadius: 100)
                 .frame(width: UIScreen.getWidth(280), height: UIScreen.getHeight(4))
-                .foregroundColor(Colors.green600)
+                .foregroundColor(Colors.green800)
             RoundedRectangle(cornerRadius: 100)
                 .frame(width: UIScreen.getWidth(280) / CGFloat(step.wordCard.count - 1) * CGFloat(readVM.currentIndex), height: UIScreen.getHeight(4))
                 .foregroundColor(Colors.green100)
@@ -102,10 +131,12 @@ struct ReadView: View {
                     HStack {
                         if readVM.isSoundOn {
                             Text("소리켜기")
+                                .font(.caption1())
                             Image(systemName: "speaker.wave.3.fill")
                         }
                         else {
                             Text("소리끄기")
+                                .font(.caption1())
                             Image(systemName: "speaker.slash.fill")
                         }
                     }
@@ -122,42 +153,33 @@ struct ReadView: View {
                     .frame(width: UIScreen.getWidth(290), height: UIScreen.getHeight(301))
                     .foregroundColor(Colors.white)
                     .overlay {
-                        switch step {
-                        case .step1:
-                            Text(step.wordCard[idx])
-                                .font(.cardBig())
-                                .multilineTextAlignment(.center)
-                        case .step2:
-                            Text(step.wordCard[idx])
-                                .font(.cardMedium())
-                                .multilineTextAlignment(.center)
-                                .padding()
-                        case .sentance:
-                            Text(step.wordCard[idx])
-                                .font(.cardSmall())
-                                .multilineTextAlignment(.center)
-                                .padding()
+                        if idx == 0 {
+                            timerNumberView
+                        }
+                        else {
+                            switch step {
+                            case .step1:
+                                Text(step.wordCard[idx])
+                                    .font(.cardBig())
+                                    .multilineTextAlignment(.center)
+                            case .step2:
+                                Text(step.wordCard[idx])
+                                    .font(.cardMedium())
+                                    .multilineTextAlignment(.center)
+                                    .padding()
+                            case .sentance:
+                                Text(step.wordCard[idx])
+                                    .font(.cardSmall())
+                                    .multilineTextAlignment(.center)
+                                    .padding()
+                            }
                         }
                     }
                     .opacity(readVM.currentIndex == idx ? 1.0 : 0.7)
                     .scaleEffect(readVM.currentIndex == idx ? 1 : 0.8)
-                    .offset(x: CGFloat(idx - readVM.currentIndex) * UIScreen.getWidth(280) + dragOffset)
+                    .offset(x: CGFloat(idx - readVM.currentIndex) * UIScreen.getWidth(280) + CGFloat(readVM.dragOffset))
             }
-        }.gesture(
-            DragGesture()
-                .onEnded({ value in
-                    let threshold: CGFloat = 50
-                    if value.translation.width > threshold {
-                        withAnimation {
-                            readVM.currentIndex = max(0, readVM.currentIndex - 1)
-                        }
-                    } else if value.translation.width < -threshold {
-                        withAnimation {
-                            readVM.currentIndex = min(step.wordCard.count - 1, readVM.currentIndex + 1)
-                        }
-                    }
-                })
-        )
+        }
     }
     
     var backButton: some View {
@@ -173,6 +195,6 @@ struct ReadView: View {
 
 struct RowView_Preview: PreviewProvider {
     static var previews: some View {
-        ReadView(step: .step1)
+        ReadView(step: .step2)
     }
 }

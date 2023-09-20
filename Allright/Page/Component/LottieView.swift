@@ -15,7 +15,7 @@ struct LottieView: UIViewRepresentable {
         Coordinator(self)
     }
     
-    var fileName : String = "micbutton"
+    var fileName : String = "micAnimation"
     var loopMode: LottieLoopMode = .loop
     var animationView = LottieAnimationView()
     @Binding var isPlay: Bool
