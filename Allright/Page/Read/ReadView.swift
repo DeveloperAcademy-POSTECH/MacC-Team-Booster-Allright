@@ -27,22 +27,22 @@ struct ReadView: View {
             VStack(spacing: 14) {
                 wordCard
                 //MARK: - 카드 스왑 애니메이션
-                    .onChange(of: readVM.currentIndex) { _ in
-                        switch step {
-                        case .step1:
-                            readVM.startLoopCardAnimation()
-                        case .step2:
-                            readVM.startLoopCardAnimation()
-                        case .sentance:
-                            readVM.startLoopCardAnimation()
-                        }
-                    }
+//                    .onChange(of: readVM.currentIndex) { _ in
+//                        switch step {
+//                        case .step1:
+//                            readVM.startLoopCardAnimation()
+//                        case .step2:
+//                            readVM.startLoopCardAnimation()
+//                        case .sentance:
+//                            readVM.startLoopCardAnimation()
+//                        }
+//                    }
                 progressbar
                 Spacer().frame(height: UITabBarController().height)
             }
             VStack {
                 Spacer()
-                LottieView(isPlay: $readVM.isPlay)
+                LottieView(isPlay: $readVM.isPlaying)
                     .frame(width: UIScreen.getWidth(200), height: UIScreen.getHeight(200))
             }
             VStack {
@@ -97,14 +97,21 @@ struct ReadView: View {
     
     var playButton: some View {
         Button {
-            readVM.isPlay.toggle()
-            readVM.startCardAnimation()
+            if readVM.isPlaying {
+                readVM.stopAnima()
+            }
+            else {
+                readVM.startAnima()
+            }
+//            readVM.isPlay.toggle()
+            
+            
         } label: {
             RoundedRectangle(cornerRadius: 100)
                 .frame(width: UIScreen.getWidth(106), height: UIScreen.getWidth(106))
-                .foregroundColor(readVM.isPlay ? Colors.white : Colors.orange)
+                .foregroundColor(readVM.isPlaying ? Colors.white : Colors.orange)
                 .overlay {
-                    if !readVM.isPlay {
+                    if !readVM.isPlaying {
                         Image(systemName: "play.fill")
                             .font(.playImage())
                             .foregroundColor(Colors.white)

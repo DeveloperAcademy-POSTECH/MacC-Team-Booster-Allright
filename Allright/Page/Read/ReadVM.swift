@@ -18,6 +18,36 @@ class ReadVM: ObservableObject {
     private var workItem: DispatchWorkItem?
     
     
+    
+    
+    
+    
+    @Published var isPlaying = false
+    @Published var timer: Timer?
+    
+    func startAnima() {
+        isPlaying = true
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
+            if self.isPlaying {
+                withAnimation(.linear(duration: 0.4)) {
+                    self.currentIndex += 1
+                }
+            }
+        }
+    }
+    
+    func stopAnima() {
+        isPlaying = false
+        timer!.invalidate()
+    }
+    
+    
+    
+    
+    
+    
+    
+    
     func startCardAnimation() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.startCountDown -= 1
@@ -32,6 +62,7 @@ class ReadVM: ObservableObject {
             }
         }
     }
+    
     func startLoopCardAnimation() {
         workItem = DispatchWorkItem {
             withAnimation(.linear(duration: 0.4)) {
@@ -44,6 +75,4 @@ class ReadVM: ObservableObject {
             DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: workItem!)
         }
     }
-    
-
 }
