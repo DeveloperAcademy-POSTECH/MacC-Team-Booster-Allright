@@ -9,6 +9,7 @@ import SwiftUI
 
 struct RecordView: View {
     @StateObject var recordVM = RecordVM()
+    @StateObject var voicerecordVM = VoicerecordVM()
     
     var body: some View {
         Colors.gray100.ignoresSafeArea()
@@ -16,15 +17,23 @@ struct RecordView: View {
                 VStack(spacing: 0) {
                     topBanner
                     
-                    VStack {
-                        recordList
-                        recordList
-                        recordList
-                        recordList
-                        recordList
-                        recordList
+                    ScrollView(.vertical) {
+                        VStack {
+                            ForEach(voicerecordVM.voicerecordList, id: \.self) { voicerecord in
+                                HStack {
+                                    if recordVM.isEditMode {
+                                        radioButton(voicerecord.fileURL)
+                                            .padding(.leading, 8)
+                                    }
+                                    RecordListCard(record: voicerecord, isEditMode: recordVM.isEditMode)
+                                }
+                            }
+                        }
                     }
                 }
+            }
+            .onAppear {
+                voicerecordVM.fetchVoicerecordFile()
             }
     }
     
@@ -39,11 +48,17 @@ struct RecordView: View {
                 .disabled(recordVM.isEditMode ? false : true)
                 .opacity(recordVM.isEditMode ? 1 : 0)
                 .alert("녹음기록을 삭제할까요?", isPresented: $recordVM.isAlertShow) {
-                    Button("취소", role: .cancel) {
-                        
-                    }
+                    Button("취소", role: .cancel) { }
                     Button("확인", role: .none) {
+                        if !recordVM.deleteURLs.isEmpty {
+                            let _ = recordVM.deleteURLs.map {
+                                voicerecordVM.deleteRecording($0)
+                            }
+                            
+                            recordVM.deleteURLs = []
+                        }
                         
+                        recordVM.isEditMode = false
                     }
                 }
                 
@@ -65,29 +80,19 @@ struct RecordView: View {
     }
     
     var editButton: some View {
-        ZStack {
+        Button {
+            recordVM.isEditMode.toggle()
+        } label: {
             if recordVM.isEditMode {
-                Button {
-                    recordVM.isEditMode = false
-                } label: {
-                    editButtonText("취소")
-                }
+                Text("취소")
             }
             else {
-                Button {
-                    recordVM.isEditMode = true
-                } label: {
-                    editButtonText("편집")
-                }
+                Text("편집")
             }
         }
-    }
-    
-    func editButtonText(_ str: String) -> some View {
-        Text(str)
-            .foregroundColor(Colors.orange)
-            .font(Font.title2())
-            .frame(maxWidth: .infinity, alignment: .trailing)
+        .foregroundColor(Colors.orange)
+        .font(Font.title2())
+        .frame(maxWidth: .infinity, alignment: .trailing)
     }
     
     var deleteButton: some View {
@@ -104,29 +109,36 @@ struct RecordView: View {
             }
     }
     
-    var radioButton: some View {
+    func radioButton(_ url: URL) -> some View {
         ZStack {
-            Ellipse()
-                .foregroundColor(recordVM.isEditMode ? Colors.orange : Colors.white)
-            Ellipse()
-                .stroke(lineWidth: 2)
-                .foregroundColor(recordVM.isEditMode ? Colors.orange : Colors.gray300)
-            Image(systemName: "checkmark")
-                .resizable()
-                .bold()
-                .foregroundColor(recordVM.isEditMode ? Colors.white : Color.clear)
-                .frame(width: UIScreen.getWidth(10), height: UIScreen.getHeight(10))
+            if recordVM.deleteURLs.contains(url) {
+                Ellipse()
+                    .foregroundColor(Colors.orange)
+                Ellipse()
+                    .stroke(lineWidth: 2)
+                    .foregroundColor(Colors.orange)
+                Image(systemName: "checkmark")
+                    .resizable()
+                    .bold()
+                    .foregroundColor(Colors.white)
+                    .frame(width: UIScreen.getWidth(10), height: UIScreen.getHeight(10))
+            }
+            else {
+                Ellipse()
+                    .foregroundColor(Colors.white)
+                Ellipse()
+                    .stroke(lineWidth: 2)
+                    .foregroundColor(Colors.gray300)
+                Image(systemName: "checkmark")
+                    .resizable()
+                    .bold()
+                    .foregroundColor(Color.clear)
+                    .frame(width: UIScreen.getWidth(10), height: UIScreen.getHeight(10))
+            }
         }
         .frame(width: UIScreen.getWidth(20), height: UIScreen.getHeight(20))
-    }
-    
-    var recordList: some View {
-        HStack {
-            if recordVM.isEditMode {
-                radioButton
-                    .padding(.leading, 8)
-            }
-            RecordListCard()
+        .onTapGesture {
+            recordVM.appendDelete(url)
         }
     }
 }

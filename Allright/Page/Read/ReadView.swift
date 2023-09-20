@@ -12,6 +12,8 @@ struct ReadView: View {
     @StateObject var readVM = ReadVM()
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
+    @StateObject var voicerecordVM = VoicerecordVM()
+    
     var body: some View {
         ZStack {
             Colors.green400.ignoresSafeArea()
@@ -37,6 +39,16 @@ struct ReadView: View {
                             .font(.playImage())
                             .foregroundColor(Colors.white)
                     }
+                    .onTapGesture {
+                        if voicerecordVM.isRecording {
+                            voicerecordVM.stopRecording()
+                        }
+                        else {
+                            voicerecordVM.startRecording(typeIs: step.type)
+                        }
+                    }
+                
+                
                 Spacer().frame(height: UITabBarController().height)
             }
         }
