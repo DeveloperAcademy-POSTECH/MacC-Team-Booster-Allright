@@ -12,7 +12,7 @@ struct ReadView: View {
     let step: TrainingSteps
     @StateObject private var readVM = ReadVM()
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @GestureState private var dragOffset: CGFloat = 0
+
     
     var body: some View {
         ZStack {
@@ -26,17 +26,6 @@ struct ReadView: View {
             }
             VStack(spacing: 14) {
                 wordCard
-                //MARK: - 카드 스왑 애니메이션
-//                    .onChange(of: readVM.currentIndex) { _ in
-//                        switch step {
-//                        case .step1:
-//                            readVM.startLoopCardAnimation()
-//                        case .step2:
-//                            readVM.startLoopCardAnimation()
-//                        case .sentance:
-//                            readVM.startLoopCardAnimation()
-//                        }
-//                    }
                 progressbar
                 Spacer().frame(height: UITabBarController().height)
             }
@@ -97,15 +86,7 @@ struct ReadView: View {
     
     var playButton: some View {
         Button {
-            if readVM.isPlaying {
-                readVM.stopAnima()
-            }
-            else {
-                readVM.startAnima()
-            }
-//            readVM.isPlay.toggle()
-            
-            
+            readVM.toggleAnimation()
         } label: {
             RoundedRectangle(cornerRadius: 100)
                 .frame(width: UIScreen.getWidth(106), height: UIScreen.getWidth(106))
@@ -130,7 +111,7 @@ struct ReadView: View {
         ZStack(alignment: .leading) {
             RoundedRectangle(cornerRadius: 100)
                 .frame(width: UIScreen.getWidth(280), height: UIScreen.getHeight(4))
-                .foregroundColor(Colors.green600)
+                .foregroundColor(Colors.green800)
             RoundedRectangle(cornerRadius: 100)
                 .frame(width: UIScreen.getWidth(280) / CGFloat(step.wordCard.count - 1) * CGFloat(readVM.currentIndex), height: UIScreen.getHeight(4))
                 .foregroundColor(Colors.green100)
@@ -194,7 +175,7 @@ struct ReadView: View {
                     }
                     .opacity(readVM.currentIndex == idx ? 1.0 : 0.7)
                     .scaleEffect(readVM.currentIndex == idx ? 1 : 0.8)
-                    .offset(x: CGFloat(idx - readVM.currentIndex) * UIScreen.getWidth(280) + dragOffset)
+                    .offset(x: CGFloat(idx - readVM.currentIndex) * UIScreen.getWidth(280) + CGFloat(readVM.dragOffset))
             }
         }
     }

@@ -13,22 +13,29 @@ class ReadVM: ObservableObject {
     @Published var numberOfWords: Int = 0
     @Published var currentIndex: Int = 0
     @GestureState var dragOffset = 0
-    @Published var isPlay = false
     @Published var startCountDown = 3
-    private var workItem: DispatchWorkItem?
-    
-    
-    
-    
-    
-    
     @Published var isPlaying = false
     @Published var timer: Timer?
     
-    func startAnima() {
+    
+    // 현재 stop 됐을때, numberofwords != currentIdx면, 알람창을띄워줌, 현재 녹음중인데 중단하시겠어요?, 취소면 재계 아니면 화면 나감.
+    // NOW가 currentIdx면 녹음이 완료 되었습니다. 상태창 띄워주기
+    func toggleAnimation() {
+        if self.isPlaying {
+            stopAnimation()
+        }
+        else {
+            startAnimation()
+        }
+    }
+    
+    func startAnimation() {
         isPlaying = true
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
-            if self.isPlaying {
+            if self.startCountDown > 0 {
+                self.startCountDown -= 1
+            }
+            else if self.startCountDown == 0, self.isPlaying, (self.currentIndex != self.numberOfWords - 1) {
                 withAnimation(.linear(duration: 0.4)) {
                     self.currentIndex += 1
                 }
@@ -36,43 +43,8 @@ class ReadVM: ObservableObject {
         }
     }
     
-    func stopAnima() {
+    func stopAnimation() {
         isPlaying = false
         timer!.invalidate()
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    func startCardAnimation() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.startCountDown -= 1
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                self.startCountDown -= 1
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    self.startCountDown -= 1
-                    withAnimation(.linear(duration: 0.4)) {
-                        self.currentIndex += 1
-                    }
-                }
-            }
-        }
-    }
-    
-    func startLoopCardAnimation() {
-        workItem = DispatchWorkItem {
-            withAnimation(.linear(duration: 0.4)) {
-                if self.isPlay {
-                    self.currentIndex += 1
-                }
-            }
-        }
-        if currentIndex != numberOfWords - 1 {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: workItem!)
-        }
     }
 }

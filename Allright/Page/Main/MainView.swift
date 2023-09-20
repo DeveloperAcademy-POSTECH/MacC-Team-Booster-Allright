@@ -12,10 +12,12 @@ struct MainView: View {
         ZStack {
             TabView {
                 HomeView()
+                    .tag(0)
                     .tabItem {
                         Text("home")
                     }
                 RecordView()
+                    .tag(1)
                     .tabItem {
                         Text("record")
                     }
