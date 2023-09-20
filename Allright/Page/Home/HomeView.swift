@@ -9,19 +9,18 @@ import SwiftUI
 
 struct HomeView: View {
     @StateObject private var homeVM = HomeVM()
+    @Binding var selection: Int
     
     var body: some View {
-        NavigationStack {
             VStack(spacing: UIScreen.getHeight(16)) {
                 topBanner
                 Spacer()
-                HomeStepCard(step: .step1)
-                HomeStepCard(step: .step2)
-                HomeStepCard(step: .sentance)
+                HomeStepCard(step: .step1, selection: $selection)
+                HomeStepCard(step: .step2, selection: $selection)
+                HomeStepCard(step: .sentance, selection: $selection)
                 Spacer()
                 Spacer().frame(height: UITabBarController().height)
             }
-        }
     }
 //MARK: - UI
     var topBanner: some View {
@@ -44,10 +43,4 @@ struct HomeView: View {
     }
     
     
-}
-
-struct HomeView_Preview: PreviewProvider {
-    static var previews: some View {
-        HomeView()
-    }
 }

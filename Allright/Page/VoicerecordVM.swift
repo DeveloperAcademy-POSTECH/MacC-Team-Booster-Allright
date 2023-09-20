@@ -9,7 +9,7 @@ import Foundation
 import AVFoundation
 
 class VoicerecordVM: NSObject, ObservableObject, AVAudioPlayerDelegate {
-    var audioRecorder: AVAudioRecorder!
+    var audioRecorder = AVAudioRecorder()
     var audioPlayer: AVAudioPlayer!
     
     @Published var isRecording: Bool = false
@@ -19,7 +19,6 @@ class VoicerecordVM: NSObject, ObservableObject, AVAudioPlayerDelegate {
     
     override init() {
         super.init()
-        
         fetchVoicerecordFile()
     }
     
@@ -110,10 +109,19 @@ class VoicerecordVM: NSObject, ObservableObject, AVAudioPlayerDelegate {
         }
     }
     
+    func pauseRecording() {
+        audioRecorder.pause()
+        isRecording = false
+    }
+    
+    func resumeRecording() {
+        audioRecorder.record()
+        isRecording = true
+    }
+    
     func stopRecording() {
         audioRecorder.stop()
         isRecording = false
-        
         fetchVoicerecordFile()
     }
     
