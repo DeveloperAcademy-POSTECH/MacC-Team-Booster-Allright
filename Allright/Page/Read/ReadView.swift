@@ -24,7 +24,7 @@ struct ReadView: View {
                 Spacer().frame(height: UIScreen.getHeight(60))
                 Text(step.description)
                     .font(.title1())
-                    .foregroundColor(Colors.green800)
+                    .foregroundColor(Colors.white)
                 Spacer()
             }
             VStack(spacing: 14) {
