@@ -21,12 +21,21 @@ struct RecordView: View {
                     ScrollView(.vertical) {
                         VStack {
                             ForEach(0..<voicerecordVM.voicerecordList.count, id: \.self) { idx in
+                                let url = voicerecordVM.voicerecordList[idx].fileURL
                                 HStack {
                                     if recordVM.isEditMode {
-                                        radioButton(voicerecordVM.voicerecordList[idx].fileURL)
+                                        radioButton(url)
                                             .padding(.leading, 8)
                                     }
-                                    RecordListCard(record: voicerecordVM.voicerecordList[idx], playerVM: player)
+                                    ZStack {
+                                        RecordListCard(record: voicerecordVM.voicerecordList[idx], playerVM: player)
+                                        if recordVM.isEditMode {
+                                            blendButton
+                                                .onTapGesture {
+                                                    recordVM.appendDelete(url)
+                                                }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -39,6 +48,12 @@ struct RecordView: View {
             .onDisappear {
                 recordVM.isEditMode
             }
+    }
+    
+    var blendButton: some View {
+        RoundedRectangle(cornerRadius: 12)
+            .frame(width: UIScreen.getWidth(342), height: UIScreen.getHeight(70))
+            .blendMode(.destinationOver)
     }
     
     var topBanner: some View {
