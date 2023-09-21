@@ -62,9 +62,6 @@ class VoicePlayerVM: NSObject, ObservableObject, AVAudioPlayerDelegate {
         }
     } // : - Play
     
-    func stopPlayAll() {
-        audioPlayer.stop()
-    }
     
     func stopSetting( ) {
         playerState = .stop

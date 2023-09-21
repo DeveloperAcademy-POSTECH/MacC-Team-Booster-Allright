@@ -10,6 +10,7 @@ import SwiftUI
 struct RecordView: View {
     @StateObject var recordVM = RecordVM()
     @StateObject var voicerecordVM = VoicerecordVM()
+    @StateObject var player = VoicePlayerVM()
     
     var body: some View {
         Colors.gray100.ignoresSafeArea()
@@ -19,13 +20,22 @@ struct RecordView: View {
                     
                     ScrollView(.vertical) {
                         VStack {
-                            ForEach(voicerecordVM.voicerecordList, id: \.self) { voicerecord in
+//                            ForEach(voicerecordVM.voicerecordList, id: \.self) { voicerecord in
+//                                HStack {
+//                                    if recordVM.isEditMode {
+//                                        radioButton(voicerecord.fileURL)
+//                                            .padding(.leading, 8)
+//                                    }
+//                                    RecordListCard(record: voicerecord, isEditMode: recordVM.isEditMode)
+//                                }
+//                            }
+                            ForEach(0..<voicerecordVM.voicerecordList.count, id: \.self) { idx in
                                 HStack {
                                     if recordVM.isEditMode {
-                                        radioButton(voicerecord.fileURL)
+                                        radioButton(voicerecordVM.voicerecordList[idx].fileURL)
                                             .padding(.leading, 8)
                                     }
-                                    RecordListCard(record: voicerecord, isEditMode: recordVM.isEditMode)
+                                    RecordListCard(record: voicerecordVM.voicerecordList[idx], isEditMode: recordVM.isEditMode, playerVM: player)
                                 }
                             }
                         }
@@ -82,6 +92,7 @@ struct RecordView: View {
     var editButton: some View {
         Button {
             recordVM.isEditMode.toggle()
+            player.stopPlaying()
         } label: {
             if recordVM.isEditMode {
                 Text("취소")

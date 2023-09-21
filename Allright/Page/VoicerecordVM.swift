@@ -8,9 +8,8 @@
 import Foundation
 import AVFoundation
 
-class VoicerecordVM: NSObject, ObservableObject, AVAudioPlayerDelegate {
+class VoicerecordVM: NSObject, ObservableObject {
     var audioRecorder = AVAudioRecorder()
-    var audioPlayer = AVAudioPlayer()
     
     @Published var isRecording: Bool = false
     @Published var voicerecordList: [Voicerecord] = []

@@ -10,7 +10,7 @@ import SwiftUI
 struct RecordListCard: View {
     let record: Voicerecord
     @State var isEditMode: Bool
-    @EnvironmentObject var playerVM: VoicePlayerVM
+    @ObservedObject var playerVM: VoicePlayerVM
     
     var body: some View {
         ZStack {
@@ -67,6 +67,7 @@ struct RecordListCard: View {
                     Color.black
                         .frame(width: UIScreen.getWidth(playerVM.playOffset))
                         .frame(minWidth: 0, maxWidth: UIScreen.getWidth(342), alignment: .leading)
+                        .opacity(playerVM.playOffset == 0 ? 0 : 1)
                 } //: - Mask
         }
         .onDisappear {
