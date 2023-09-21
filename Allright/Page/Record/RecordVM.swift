@@ -25,7 +25,7 @@ final class RecordVM: ObservableObject {
         }
     }
     
-    func onDisappearFunc() {
+    func reset() {
         isEditMode = false
         isAlertShow = false
         deleteURLs = []

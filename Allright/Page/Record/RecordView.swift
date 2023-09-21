@@ -49,7 +49,7 @@ struct RecordView: View {
             voicerecordVM.fetchVoicerecordFile()
         }
         .onDisappear {
-            recordVM.isEditMode
+            recordVM.reset()
         }
     }
     
