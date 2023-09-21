@@ -13,41 +13,44 @@ struct RecordView: View {
     @StateObject var player = VoicePlayerVM()
     
     var body: some View {
-        Colors.gray100.ignoresSafeArea()
-            .overlay(alignment: .top) {
-                VStack(spacing: 0) {
-                    topBanner
-                    
-                    ScrollView(.vertical) {
-                        VStack {
-                            ForEach(0..<voicerecordVM.voicerecordList.count, id: \.self) { idx in
-                                let url = voicerecordVM.voicerecordList[idx].fileURL
-                                HStack {
+        ZStack {
+            Colors.gray100.ignoresSafeArea()
+            VStack(spacing: 0) {
+                topBanner
+                ScrollView(.vertical) {
+                    VStack {
+                        ForEach(0..<voicerecordVM.voicerecordList.count, id: \.self) { idx in
+                            let url = voicerecordVM.voicerecordList[idx].fileURL
+                            HStack {
+                                if recordVM.isEditMode {
+                                    radioButton(url)
+                                        .padding(.leading, 8)
+                                }
+                                ZStack {
+                                    RecordListCard(record: voicerecordVM.voicerecordList[idx], playerVM: player)
                                     if recordVM.isEditMode {
-                                        radioButton(url)
-                                            .padding(.leading, 8)
-                                    }
-                                    ZStack {
-                                        RecordListCard(record: voicerecordVM.voicerecordList[idx], playerVM: player)
-                                        if recordVM.isEditMode {
-                                            blendButton
-                                                .onTapGesture {
-                                                    recordVM.appendDelete(url)
-                                                }
-                                        }
+                                        blendButton
+                                            .onTapGesture {
+                                                recordVM.appendDelete(url)
+                                            }
                                     }
                                 }
                             }
                         }
                     }
                 }
+                .scrollIndicators(.hidden)
             }
-            .onAppear {
-                voicerecordVM.fetchVoicerecordFile()
-            }
-            .onDisappear {
-                recordVM.isEditMode
-            }
+        }
+        .overlay(alignment: .bottom) {
+            Divider()
+        }
+        .onAppear {
+            voicerecordVM.fetchVoicerecordFile()
+        }
+        .onDisappear {
+            recordVM.isEditMode
+        }
     }
     
     var blendButton: some View {

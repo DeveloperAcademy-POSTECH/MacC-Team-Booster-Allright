@@ -12,6 +12,9 @@ struct HomeView: View {
     @Binding var selection: Int
     
     var body: some View {
+        ZStack {
+            Colors.white
+            
             VStack(spacing: UIScreen.getHeight(16)) {
                 topBanner
                 Spacer()
@@ -21,6 +24,10 @@ struct HomeView: View {
                 Spacer()
                 Spacer().frame(height: UITabBarController().height)
             }
+        }
+        .overlay(alignment: .bottom) {
+            Divider()
+        }
     }
 //MARK: - UI
     var topBanner: some View {

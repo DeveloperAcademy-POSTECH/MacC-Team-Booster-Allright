@@ -70,6 +70,11 @@ struct ReadView: View {
             readVM.numberOfWords = step.wordCard.count
             readVM.step = step
         }
+        .onDisappear {
+            guard let timer = readVM.timer else { return }
+            timer.invalidate()
+            readVM.recoder.stopRecording()
+        }
         .navigationTitle(step.title)
         .navigationBarBackButtonHidden(true)
         .navigationBarColor(backgroundColor: .clear, titleColor: UIColor.white)
@@ -200,6 +205,7 @@ struct ReadView: View {
                             }
                         }
                     }
+                    .foregroundColor(Colors.black)
                     .opacity(readVM.currentIndex == idx ? 1.0 : 0.7)
                     .scaleEffect(readVM.currentIndex == idx ? 1 : 0.8)
                     .offset(x: CGFloat(idx - readVM.currentIndex) * UIScreen.getWidth(280) + CGFloat(readVM.dragOffset))
