@@ -11,8 +11,8 @@ import UIKit
 
 class VoicePlayerVM: NSObject, ObservableObject, AVAudioPlayerDelegate {
     var audioPlayer = AVAudioPlayer()
-    var playingURL: URL?
     
+    @Published var playingURL: URL?
     @Published var playerState: PlayerState = .stop
     @Published var playOffset: CGFloat = 0
     @Published var currentTime: TimeInterval = 0.0
@@ -22,17 +22,28 @@ class VoicePlayerVM: NSObject, ObservableObject, AVAudioPlayerDelegate {
         super.init()
     }
     
-    // MARK: - Play
     func startPlaying(record: Voicerecord) {
-        if playerState == .play { return }
+        if playerState == .play {
+            if playingURL == URL(string: "") { return }
+            if playingURL != record.fileURL {
+                playStopSetting()
+            }
+        }
         
         playingURL = record.fileURL
-        sessionSetting()
+        let playSession = AVAudioSession.sharedInstance()
+        
+        do {
+            try playSession.setCategory(.playAndRecord, mode: .default, options: [.allowBluetooth, .allowBluetoothA2DP, .defaultToSpeaker])
+        } catch {
+            print("Playing failed in Device")
+        }
         
         do {
             audioPlayer = try AVAudioPlayer(contentsOf: playingURL!)
             
             if playerState == .pause {
+                playOffset = 0.0
                 currentTime = (playOffset / UIScreen.getWidth(342)) * audioPlayer.duration
                 audioPlayer.currentTime = currentTime
             }
@@ -52,40 +63,33 @@ class VoicePlayerVM: NSObject, ObservableObject, AVAudioPlayerDelegate {
         }
     }
     
-    func sessionSetting() {
-        let playSession = AVAudioSession.sharedInstance()
-        
-        do {
-            try playSession.setCategory(.playAndRecord, mode: .default, options: [.allowBluetooth, .allowBluetoothA2DP, .defaultToSpeaker])
-        } catch {
-            print("Playing failed in Device")
-        }
-    } // : - Play
-    
-    
-    func stopSetting( ) {
-        playerState = .stop
-        self.playOffset = 0.0
-        self.currentTime = 0
-        timer!.invalidate()
-    }
-    
     func stopPlaying(_ state: PlayerState? = nil) {
         if playerState == .stop { return }
         
         if state == .pause {
             playerState = .pause
+            
             self.currentTime = 0
             timer!.invalidate()
-            audioPlayer.stop()
         }
         else {
-            stopSetting()
+            playerState = .stop
+            
+            playStopSetting()
             audioPlayer.stop()
         }
     }
     
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        stopSetting()
+        playerState = .stop
+    }
+}
+
+extension VoicePlayerVM {
+    func playStopSetting() {
+        self.playOffset = 0.0
+        self.currentTime = 0
+        timer!.invalidate()
+        playingURL = URL(string: "")
     }
 }

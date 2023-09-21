@@ -9,7 +9,6 @@ import SwiftUI
 
 struct RecordListCard: View {
     let record: Voicerecord
-    @State var isEditMode: Bool
     @ObservedObject var playerVM: VoicePlayerVM
     
     var body: some View {
@@ -64,10 +63,11 @@ struct RecordListCard: View {
                         }
                 )
                 .mask {
-                    Color.black
-                        .frame(width: UIScreen.getWidth(playerVM.playOffset))
-                        .frame(minWidth: 0, maxWidth: UIScreen.getWidth(342), alignment: .leading)
-                        .opacity(playerVM.playOffset == 0 ? 0 : 1)
+                    if record.fileURL == playerVM.playingURL {
+                        Color.black
+                            .frame(width: UIScreen.getWidth(playerVM.playOffset))
+                            .frame(minWidth: 0, maxWidth: UIScreen.getWidth(342), alignment: .leading)
+                    }
                 } //: - Mask
         }
         .onDisappear {
@@ -106,13 +106,27 @@ struct RecordListCard: View {
             Text(record.playtime)
             
             Button {
-                switch playerVM.playerState {
-                case .play: return playerVM.stopPlaying()
-                case .pause: return playerVM.startPlaying(record: record)
-                case .stop: return playerVM.startPlaying(record: record)
+                if playerVM.playingURL == record.fileURL {
+                    switch playerVM.playerState {
+                    case .play: return playerVM.stopPlaying(.pause)
+                    case .pause: return playerVM.startPlaying(record: record)
+                    case .stop: return playerVM.startPlaying(record: record)
+                    }
+                }
+                else {
+                    switch playerVM.playerState {
+                    case .play: return playerVM.startPlaying(record: record)
+                    case .pause: return playerVM.startPlaying(record: record)
+                    case .stop: return playerVM.startPlaying(record: record)
+                    }
                 }
             } label: {
-                playerVM.playerState.labelImage
+                if playerVM.playerState == .play && playerVM.playingURL == record.fileURL {
+                    Image(systemName: "pause.fill")
+                }
+                else {
+                    Image(systemName: "play.fill")
+                }
             }
         }
         .foregroundColor(color)

@@ -14,8 +14,6 @@ class VoicerecordVM: NSObject, ObservableObject {
     @Published var isRecording: Bool = false
     @Published var voicerecordList: [Voicerecord] = []
     
-    var playingURL: URL?
-    
     override init() {
         super.init()
         fetchVoicerecordFile()

@@ -26,7 +26,7 @@ struct RecordView: View {
                                         radioButton(voicerecordVM.voicerecordList[idx].fileURL)
                                             .padding(.leading, 8)
                                     }
-                                    RecordListCard(record: voicerecordVM.voicerecordList[idx], isEditMode: recordVM.isEditMode, playerVM: player)
+                                    RecordListCard(record: voicerecordVM.voicerecordList[idx], playerVM: player)
                                 }
                             }
                         }
