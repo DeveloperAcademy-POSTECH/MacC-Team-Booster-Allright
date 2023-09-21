@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct RecordListCard: View {
-    @State var record: Voicerecord
+    let record: Voicerecord
     @State var isEditMode: Bool
-    @StateObject var playerVM = VoicePlayerVM()
+    @EnvironmentObject var playerVM: VoicePlayerVM
     
     var body: some View {
         ZStack {

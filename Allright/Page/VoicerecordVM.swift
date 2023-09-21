@@ -10,7 +10,7 @@ import AVFoundation
 
 class VoicerecordVM: NSObject, ObservableObject, AVAudioPlayerDelegate {
     var audioRecorder = AVAudioRecorder()
-    var audioPlayer: AVAudioPlayer!
+    var audioPlayer = AVAudioPlayer()
     
     @Published var isRecording: Bool = false
     @Published var voicerecordList: [Voicerecord] = []
@@ -68,7 +68,7 @@ class VoicerecordVM: NSObject, ObservableObject, AVAudioPlayerDelegate {
                 print("Playtime parse failed")
             }
             
-            voicerecordList.append(Voicerecord(fileURL: $0, createdAt: getFileDate(for: $0), type: type, playtime: playtime, isPlaying: false))
+            voicerecordList.append(Voicerecord(fileURL: $0, createdAt: getFileDate(for: $0), type: type, playtime: playtime))
         }
         
         voicerecordList.sort(by: { $0.createdAt.compare($1.createdAt) == .orderedDescending })

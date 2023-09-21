@@ -10,7 +10,7 @@ import AVFoundation
 import UIKit
 
 class VoicePlayerVM: NSObject, ObservableObject, AVAudioPlayerDelegate {
-    var audioPlayer: AVAudioPlayer!
+    var audioPlayer = AVAudioPlayer()
     var playingURL: URL?
     
     @Published var playerState: PlayerState = .stop
@@ -61,6 +61,10 @@ class VoicePlayerVM: NSObject, ObservableObject, AVAudioPlayerDelegate {
             print("Playing failed in Device")
         }
     } // : - Play
+    
+    func stopPlayAll() {
+        audioPlayer.stop()
+    }
     
     func stopSetting( ) {
         playerState = .stop
