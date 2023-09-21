@@ -71,6 +71,7 @@ class VoicePlayerVM: NSObject, ObservableObject, AVAudioPlayerDelegate {
             
             self.currentTime = 0
             timer!.invalidate()
+            audioPlayer.stop()
         }
         else {
             playerState = .stop
@@ -78,10 +79,6 @@ class VoicePlayerVM: NSObject, ObservableObject, AVAudioPlayerDelegate {
             playStopSetting()
             audioPlayer.stop()
         }
-    }
-    
-    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        playerState = .stop
     }
 }
 
@@ -91,5 +88,9 @@ extension VoicePlayerVM {
         self.currentTime = 0
         timer!.invalidate()
         playingURL = URL(string: "")
+    }
+    
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        playerState = .stop
     }
 }

@@ -36,6 +36,9 @@ struct RecordView: View {
             .onAppear {
                 voicerecordVM.fetchVoicerecordFile()
             }
+            .onDisappear {
+                recordVM.isEditMode
+            }
     }
     
     var topBanner: some View {
