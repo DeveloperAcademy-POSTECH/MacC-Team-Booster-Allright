@@ -12,6 +12,7 @@ import SwiftUI
 
 struct HomeStepCard: View {
     let step: TrainingSteps
+    @Binding var selection: Int
     
     var body: some View {
         RoundedRectangle(cornerRadius: 20)
@@ -49,9 +50,9 @@ struct HomeStepCard: View {
                 Spacer()
                 NavigationLink {
                     switch step {
-                    case .step1: ReadView(step: step)
-                    case .step2: ReadView(step: step)
-                    case .sentance: ReadView(step: step)
+                    case .step1: ReadView(step: step, selection: $selection)
+                    case .step2: ReadView(step: step, selection: $selection)
+                    case .sentance: ReadView(step: step, selection: $selection)
                     }
                 } label: {
                     RoundedRectangle(cornerRadius: 1000)
@@ -77,9 +78,3 @@ struct HomeStepCard: View {
 
 }
 
-
-struct HomeStepCardView_Preview: PreviewProvider {
-    static var previews: some View {
-        HomeStepCard(step: .sentance)
-    }
-}

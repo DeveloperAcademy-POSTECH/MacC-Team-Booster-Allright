@@ -8,20 +8,24 @@
 import SwiftUI
 
 struct MainView: View {
+    @State private(set) var selection = 0
+    
     var body: some View {
-        ZStack {
-            TabView {
-                HomeView()
-                    .tag(0)
-                    .tabItem {
-                        Text("home")
-                    }
-                RecordView()
-                    .tag(1)
-                    .tabItem {
-                        Text("record")
-                    }
-            }
+        NavigationStack {
+            ZStack {
+                TabView(selection: $selection) {
+                    HomeView(selection: $selection)
+                        .tag(0)
+                        .tabItem {
+                            Text("home")
+                        }
+                    RecordView()
+                        .tag(1)
+                        .tabItem {
+                            Text("record")
+                        }
+                }
+            }            
         }
     }
 }

@@ -10,6 +10,7 @@ import SwiftUI
 
 struct ReadView: View {
     let step: TrainingSteps
+    @Binding var selection: Int
     @StateObject private var readVM = ReadVM()
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
@@ -42,8 +43,32 @@ struct ReadView: View {
                 Spacer().frame(height: UITabBarController().height)
             }
         }
+        .alert("연습이 완료되었어요!", isPresented: $readVM.isFinished, actions: {
+            Button("녹음듣기", role: .none) {
+                readVM.resetReadVM()
+                selection = 1
+                self.presentationMode.wrappedValue.dismiss()
+            }
+            Button("완료", role: .cancel) {
+                readVM.resetReadVM()
+            }
+        }, message: {
+            Text("녹음기록을 바로 들어볼까요?")
+        })
+        .alert("연습을 중단할까요?", isPresented: $readVM.isPaused, actions: {
+            Button("취소", role: .none) {
+                readVM.isPlaying = true
+                readVM.startAnimation()
+            }
+            Button("중단하기", role: .cancel) {
+                readVM.resetReadVM()
+            }
+        }, message: {
+            Text("현재까지의 녹음 기록은 저장돼요")
+        })
         .onAppear {
             readVM.numberOfWords = step.wordCard.count
+            readVM.step = step
         }
         .navigationTitle(step.title)
         .navigationBarBackButtonHidden(true)
@@ -192,9 +217,3 @@ struct ReadView: View {
     }
 }
 
-
-struct RowView_Preview: PreviewProvider {
-    static var previews: some View {
-        ReadView(step: .step2)
-    }
-}
