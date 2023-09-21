@@ -109,7 +109,7 @@ struct RecordListCard: View {
                 if playerVM.playingURL == record.fileURL {
                     switch playerVM.playerState {
                     case .play: return playerVM.stopPlaying(.pause)
-                    case .pause: return playerVM.startPlaying(record: record)
+                    case .pause: return playerVM.startPlaying(record: record, state: .pause)
                     case .stop: return playerVM.startPlaying(record: record)
                     }
                 }

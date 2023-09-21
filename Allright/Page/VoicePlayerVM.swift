@@ -22,7 +22,7 @@ class VoicePlayerVM: NSObject, ObservableObject, AVAudioPlayerDelegate {
         super.init()
     }
     
-    func startPlaying(record: Voicerecord) {
+    func startPlaying(record: Voicerecord, state: PlayerState? = nil) {
         if playerState == .play {
             if playingURL == URL(string: "") { return }
             if playingURL != record.fileURL {
@@ -43,7 +43,6 @@ class VoicePlayerVM: NSObject, ObservableObject, AVAudioPlayerDelegate {
             audioPlayer = try AVAudioPlayer(contentsOf: playingURL!)
             
             if playerState == .pause {
-                playOffset = 0.0
                 currentTime = (playOffset / UIScreen.getWidth(342)) * audioPlayer.duration
                 audioPlayer.currentTime = currentTime
             }
@@ -92,5 +91,6 @@ extension VoicePlayerVM {
     
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         playerState = .stop
+        playStopSetting()
     }
 }
