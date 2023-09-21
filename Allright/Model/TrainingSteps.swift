@@ -8,13 +8,13 @@
 import SwiftUI
 
 enum TrainingSteps {
-    case step1, step2, sentance
+    case step1, step2, sentence
     
     var title: String {
         switch self {
         case .step1: return "음절읽기1"
         case .step2: return "음절읽기2"
-        case .sentance: return "문장읽기"
+        case .sentence: return "문장읽기"
         }
     }
     
@@ -22,7 +22,7 @@ enum TrainingSteps {
         switch self {
         case .step1: return "한 음절씩 천천히 읽기"
         case .step2: return "한 호흡에 전부 읽기"
-        case .sentance: return "하루 한 문장 도전"
+        case .sentence: return "하루 한 문장 도전"
         }
     }
     
@@ -30,7 +30,7 @@ enum TrainingSteps {
         switch self {
         case .step1: return "Step1"
         case .step2: return "Step2"
-        case .sentance: return "Sentence"
+        case .sentence: return "Sentence"
         }
     }
     
@@ -38,7 +38,7 @@ enum TrainingSteps {
         switch self {
         case .step1: return CGSize(width: 52, height: 22)
         case .step2: return CGSize(width: 52, height: 22)
-        case .sentance: return CGSize(width: 38, height: 22)
+        case .sentence: return CGSize(width: 38, height: 22)
         }
     }
     
@@ -46,7 +46,7 @@ enum TrainingSteps {
         switch self {
         case .step1: return "음절"
         case .step2: return "음절"
-        case .sentance: return "문장"
+        case .sentence: return "문장"
         }
     }
     
@@ -54,7 +54,7 @@ enum TrainingSteps {
         switch self {
         case .step1: return Image(systemName: "1.circle.fill")
         case .step2: return Image(systemName: "2.circle.fill")
-        case .sentance: return nil
+        case .sentence: return nil
         }
     }
     
@@ -62,7 +62,7 @@ enum TrainingSteps {
         switch self {
         case .step1: return Colors.green400
         case .step2: return Colors.green600
-        case .sentance: return Colors.green700
+        case .sentence: return Colors.green700
         }
     }
     
@@ -103,7 +103,7 @@ enum TrainingSteps {
                 "파퍄퍼펴포표푸퓨프피",
                 "하햐허혀호효후휴흐히"
             ]
-        case .sentance:
+        case .sentence:
             return [
                 "",
                 "욍엉운에 아으연 욍엉운엉 이왹암아일 오옥 악우우완이 우연애 언열을 일언아오 있이에 언열 유옹아 은앙을 우앙알 우 있었읍이아.",

@@ -93,7 +93,7 @@ struct ReadView: View {
         case .step2:
             return Text("\(readVM.startCountDown)")
                 .font(.cardBig())
-        case .sentance:
+        case .sentence:
             return Text("\(readVM.startCountDown)")
                 .font(.cardBig())
         }
@@ -105,7 +105,7 @@ struct ReadView: View {
             return Colors.green400
         case .step2:
             return Colors.green600
-        case .sentance:
+        case .sentence:
             return Colors.green700
         }
     }
@@ -192,7 +192,7 @@ struct ReadView: View {
                                     .font(.cardMedium())
                                     .multilineTextAlignment(.center)
                                     .padding()
-                            case .sentance:
+                            case .sentence:
                                 Text(step.wordCard[idx])
                                     .font(.cardSmall())
                                     .multilineTextAlignment(.center)

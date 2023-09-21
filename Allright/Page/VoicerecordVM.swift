@@ -48,7 +48,7 @@ class VoicerecordVM: NSObject, ObservableObject {
                 type = TrainingSteps.step2
             }
             else if $0.lastPathComponent.contains("Sentence") {
-                type = TrainingSteps.sentance
+                type = TrainingSteps.sentence
             }
             else {
                 return

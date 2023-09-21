@@ -20,15 +20,6 @@ struct RecordView: View {
                     
                     ScrollView(.vertical) {
                         VStack {
-//                            ForEach(voicerecordVM.voicerecordList, id: \.self) { voicerecord in
-//                                HStack {
-//                                    if recordVM.isEditMode {
-//                                        radioButton(voicerecord.fileURL)
-//                                            .padding(.leading, 8)
-//                                    }
-//                                    RecordListCard(record: voicerecord, isEditMode: recordVM.isEditMode)
-//                                }
-//                            }
                             ForEach(0..<voicerecordVM.voicerecordList.count, id: \.self) { idx in
                                 HStack {
                                     if recordVM.isEditMode {

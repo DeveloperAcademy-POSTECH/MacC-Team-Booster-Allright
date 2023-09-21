@@ -17,7 +17,7 @@ struct HomeView: View {
                 Spacer()
                 HomeStepCard(step: .step1, selection: $selection)
                 HomeStepCard(step: .step2, selection: $selection)
-                HomeStepCard(step: .sentance, selection: $selection)
+                HomeStepCard(step: .sentence, selection: $selection)
                 Spacer()
                 Spacer().frame(height: UITabBarController().height)
             }
