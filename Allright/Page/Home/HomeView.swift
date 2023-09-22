@@ -12,15 +12,22 @@ struct HomeView: View {
     @Binding var selection: Int
     
     var body: some View {
+        ZStack {
+            Colors.white
+            
             VStack(spacing: UIScreen.getHeight(16)) {
                 topBanner
                 Spacer()
                 HomeStepCard(step: .step1, selection: $selection)
                 HomeStepCard(step: .step2, selection: $selection)
-                HomeStepCard(step: .sentance, selection: $selection)
+                HomeStepCard(step: .sentence, selection: $selection)
                 Spacer()
                 Spacer().frame(height: UITabBarController().height)
             }
+        }
+        .overlay(alignment: .bottom) {
+            Divider()
+        }
     }
 //MARK: - UI
     var topBanner: some View {

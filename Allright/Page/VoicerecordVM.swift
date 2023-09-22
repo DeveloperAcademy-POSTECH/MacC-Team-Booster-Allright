@@ -8,14 +8,11 @@
 import Foundation
 import AVFoundation
 
-class VoicerecordVM: NSObject, ObservableObject, AVAudioPlayerDelegate {
+class VoicerecordVM: NSObject, ObservableObject {
     var audioRecorder = AVAudioRecorder()
-    var audioPlayer: AVAudioPlayer!
     
     @Published var isRecording: Bool = false
     @Published var voicerecordList: [Voicerecord] = []
-    
-    var playingURL: URL?
     
     override init() {
         super.init()
@@ -49,7 +46,7 @@ class VoicerecordVM: NSObject, ObservableObject, AVAudioPlayerDelegate {
                 type = TrainingSteps.step2
             }
             else if $0.lastPathComponent.contains("Sentence") {
-                type = TrainingSteps.sentance
+                type = TrainingSteps.sentence
             }
             else {
                 return
@@ -68,7 +65,7 @@ class VoicerecordVM: NSObject, ObservableObject, AVAudioPlayerDelegate {
                 print("Playtime parse failed")
             }
             
-            voicerecordList.append(Voicerecord(fileURL: $0, createdAt: getFileDate(for: $0), type: type, playtime: playtime, isPlaying: false))
+            voicerecordList.append(Voicerecord(fileURL: $0, createdAt: getFileDate(for: $0), type: type, playtime: playtime))
         }
         
         voicerecordList.sort(by: { $0.createdAt.compare($1.createdAt) == .orderedDescending })

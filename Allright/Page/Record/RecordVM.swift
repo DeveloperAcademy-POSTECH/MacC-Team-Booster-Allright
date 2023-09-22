@@ -9,7 +9,6 @@ import SwiftUI
 
 final class RecordVM: ObservableObject {
     @Published var isEditMode: Bool = false
-    @Published var isPlaying: Bool = false
     @Published var isAlertShow: Bool = false
     @Published var deleteURLs: [URL] = []
     
@@ -24,5 +23,11 @@ final class RecordVM: ObservableObject {
         else {
             self.deleteURLs.append(url)
         }
+    }
+    
+    func reset() {
+        isEditMode = false
+        isAlertShow = false
+        deleteURLs = []
     }
 }

@@ -52,7 +52,7 @@ struct HomeStepCard: View {
                     switch step {
                     case .step1: ReadView(step: step, selection: $selection)
                     case .step2: ReadView(step: step, selection: $selection)
-                    case .sentance: ReadView(step: step, selection: $selection)
+                    case .sentence: ReadView(step: step, selection: $selection)
                     }
                 } label: {
                     RoundedRectangle(cornerRadius: 1000)

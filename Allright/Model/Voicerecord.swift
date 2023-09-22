@@ -12,5 +12,4 @@ struct Voicerecord: Equatable, Hashable {
     let createdAt: String
     let type: TrainingSteps
     let playtime: String
-    var isPlaying: Bool
 }

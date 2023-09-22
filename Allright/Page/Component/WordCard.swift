@@ -33,7 +33,7 @@ struct WordCard: View {
 
 struct cardView_Preview: PreviewProvider {
     static var previews: some View {
-        WordCard(step: .sentance)
+        WordCard(step: .sentence)
     }
 }
 

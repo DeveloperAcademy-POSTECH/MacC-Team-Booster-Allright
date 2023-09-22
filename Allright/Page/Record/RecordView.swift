@@ -10,31 +10,53 @@ import SwiftUI
 struct RecordView: View {
     @StateObject var recordVM = RecordVM()
     @StateObject var voicerecordVM = VoicerecordVM()
+    @StateObject var player = VoicePlayerVM()
     
     var body: some View {
-        Colors.gray100.ignoresSafeArea()
-            .overlay(alignment: .top) {
-                VStack(spacing: 0) {
-                    topBanner
-                    
-                    ScrollView(.vertical) {
-                        VStack {
-                            ForEach(voicerecordVM.voicerecordList, id: \.self) { voicerecord in
-                                HStack {
+        ZStack {
+            Colors.gray100.ignoresSafeArea()
+            VStack(spacing: 0) {
+                topBanner
+                ScrollView(.vertical) {
+                    VStack {
+                        ForEach(0..<voicerecordVM.voicerecordList.count, id: \.self) { idx in
+                            let url = voicerecordVM.voicerecordList[idx].fileURL
+                            HStack {
+                                if recordVM.isEditMode {
+                                    radioButton(url)
+                                        .padding(.leading, 8)
+                                }
+                                ZStack {
+                                    RecordListCard(record: voicerecordVM.voicerecordList[idx], playerVM: player)
                                     if recordVM.isEditMode {
-                                        radioButton(voicerecord.fileURL)
-                                            .padding(.leading, 8)
+                                        blendButton
+                                            .onTapGesture {
+                                                recordVM.appendDelete(url)
+                                            }
                                     }
-                                    RecordListCard(record: voicerecord, isEditMode: recordVM.isEditMode)
                                 }
                             }
                         }
                     }
                 }
+                .scrollIndicators(.hidden)
             }
-            .onAppear {
-                voicerecordVM.fetchVoicerecordFile()
-            }
+        }
+        .overlay(alignment: .bottom) {
+            Divider()
+        }
+        .onAppear {
+            voicerecordVM.fetchVoicerecordFile()
+        }
+        .onDisappear {
+            recordVM.reset()
+        }
+    }
+    
+    var blendButton: some View {
+        RoundedRectangle(cornerRadius: 12)
+            .frame(width: UIScreen.getWidth(342), height: UIScreen.getHeight(70))
+            .blendMode(.destinationOver)
     }
     
     var topBanner: some View {
@@ -82,6 +104,7 @@ struct RecordView: View {
     var editButton: some View {
         Button {
             recordVM.isEditMode.toggle()
+            player.stopPlaying()
         } label: {
             if recordVM.isEditMode {
                 Text("취소")

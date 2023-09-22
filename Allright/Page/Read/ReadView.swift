@@ -24,7 +24,7 @@ struct ReadView: View {
                 Spacer().frame(height: UIScreen.getHeight(60))
                 Text(step.description)
                     .font(.title1())
-                    .foregroundColor(Colors.green800)
+                    .foregroundColor(Colors.white)
                 Spacer()
             }
             VStack(spacing: 14) {
@@ -70,6 +70,11 @@ struct ReadView: View {
             readVM.numberOfWords = step.wordCard.count
             readVM.step = step
         }
+        .onDisappear {
+            guard let timer = readVM.timer else { return }
+            timer.invalidate()
+            readVM.recoder.stopRecording()
+        }
         .navigationTitle(step.title)
         .navigationBarBackButtonHidden(true)
         .navigationBarColor(backgroundColor: .clear, titleColor: UIColor.white)
@@ -93,7 +98,7 @@ struct ReadView: View {
         case .step2:
             return Text("\(readVM.startCountDown)")
                 .font(.cardBig())
-        case .sentance:
+        case .sentence:
             return Text("\(readVM.startCountDown)")
                 .font(.cardBig())
         }
@@ -105,7 +110,7 @@ struct ReadView: View {
             return Colors.green400
         case .step2:
             return Colors.green600
-        case .sentance:
+        case .sentence:
             return Colors.green700
         }
     }
@@ -192,7 +197,7 @@ struct ReadView: View {
                                     .font(.cardMedium())
                                     .multilineTextAlignment(.center)
                                     .padding()
-                            case .sentance:
+                            case .sentence:
                                 Text(step.wordCard[idx])
                                     .font(.cardSmall())
                                     .multilineTextAlignment(.center)
@@ -200,6 +205,7 @@ struct ReadView: View {
                             }
                         }
                     }
+                    .foregroundColor(Colors.black)
                     .opacity(readVM.currentIndex == idx ? 1.0 : 0.7)
                     .scaleEffect(readVM.currentIndex == idx ? 1 : 0.8)
                     .offset(x: CGFloat(idx - readVM.currentIndex) * UIScreen.getWidth(280) + CGFloat(readVM.dragOffset))
