@@ -13,7 +13,7 @@ struct ReadView: View {
     @Binding var selection: Int
     @StateObject private var readVM = ReadVM()
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-
+    
     
     @StateObject var voicerecordVM = VoicerecordVM()
     
@@ -58,7 +58,8 @@ struct ReadView: View {
         .alert("연습을 중단할까요?", isPresented: $readVM.isPaused, actions: {
             Button("취소", role: .none) {
                 readVM.isPlaying = true
-                readVM.startAnimation()
+//                readVM.startAnimation()
+                readVM.startCountdownAnimation()
             }
             Button("중단하기", role: .cancel) {
                 readVM.resetReadVM()
@@ -136,7 +137,6 @@ struct ReadView: View {
                     }
                 }
         }
-        
     }
     
     var progressbar: some View {
@@ -185,6 +185,17 @@ struct ReadView: View {
                     .overlay {
                         if idx == 0 {
                             timerNumberView
+                                .foregroundColor(Colors.black)
+                            if readVM.currentIndex == idx {
+                                timerNumberView
+                                    .foregroundColor(Colors.orange)
+                                    .mask {
+                                        GeometryReader { proxy in
+                                            Colors.orange
+                                                .frame(width: proxy.frame(in: .local).width * readVM.animationWidthGague)
+                                        }
+                                    }
+                            }
                         }
                         else {
                             switch step {
@@ -192,20 +203,72 @@ struct ReadView: View {
                                 Text(step.wordCard[idx])
                                     .font(.cardBig())
                                     .multilineTextAlignment(.center)
+                                    .foregroundColor(Colors.black)
+                                Text(step.wordCard[idx])
+                                    .font(.cardBig())
+                                    .multilineTextAlignment(.center)
+                                    .foregroundColor(Colors.orange)
+                                    .mask {
+                                        if readVM.currentIndex == idx {
+                                            GeometryReader { proxy in
+                                                let proxyFrame = proxy.frame(in: .local)
+                                                
+                                                Colors.orange
+                                                    .frame(width: proxy.frame(in: .local).width * readVM.animationWidthGague)
+                                            }
+                                        }
+                                    }
                             case .step2:
                                 Text(step.wordCard[idx])
                                     .font(.cardMedium())
                                     .multilineTextAlignment(.center)
+                                    .foregroundColor(Colors.black)
                                     .padding()
+                                Text(step.wordCard[idx])
+                                    .font(.cardMedium())
+                                    .multilineTextAlignment(.center)
+                                    .foregroundColor(Colors.orange)
+                                    .padding()
+                                    .mask {
+                                        if readVM.currentIndex == idx {
+                                            GeometryReader { proxy in
+                                                let proxyFrame = proxy.frame(in: .local)
+                                                
+                                                VStack(alignment: .leading) {
+                                                    Colors.orange
+                                                        .frame(width: proxyFrame.width * readVM.animationWidthGague)
+                                                    Colors.orange
+                                                        .frame(width: proxyFrame.width * readVM.animationSecondLineWidthGague)
+                                                }
+                                            }
+                                        }
+                                    }
                             case .sentence:
                                 Text(step.wordCard[idx])
                                     .font(.cardSmall())
                                     .multilineTextAlignment(.center)
+                                    .foregroundColor(Colors.black)
                                     .padding()
+                                if readVM.currentIndex == idx {
+                                    Text(step.wordCard[idx])
+                                        .font(.cardSmall())
+                                        .multilineTextAlignment(.center)
+                                        .foregroundColor(Colors.orange)
+                                        .padding()
+                                        .mask {
+                                            if readVM.currentIndex == idx {
+                                                GeometryReader { proxy in
+                                                    let proxyFrame = proxy.frame(in: .local)
+                                                    
+                                                    Colors.orange
+                                                        .frame(width: proxyFrame.width * readVM.animationWidthGague)
+                                                }
+                                            }
+                                        }
+                                }
                             }
                         }
                     }
-                    .foregroundColor(Colors.black)
                     .opacity(readVM.currentIndex == idx ? 1.0 : 0.7)
                     .scaleEffect(readVM.currentIndex == idx ? 1 : 0.8)
                     .offset(x: CGFloat(idx - readVM.currentIndex) * UIScreen.getWidth(280) + CGFloat(readVM.dragOffset))
@@ -223,3 +286,8 @@ struct ReadView: View {
     }
 }
 
+struct ReadViewProvider_Previews: PreviewProvider {
+    static var previews: some View {
+        ReadView(step: .step2, selection: .constant(2))
+    }
+}
