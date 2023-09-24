@@ -58,7 +58,7 @@ struct ReadView: View {
         .alert("연습을 중단할까요?", isPresented: $readVM.isPaused, actions: {
             Button("취소", role: .none) {
                 readVM.isPlaying = true
-//                readVM.startAnimation()
+                //                readVM.startAnimation()
                 readVM.startCountdownAnimation()
             }
             Button("중단하기", role: .cancel) {
@@ -211,8 +211,6 @@ struct ReadView: View {
                                     .mask {
                                         if readVM.currentIndex == idx {
                                             GeometryReader { proxy in
-                                                let proxyFrame = proxy.frame(in: .local)
-                                                
                                                 Colors.orange
                                                     .frame(width: proxy.frame(in: .local).width * readVM.animationWidthGague)
                                             }
@@ -232,13 +230,11 @@ struct ReadView: View {
                                     .mask {
                                         if readVM.currentIndex == idx {
                                             GeometryReader { proxy in
-                                                let proxyFrame = proxy.frame(in: .local)
-                                                
                                                 VStack(alignment: .leading) {
                                                     Colors.orange
-                                                        .frame(width: proxyFrame.width * readVM.animationWidthGague)
+                                                        .frame(width: proxy.frame(in: .local).width * readVM.animationWidthGague)
                                                     Colors.orange
-                                                        .frame(width: proxyFrame.width * readVM.animationSecondLineWidthGague)
+                                                        .frame(width: proxy.frame(in: .local).width * readVM.animationSecondLineWidthGague)
                                                 }
                                             }
                                         }
@@ -258,10 +254,8 @@ struct ReadView: View {
                                         .mask {
                                             if readVM.currentIndex == idx {
                                                 GeometryReader { proxy in
-                                                    let proxyFrame = proxy.frame(in: .local)
-                                                    
                                                     Colors.orange
-                                                        .frame(width: proxyFrame.width * readVM.animationWidthGague)
+                                                        .frame(width: proxy.frame(in: .local).width * readVM.animationWidthGague)
                                                 }
                                             }
                                         }
