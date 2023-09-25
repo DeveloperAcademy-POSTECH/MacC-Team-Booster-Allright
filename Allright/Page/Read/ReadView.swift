@@ -204,31 +204,33 @@ struct ReadView: View {
                                     .font(.cardBig())
                                     .multilineTextAlignment(.center)
                                     .foregroundColor(Colors.black)
-                                Text(step.wordCard[idx])
-                                    .font(.cardBig())
-                                    .multilineTextAlignment(.center)
-                                    .foregroundColor(Colors.orange)
-                                    .mask {
-                                        if readVM.currentIndex == idx {
+                                if readVM.currentIndex == idx {
+                                    Text(step.wordCard[idx])
+                                        .font(.cardBig())
+                                        .multilineTextAlignment(.center)
+                                        .foregroundColor(Colors.orange)
+                                        .mask {
+                                            
                                             GeometryReader { proxy in
                                                 Colors.orange
                                                     .frame(width: proxy.frame(in: .local).width * readVM.animationWidthGague)
                                             }
                                         }
-                                    }
+                                }
                             case .step2:
                                 Text(step.wordCard[idx])
                                     .font(.cardMedium())
                                     .multilineTextAlignment(.center)
                                     .foregroundColor(Colors.black)
                                     .padding()
-                                Text(step.wordCard[idx])
-                                    .font(.cardMedium())
-                                    .multilineTextAlignment(.center)
-                                    .foregroundColor(Colors.orange)
-                                    .padding()
-                                    .mask {
-                                        if readVM.currentIndex == idx {
+                                if readVM.currentIndex == idx {
+                                    Text(step.wordCard[idx])
+                                        .font(.cardMedium())
+                                        .multilineTextAlignment(.center)
+                                        .foregroundColor(Colors.orange)
+                                        .padding()
+                                        .mask {
+                                            
                                             GeometryReader { proxy in
                                                 VStack(alignment: .leading) {
                                                     Colors.orange
@@ -238,7 +240,7 @@ struct ReadView: View {
                                                 }
                                             }
                                         }
-                                    }
+                                }
                             case .sentence:
                                 Text(step.wordCard[idx])
                                     .font(.cardSmall())
@@ -252,13 +254,12 @@ struct ReadView: View {
                                         .foregroundColor(Colors.orange)
                                         .padding()
                                         .mask {
-                                            if readVM.currentIndex == idx {
-                                                GeometryReader { proxy in
-                                                    Colors.orange
-                                                        .frame(width: proxy.frame(in: .local).width * readVM.animationWidthGague)
-                                                }
+                                            GeometryReader { proxy in
+                                                Colors.orange
+                                                    .frame(width: proxy.frame(in: .local).width * readVM.animationWidthGague)
                                             }
                                         }
+                                    
                                 }
                             }
                         }
@@ -277,11 +278,5 @@ struct ReadView: View {
             Image(systemName: "chevron.backward")
                 .foregroundColor(Colors.white)
         }
-    }
-}
-
-struct ReadViewProvider_Previews: PreviewProvider {
-    static var previews: some View {
-        ReadView(step: .step2, selection: .constant(2))
     }
 }
