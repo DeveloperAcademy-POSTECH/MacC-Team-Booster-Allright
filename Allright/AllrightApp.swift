@@ -9,9 +9,15 @@ import SwiftUI
 
 @main
 struct AllrightApp: App {
+    
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainView()
+                .onAppear {
+                    Font.registerFonts()
+                    VoiceRecorder.requestMicrophonePermission()
+                }
         }
     }
 }
