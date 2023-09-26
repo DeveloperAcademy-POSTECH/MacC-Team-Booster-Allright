@@ -15,7 +15,7 @@ struct ReadView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     
-    @StateObject var voicerecordVM = VoicerecordVM()
+    @StateObject var voicerecordVM = VoiceRecorder()
     
     var body: some View {
         ZStack {

@@ -30,7 +30,7 @@ class ReadVM: ObservableObject {
     @Published var animationSecondLineWidthGague = 0.0
     @Published var animationThirdLineWidthGague = 0.0
     
-    let recoder = VoicerecordVM()
+    let recoder = VoiceRecorder()
     
     func toggleAnimation() {
         if self.isPlaying {

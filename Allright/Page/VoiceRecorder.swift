@@ -1,5 +1,5 @@
 //
-//  VoiceRecordVM.swift
+//  VoiceRecorder.swift
 //  Allright
 //
 //  Created by 송재훈 on 2023/09/18.
@@ -8,7 +8,7 @@
 import Foundation
 import AVFoundation
 
-class VoicerecordVM: NSObject, ObservableObject {
+class VoiceRecorder: NSObject, ObservableObject {
     var audioRecorder = AVAudioRecorder()
     
     @Published var isRecording: Bool = false

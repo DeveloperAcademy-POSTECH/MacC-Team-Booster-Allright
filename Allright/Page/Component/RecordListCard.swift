@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RecordListCard: View {
     let record: Voicerecord
-    @ObservedObject var playerVM: VoicePlayerVM
+    @ObservedObject var playerVM: VoicePlayer
     
     var body: some View {
         ZStack {

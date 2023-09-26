@@ -9,8 +9,8 @@ import SwiftUI
 
 struct RecordView: View {
     @StateObject var recordVM = RecordVM()
-    @StateObject var voicerecordVM = VoicerecordVM()
-    @StateObject var player = VoicePlayerVM()
+    @StateObject var voicerecordVM = VoiceRecorder()
+    @StateObject var player = VoicePlayer()
     
     var body: some View {
         ZStack {

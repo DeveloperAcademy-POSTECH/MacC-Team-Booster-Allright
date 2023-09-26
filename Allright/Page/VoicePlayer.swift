@@ -1,5 +1,5 @@
 //
-//  VoicePlayerVM.swift
+//  VoicePlayer.swift
 //  Allright
 //
 //  Created by 송재훈 on 2023/09/20.
@@ -9,7 +9,7 @@ import Foundation
 import AVFoundation
 import UIKit
 
-class VoicePlayerVM: NSObject, ObservableObject, AVAudioPlayerDelegate {
+class VoicePlayer: NSObject, ObservableObject, AVAudioPlayerDelegate {
     var audioPlayer = AVAudioPlayer()
     
     @Published var playingURL: URL?
@@ -81,7 +81,7 @@ class VoicePlayerVM: NSObject, ObservableObject, AVAudioPlayerDelegate {
     }
 }
 
-extension VoicePlayerVM {
+extension VoicePlayer {
     func playStopSetting() {
         self.playOffset = 0.0
         self.currentTime = 0
