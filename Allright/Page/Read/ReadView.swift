@@ -13,7 +13,7 @@ struct ReadView: View {
     @Binding var selection: Int
     @StateObject private var readVM = ReadVM()
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-
+    
     
     @StateObject var voicerecordVM = VoicerecordVM()
     
@@ -28,7 +28,10 @@ struct ReadView: View {
                 Spacer()
             }
             VStack(spacing: 14) {
-                wordCard
+                ZStack {
+                    wordCard
+                    wordCardMask
+                }
                 progressbar
                 Spacer().frame(height: UITabBarController().height)
             }
@@ -136,7 +139,6 @@ struct ReadView: View {
                     }
                 }
         }
-        
     }
     
     var progressbar: some View {
@@ -174,6 +176,7 @@ struct ReadView: View {
                     .foregroundColor(Colors.white)
                 }
         }
+        .opacity(step == .sentence ? 0 : 1)
     }
     
     var wordCard: some View {
@@ -185,6 +188,7 @@ struct ReadView: View {
                     .overlay {
                         if idx == 0 {
                             timerNumberView
+                                .foregroundColor(Colors.black)
                         }
                         else {
                             switch step {
@@ -192,22 +196,97 @@ struct ReadView: View {
                                 Text(step.wordCard[idx])
                                     .font(.cardBig())
                                     .multilineTextAlignment(.center)
+                                    .foregroundColor(Colors.black)
                             case .step2:
                                 Text(step.wordCard[idx])
                                     .font(.cardMedium())
                                     .multilineTextAlignment(.center)
+                                    .foregroundColor(Colors.black)
                                     .padding()
                             case .sentence:
                                 Text(step.wordCard[idx])
                                     .font(.cardSmall())
                                     .multilineTextAlignment(.center)
+                                    .foregroundColor(Colors.black)
                                     .padding()
                             }
                         }
                     }
-                    .foregroundColor(Colors.black)
                     .opacity(readVM.currentIndex == idx ? 1.0 : 0.7)
                     .scaleEffect(readVM.currentIndex == idx ? 1 : 0.8)
+                    .offset(x: CGFloat(idx - readVM.currentIndex) * UIScreen.getWidth(280) + CGFloat(readVM.dragOffset))
+            }
+        }
+    }
+    
+    var wordCardMask: some View {
+        ZStack {
+            ForEach(0..<step.wordCard.count, id: \.self) { idx in
+                RoundedRectangle(cornerRadius: 20)
+                    .frame(width: UIScreen.getWidth(290), height: UIScreen.getHeight(301))
+                    .foregroundColor(.clear)
+                    .overlay {
+                        if readVM.currentIndex == idx {
+                            if idx == 0 {
+                                timerNumberView
+                                    .mask {
+                                        GeometryReader { proxy in
+                                            Colors.orange
+                                                .frame(width: CGFloat(proxy.frame(in: .local).width) * CGFloat(readVM.animationWidthGague))
+                                        }
+                                    }
+                            }
+                            else {
+                                switch step {
+                                case .step1:
+                                    Text(step.wordCard[idx])
+                                        .font(.cardBig())
+                                        .multilineTextAlignment(.center)
+                                        .mask {
+                                            GeometryReader { proxy in
+                                                Colors.orange
+                                                    .frame(width: CGFloat(proxy.frame(in: .local).width) * CGFloat(readVM.animationWidthGague))
+                                            }
+                                        }
+                                case .step2:
+                                    Text(step.wordCard[idx])
+                                        .font(.cardMedium())
+                                        .multilineTextAlignment(.center)
+                                        .padding()
+                                        .mask {
+                                            GeometryReader { proxy in
+                                                VStack(alignment: .leading, spacing: 0) {
+                                                    if readVM.currentIndex.quotientAndRemainder(dividingBy: 2).remainder == 0 {
+                                                        Colors.orange
+                                                            .frame(width: CGFloat(proxy.frame(in: .local).width) * CGFloat(readVM.animationWidthGague))
+                                                    }
+                                                    else {
+                                                        Colors.orange
+                                                            .frame(width: CGFloat(proxy.frame(in: .local).width) * CGFloat(readVM.animationFirstLineWidthGague))
+                                                        Colors.orange
+                                                            .frame(width: CGFloat(proxy.frame(in: .local).width) * CGFloat(readVM.animationSecondLineWidthGague))
+                                                        Colors.orange
+                                                            .frame(width: CGFloat(proxy.frame(in: .local).width) * CGFloat(readVM.animationThirdLineWidthGague))
+                                                    }
+                                                }
+                                            }
+                                        }
+                                case .sentence:
+                                    Text(step.wordCard[idx])
+                                        .font(.cardSmall())
+                                        .multilineTextAlignment(.center)
+                                        .padding()
+                                        .mask {
+                                            GeometryReader { proxy in
+                                                Colors.orange
+                                                    .frame(width: CGFloat(proxy.frame(in: .local).width) * CGFloat(readVM.animationWidthGague))
+                                            }
+                                        }
+                                }
+                            }
+                        }
+                    }
+                    .foregroundColor(Colors.orange)
                     .offset(x: CGFloat(idx - readVM.currentIndex) * UIScreen.getWidth(280) + CGFloat(readVM.dragOffset))
             }
         }
@@ -222,4 +301,3 @@ struct ReadView: View {
         }
     }
 }
-
