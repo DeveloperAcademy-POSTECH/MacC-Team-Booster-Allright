@@ -246,7 +246,6 @@
 		62FF77E92AC3121C005C76B9 /* Step2_12.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 62FF77CD2AC3121C005C76B9 /* Step2_12.mp3 */; };
 		62FF77EA2AC3121C005C76B9 /* Step2_19.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 62FF77CE2AC3121C005C76B9 /* Step2_19.mp3 */; };
 		62FF77EB2AC3121C005C76B9 /* Step2_5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 62FF77CF2AC3121C005C76B9 /* Step2_5.mp3 */; };
-		62FF77EC2AC3121C005C76B9 /* Step2_1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 62FF77D02AC3121C005C76B9 /* Step2_1.mp3 */; };
 		62FF77ED2AC3121C005C76B9 /* Step2_16.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 62FF77D12AC3121C005C76B9 /* Step2_16.mp3 */; };
 		62FF77EE2AC3121C005C76B9 /* Step2_28.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 62FF77D22AC3121C005C76B9 /* Step2_28.mp3 */; };
 		62FF77EF2AC3121C005C76B9 /* Step2_6.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 62FF77D32AC3121C005C76B9 /* Step2_6.mp3 */; };
@@ -265,6 +264,7 @@
 		62FF77FC2AC3121C005C76B9 /* Step2_14.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 62FF77E02AC3121C005C76B9 /* Step2_14.mp3 */; };
 		62FF77FD2AC3121C005C76B9 /* Step2_20.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 62FF77E12AC3121C005C76B9 /* Step2_20.mp3 */; };
 		62FF77FE2AC3121C005C76B9 /* Step2_18.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 62FF77E22AC3121C005C76B9 /* Step2_18.mp3 */; };
+		62FF78002AC340F8005C76B9 /* Step2_1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 62FF77FF2AC340F8005C76B9 /* Step2_1.mp3 */; };
 		DBB9F6AE2AB4A87000E7A5C0 /* AllrightApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB9F6AD2AB4A87000E7A5C0 /* AllrightApp.swift */; };
 		DBB9F6B02AB4A87000E7A5C0 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB9F6AF2AB4A87000E7A5C0 /* HomeView.swift */; };
 		DBB9F6B22AB4A87100E7A5C0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBB9F6B12AB4A87100E7A5C0 /* Assets.xcassets */; };
@@ -511,7 +511,6 @@
 		62FF77CD2AC3121C005C76B9 /* Step2_12.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Step2_12.mp3; sourceTree = "<group>"; };
 		62FF77CE2AC3121C005C76B9 /* Step2_19.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Step2_19.mp3; sourceTree = "<group>"; };
 		62FF77CF2AC3121C005C76B9 /* Step2_5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Step2_5.mp3; sourceTree = "<group>"; };
-		62FF77D02AC3121C005C76B9 /* Step2_1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Step2_1.mp3; sourceTree = "<group>"; };
 		62FF77D12AC3121C005C76B9 /* Step2_16.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Step2_16.mp3; sourceTree = "<group>"; };
 		62FF77D22AC3121C005C76B9 /* Step2_28.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Step2_28.mp3; sourceTree = "<group>"; };
 		62FF77D32AC3121C005C76B9 /* Step2_6.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Step2_6.mp3; sourceTree = "<group>"; };
@@ -530,6 +529,7 @@
 		62FF77E02AC3121C005C76B9 /* Step2_14.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Step2_14.mp3; sourceTree = "<group>"; };
 		62FF77E12AC3121C005C76B9 /* Step2_20.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Step2_20.mp3; sourceTree = "<group>"; };
 		62FF77E22AC3121C005C76B9 /* Step2_18.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Step2_18.mp3; sourceTree = "<group>"; };
+		62FF77FF2AC340F8005C76B9 /* Step2_1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Step2_1.mp3; sourceTree = "<group>"; };
 		DBB9F6AA2AB4A87000E7A5C0 /* Allright.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Allright.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBB9F6AD2AB4A87000E7A5C0 /* AllrightApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllrightApp.swift; sourceTree = "<group>"; };
 		DBB9F6AF2AB4A87000E7A5C0 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -872,7 +872,7 @@
 		62FF77C42AC311B9005C76B9 /* Step2 */ = {
 			isa = PBXGroup;
 			children = (
-				62FF77D02AC3121C005C76B9 /* Step2_1.mp3 */,
+				62FF77FF2AC340F8005C76B9 /* Step2_1.mp3 */,
 				62FF77DF2AC3121C005C76B9 /* Step2_2.mp3 */,
 				62FF77C82AC3121B005C76B9 /* Step2_3.mp3 */,
 				62FF77CC2AC3121C005C76B9 /* Step2_4.mp3 */,
@@ -1164,6 +1164,7 @@
 				622E499B2AC1F22100B9C996 /* Step1_88.mp3 in Resources */,
 				622E49B52AC1F22100B9C996 /* Step1_129.mp3 in Resources */,
 				622E49B92AC1F22100B9C996 /* Step1_72.mp3 in Resources */,
+				62FF78002AC340F8005C76B9 /* Step2_1.mp3 in Resources */,
 				622E49312AC1F22100B9C996 /* Step1_7.mp3 in Resources */,
 				622E49CD2AC1F22100B9C996 /* Step1_109.mp3 in Resources */,
 				622E49522AC1F22100B9C996 /* Step1_11.mp3 in Resources */,
@@ -1227,7 +1228,6 @@
 				622E495F2AC1F22100B9C996 /* Step1_19.mp3 in Resources */,
 				622E49A22AC1F22100B9C996 /* Step1_57.mp3 in Resources */,
 				622E499A2AC1F22100B9C996 /* Step1_13.mp3 in Resources */,
-				62FF77EC2AC3121C005C76B9 /* Step2_1.mp3 in Resources */,
 				622E49692AC1F22100B9C996 /* Step1_154.mp3 in Resources */,
 				62FF77EB2AC3121C005C76B9 /* Step2_5.mp3 in Resources */,
 				622E49592AC1F22100B9C996 /* Step1_121.mp3 in Resources */,
@@ -1406,6 +1406,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1428,9 +1429,12 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.booster.Allright;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1439,6 +1443,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1461,9 +1466,12 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.booster.Allright;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
