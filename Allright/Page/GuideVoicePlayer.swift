@@ -16,21 +16,20 @@ class GuideVoicePlayer: NSObject, ObservableObject {
     
     @Published var isIndex = 0
     
-    init(step: TrainingSteps? = nil, player: AVAudioPlayer = AVAudioPlayer(), isIndex: Int = 0) {
-        self.step = step
-        self.player = player
-        self.isIndex = isIndex
-        
+    override init() {
         guard let step = self.step else { return }
         
         switch step {
         case .step1:
-            for idx in 1...195 {
+            for idx in 1...196 {
                 let path = Bundle.main.path(forResource: "Step1_\(idx).mp3", ofType: nil)!
                 playList.append(URL(filePath: path))
             }
         case .step2:
-            break
+            for idx in 1...28 {
+                let path = Bundle.main.path(forResource: "Step2_\(idx).mp3", ofType: nil)!
+                playList.append(URL(filePath: path))
+            }
         case .sentence:
             break
         }
