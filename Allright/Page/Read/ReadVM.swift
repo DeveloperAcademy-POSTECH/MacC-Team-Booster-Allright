@@ -11,6 +11,9 @@ import SwiftUI
 class ReadVM: ObservableObject {
     
     var step: TrainingSteps?
+    var upperAnimation: DispatchWorkItem?
+    var lowerAnimation: DispatchWorkItem?
+    
     @Published var isSoundOn = false
     @Published var numberOfWords: Int = 0
     @Published var currentIndex: Int = 0
@@ -22,19 +25,14 @@ class ReadVM: ObservableObject {
     @Published var isPaused = false
     @Published var animationWidthGague = 0.0
     @Published var animationSecondLineWidthGague = 0.0
-    var upperAnimation: DispatchWorkItem?
-    var lowerAnimation: DispatchWorkItem?
     
     let recoder = VoicerecordVM()
     
-    // 현재 stop 됐을때, numberofwords != currentIdx면, 알람창을띄워줌, 현재 녹음중인데 중단하시겠어요?, 취소면 재계 아니면 화면 나감.
-    // NOW가 currentIdx면 녹음이 완료 되었습니다. 상태창 띄워주기
     func toggleAnimation() {
         if self.isPlaying {
             stopAnimation()
         }
         else {
-            //            startAnimation()
             startCountdownAnimation()
         }
     }
@@ -45,31 +43,6 @@ class ReadVM: ObservableObject {
         animationWidthGague = 0
         animationSecondLineWidthGague = 0
         stopAnimation()
-    }
-    
-    func startAnimation() {
-        isPlaying = true
-        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
-            if self.startCountDown > 0 {
-                self.startCountDown -= 1
-            }
-            else if self.startCountDown == 0, self.isPlaying, (self.currentIndex != self.numberOfWords - 1) {
-                guard let step = self.step else { return }
-                if self.currentIndex == 1 {
-                    self.recoder.startRecording(typeIs: step.type)
-                }
-                else {
-                    self.isPaused = false
-                    self.recoder.resumeRecording()
-                }
-                withAnimation(.linear(duration: 0.4)) {
-                    self.currentIndex += 1
-                }
-            }
-            else {
-                self.stopAnimation()
-            }
-        }
     }
     
     func stopAnimation() {
@@ -104,7 +77,7 @@ class ReadVM: ObservableObject {
             if !self.isPlaying {
                 timer.invalidate()
             }
-            else if self.startCountDown > 0, self.currentIndex == 0 {
+            else if self.startCountDown > 1, self.currentIndex == 0 {
                 self.startCountDown -= 1
                 
                 withAnimation(.linear(duration: 1.0)) {
@@ -117,8 +90,8 @@ class ReadVM: ObservableObject {
                 switch self.step {
                 case .step1: self.startStep1Animation()
                 case .step2: self.startStep2Animation()
-                case .sentence: self.startStep1Animation()
-                case .none: break
+                case .sentence: self.startSentenceAnimation()
+                case .none: self.startStep1Animation()
                 }
             }
         }
@@ -136,14 +109,14 @@ class ReadVM: ObservableObject {
             }
         }
         
-        timer = Timer.scheduledTimer(withTimeInterval: 1.4, repeats: true) { timer in
+        timer = Timer.scheduledTimer(withTimeInterval: 1.5, repeats: true) { timer in
             self.animationWidthGague = 0
             
             if !self.isPlaying {
                 timer.invalidate()
                 self.stopAnimation()
             }
-            else if self.startCountDown == 0, self.isPlaying, (self.currentIndex != self.numberOfWords - 1) {
+            else if self.startCountDown == 1, self.isPlaying, (self.currentIndex != self.numberOfWords - 1) {
                 guard let step = self.step else { return }
                 if self.currentIndex == 1 {
                     self.recoder.startRecording(typeIs: step.type)
@@ -189,14 +162,14 @@ class ReadVM: ObservableObject {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.4, execute: self.upperAnimation!)
         DispatchQueue.main.asyncAfter(deadline: .now() + 5.4, execute: self.lowerAnimation!)
         
-        timer = Timer.scheduledTimer(withTimeInterval: 10.4, repeats: true) { timer in
+        timer = Timer.scheduledTimer(withTimeInterval: 10.5, repeats: true) { timer in
             self.animationWidthGague = 0
             self.animationSecondLineWidthGague = 0
             
             if !self.isPlaying {
                 timer.invalidate()
             }
-            else if self.startCountDown == 0, self.isPlaying, (self.currentIndex != self.numberOfWords - 1) {
+            else if self.startCountDown == 1, self.isPlaying, (self.currentIndex != self.numberOfWords - 1) {
                 guard let step = self.step else { return }
                 if self.currentIndex == 1 {
                     self.recoder.startRecording(typeIs: step.type)
@@ -210,6 +183,34 @@ class ReadVM: ObservableObject {
                 }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.4, execute: self.upperAnimation!)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 5.4, execute: self.lowerAnimation!)
+            }
+            else {
+                self.stopAnimation()
+            }
+        }
+    }
+    
+    func startSentenceAnimation() {
+        withAnimation(.linear(duration: 0.4)) {
+            self.currentIndex += 1
+        }
+        guard let step = self.step else { return }
+        
+        timer = Timer.scheduledTimer(withTimeInterval: CGFloat(step.wordCard[self.currentIndex].count) + 0.5, repeats: true) { timer in
+            if !self.isPlaying {
+                timer.invalidate()
+            }
+            else if self.startCountDown == 1, self.isPlaying, (self.currentIndex != self.numberOfWords - 1) {
+                if self.currentIndex == 1 {
+                    self.recoder.startRecording(typeIs: step.type)
+                }
+                else {
+                    self.isPaused = false
+                    self.recoder.resumeRecording()
+                }
+                withAnimation(.linear(duration: 0.4)) {
+                    self.currentIndex += 1
+                }
             }
             else {
                 self.stopAnimation()

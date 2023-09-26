@@ -58,7 +58,6 @@ struct ReadView: View {
         .alert("연습을 중단할까요?", isPresented: $readVM.isPaused, actions: {
             Button("취소", role: .none) {
                 readVM.isPlaying = true
-                //                readVM.startAnimation()
                 readVM.startCountdownAnimation()
             }
             Button("중단하기", role: .cancel) {
@@ -204,33 +203,31 @@ struct ReadView: View {
                                     .font(.cardBig())
                                     .multilineTextAlignment(.center)
                                     .foregroundColor(Colors.black)
-                                if readVM.currentIndex == idx {
-                                    Text(step.wordCard[idx])
-                                        .font(.cardBig())
-                                        .multilineTextAlignment(.center)
-                                        .foregroundColor(Colors.orange)
-                                        .mask {
-                                            
+                                Text(step.wordCard[idx])
+                                    .font(.cardBig())
+                                    .multilineTextAlignment(.center)
+                                    .foregroundColor(Colors.orange)
+                                    .mask {
+                                        if readVM.currentIndex == idx {
                                             GeometryReader { proxy in
                                                 Colors.orange
                                                     .frame(width: proxy.frame(in: .local).width * readVM.animationWidthGague)
                                             }
                                         }
-                                }
+                                    }
                             case .step2:
                                 Text(step.wordCard[idx])
                                     .font(.cardMedium())
                                     .multilineTextAlignment(.center)
                                     .foregroundColor(Colors.black)
                                     .padding()
-                                if readVM.currentIndex == idx {
-                                    Text(step.wordCard[idx])
-                                        .font(.cardMedium())
-                                        .multilineTextAlignment(.center)
-                                        .foregroundColor(Colors.orange)
-                                        .padding()
-                                        .mask {
-                                            
+                                Text(step.wordCard[idx])
+                                    .font(.cardMedium())
+                                    .multilineTextAlignment(.center)
+                                    .foregroundColor(Colors.orange)
+                                    .padding()
+                                    .mask {
+                                        if readVM.currentIndex == idx {
                                             GeometryReader { proxy in
                                                 VStack(alignment: .leading) {
                                                     Colors.orange
@@ -240,27 +237,27 @@ struct ReadView: View {
                                                 }
                                             }
                                         }
-                                }
+                                    }
                             case .sentence:
                                 Text(step.wordCard[idx])
                                     .font(.cardSmall())
                                     .multilineTextAlignment(.center)
                                     .foregroundColor(Colors.black)
                                     .padding()
-                                if readVM.currentIndex == idx {
-                                    Text(step.wordCard[idx])
-                                        .font(.cardSmall())
-                                        .multilineTextAlignment(.center)
-                                        .foregroundColor(Colors.orange)
-                                        .padding()
-                                        .mask {
+                                Text(step.wordCard[idx])
+                                    .font(.cardSmall())
+                                    .multilineTextAlignment(.center)
+                                    .foregroundColor(Colors.orange)
+                                    .padding()
+                                    .mask {
+                                        if readVM.currentIndex == idx {
                                             GeometryReader { proxy in
                                                 Colors.orange
                                                     .frame(width: proxy.frame(in: .local).width * readVM.animationWidthGague)
                                             }
                                         }
-                                    
-                                }
+                                        
+                                    }
                             }
                         }
                     }
