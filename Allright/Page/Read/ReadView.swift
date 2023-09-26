@@ -228,11 +228,10 @@ struct ReadView: View {
                         if readVM.currentIndex == idx {
                             if idx == 0 {
                                 timerNumberView
-                                    .foregroundColor(Colors.orange)
                                     .mask {
                                         GeometryReader { proxy in
                                             Colors.orange
-                                                .frame(width: proxy.frame(in: .local).width * CGFloat(readVM.animationWidthGague))
+                                                .frame(width: CGFloat(proxy.frame(in: .local).width) * CGFloat(readVM.animationWidthGague))
                                         }
                                     }
                             }
@@ -242,11 +241,10 @@ struct ReadView: View {
                                     Text(step.wordCard[idx])
                                         .font(.cardBig())
                                         .multilineTextAlignment(.center)
-                                        .foregroundColor(Colors.orange)
                                         .mask {
                                             GeometryReader { proxy in
                                                 Colors.orange
-                                                    .frame(width: proxy.frame(in: .local).width * CGFloat(readVM.animationWidthGague))
+                                                    .frame(width: CGFloat(proxy.frame(in: .local).width) * CGFloat(readVM.animationWidthGague))
                                             }
                                             
                                         }
@@ -254,15 +252,14 @@ struct ReadView: View {
                                     Text(step.wordCard[idx])
                                         .font(.cardMedium())
                                         .multilineTextAlignment(.center)
-                                        .foregroundColor(Colors.orange)
                                         .padding()
                                         .mask {
                                             GeometryReader { proxy in
                                                 VStack(alignment: .leading) {
                                                     Colors.orange
-                                                        .frame(width: proxy.frame(in: .local).width * CGFloat(readVM.animationWidthGague))
+                                                        .frame(width: CGFloat(proxy.frame(in: .local).width) * CGFloat(readVM.animationWidthGague))
                                                     Colors.orange
-                                                        .frame(width: proxy.frame(in: .local).width * CGFloat(readVM.animationSecondLineWidthGague))
+                                                        .frame(width: CGFloat(proxy.frame(in: .local).width) * CGFloat(readVM.animationSecondLineWidthGague))
                                                 }
                                                 
                                             }
@@ -271,18 +268,18 @@ struct ReadView: View {
                                     Text(step.wordCard[idx])
                                         .font(.cardSmall())
                                         .multilineTextAlignment(.center)
-                                        .foregroundColor(Colors.orange)
                                         .padding()
                                         .mask {
                                             GeometryReader { proxy in
                                                 Colors.orange
-                                                    .frame(width: proxy.frame(in: .local).width * CGFloat(readVM.animationWidthGague))
+                                                    .frame(width: CGFloat(proxy.frame(in: .local).width) * CGFloat(readVM.animationWidthGague))
                                             }
                                         }
                                 }
                             }
                         }
                     }
+                    .foregroundColor(Colors.orange)
                     .offset(x: CGFloat(idx - readVM.currentIndex) * UIScreen.getWidth(280) + CGFloat(readVM.dragOffset))
             }
         }
