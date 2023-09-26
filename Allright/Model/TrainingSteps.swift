@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum TrainingSteps {
+enum TrainingSteps: CaseIterable {
     case step1, step2, sentence
     
     var title: String {

@@ -16,6 +16,8 @@ class ReadVM: ObservableObject {
     var step2SecondLineAnimation: DispatchWorkItem?
     var step2ThirdLineAnimation: DispatchWorkItem?
     
+    let voicePlayer = GuideVoicePlayer()
+    
     @Published var isSoundOn = false
     @Published var numberOfWords: Int = 0
     @Published var currentIndex: Int = 0
@@ -30,10 +32,11 @@ class ReadVM: ObservableObject {
     @Published var animationSecondLineWidthGague = 0.0
     @Published var animationThirdLineWidthGague = 0.0
     
-    let recoder = VoicerecordVM()
+    let recoder = VoiceRecorder()
     
     func toggleAnimation() {
         if self.isPlaying {
+            voicePlayer.stopPlaying()
             stopAnimation()
         }
         else {
@@ -49,16 +52,24 @@ class ReadVM: ObservableObject {
         animationSecondLineWidthGague = 0
         animationThirdLineWidthGague = 0
         stopAnimation()
+        
+        if isSoundOn {
+            voicePlayer.soundOn()
+        }
+        else {
+            voicePlayer.soundOff()
+        }
     }
     
     func stopAnimation() {
         isPlaying = false
+        
         timer!.invalidate()
         if self.currentIndex == numberOfWords - 1 {
             isFinished = true
             recoder.stopRecording()
         }
-        else if self.currentIndex >= 1, currentIndex != numberOfWords - 1 {
+        else if self.currentIndex >= 1 {
             if self.step == .step2 {
                 step2SoloLineAnimation?.cancel()
                 step2FirstLineAnimation?.cancel()
@@ -66,7 +77,6 @@ class ReadVM: ObservableObject {
                 step2ThirdLineAnimation?.cancel()
             }
             isPaused = true
-            self.currentIndex -= 1
             recoder.pauseRecording()
         }
     }
@@ -79,6 +89,10 @@ class ReadVM: ObservableObject {
             withAnimation(.linear(duration: 1.0)) {
                 self.animationWidthGague = 1.0
             }
+        }
+        else if startCountDown <= 1, self.isPaused {
+            self.isPaused = false
+            self.recoder.resumeRecording()
         }
         
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { localTimer in
@@ -95,15 +109,18 @@ class ReadVM: ObservableObject {
                 }
             }
             else {
+                guard let step = self.step else { return }
+                
                 localTimer.invalidate()
                 
                 if self.currentIndex == 0 {
+                    self.recoder.startRecording(typeIs: step.type)
+                    
                     withAnimation(.linear(duration: 0.4)) {
                         self.currentIndex += 1
                     }
                 }
                 
-                guard let step = self.step else { return }
                 switch step {
                 case .step1: self.step1Animation()
                 case .step2: self.step2Animation()
@@ -117,7 +134,9 @@ class ReadVM: ObservableObject {
         self.animationWidthGague = 0
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-            if self.isPlaying {
+            if self.isPlaying, self.currentIndex != 0 {
+                self.voicePlayer.startPlaying(step: .step1, index: self.currentIndex, isSoundOn: self.isSoundOn)
+                
                 withAnimation(.linear(duration: 1.0)) {
                     self.animationWidthGague = 1.0
                 }
@@ -132,20 +151,12 @@ class ReadVM: ObservableObject {
                 self.stopAnimation()
             }
             else if (self.currentIndex != self.numberOfWords - 1) {
-                guard let step = self.step else { return }
-                
-                if self.currentIndex == 1 {
-                    self.recoder.startRecording(typeIs: step.type)
-                }
-                else {
-                    self.isPaused = false
-                    self.recoder.resumeRecording()
-                }
-                
                 withAnimation(.linear(duration: 0.4)) {
                     self.currentIndex += 1
                 }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                    self.voicePlayer.startPlaying(step: .step1, index: self.currentIndex, isSoundOn: self.isSoundOn)
+                    
                     withAnimation(.linear(duration: 1.0)) {
                         self.animationWidthGague = 1.0
                     }
@@ -166,13 +177,22 @@ class ReadVM: ObservableObject {
         
         step2SoloLineAnimation = DispatchWorkItem {
             if self.isPlaying {
+                if self.currentIndex != 0 {
+                    self.voicePlayer.startPlaying(step: .step2, index: self.currentIndex, isSoundOn: self.isSoundOn)
+                }
+                
                 withAnimation(.linear(duration: 2.4)) {
                     self.animationWidthGague = 1.0
                 }
             }
         }
+        
         step2FirstLineAnimation = DispatchWorkItem {
             if self.isPlaying {
+                if self.currentIndex != 0 {
+                    self.voicePlayer.startPlaying(step: .step2, index: self.currentIndex, isSoundOn: self.isSoundOn)
+                }
+                
                 withAnimation(.linear(duration: 2.4)) {
                     self.animationFirstLineWidthGague = 1.0
                 }
@@ -201,8 +221,8 @@ class ReadVM: ObservableObject {
         }
         else {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.4, execute: self.step2FirstLineAnimation!)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.8, execute: self.step2SecondLineAnimation!)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 5.2, execute: self.step2ThirdLineAnimation!)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.4, execute: self.step2SecondLineAnimation!)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 4.4, execute: self.step2ThirdLineAnimation!)
         }
         
         timer = Timer.scheduledTimer(withTimeInterval: animationTimeInterval, repeats: true) { localTimer in
@@ -215,16 +235,6 @@ class ReadVM: ObservableObject {
                 localTimer.invalidate()
             }
             else if (self.currentIndex != self.numberOfWords - 1) {
-                guard let step = self.step else { return }
-                
-                if self.currentIndex == 1 {
-                    self.recoder.startRecording(typeIs: step.type)
-                }
-                else {
-                    self.isPaused = false
-                    self.recoder.resumeRecording()
-                }
-                
                 localTimer.invalidate()
                 
                 withAnimation(.linear(duration: 0.4)) {
@@ -248,14 +258,6 @@ class ReadVM: ObservableObject {
                 localTimer.invalidate()
             }
             else if self.startCountDown == 1, self.isPlaying, (self.currentIndex != self.numberOfWords - 1) {
-                if self.currentIndex == 1 {
-                    self.recoder.startRecording(typeIs: step.type)
-                }
-                else {
-                    self.isPaused = false
-                    self.recoder.resumeRecording()
-                }
-                
                 withAnimation(.linear(duration: 0.4)) {
                     self.currentIndex += 1
                 }
@@ -263,6 +265,17 @@ class ReadVM: ObservableObject {
             else {
                 self.stopAnimation()
             }
+        }
+    }
+    
+    func toggleSound() {
+        if isSoundOn {
+            isSoundOn = false
+            voicePlayer.soundOff()
+        }
+        else {
+            isSoundOn = true
+            voicePlayer.soundOn()
         }
     }
 }

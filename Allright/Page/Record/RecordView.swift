@@ -9,8 +9,8 @@ import SwiftUI
 
 struct RecordView: View {
     @StateObject var recordVM = RecordVM()
-    @StateObject var voicerecordVM = VoicerecordVM()
-    @StateObject var player = VoicePlayerVM()
+    @StateObject var voicerecord = VoiceRecorder()
+    @StateObject var player = VoicePlayer()
     
     var body: some View {
         ZStack {
@@ -19,15 +19,15 @@ struct RecordView: View {
                 topBanner
                 ScrollView(.vertical) {
                     VStack {
-                        ForEach(0..<voicerecordVM.voicerecordList.count, id: \.self) { idx in
-                            let url = voicerecordVM.voicerecordList[idx].fileURL
+                        ForEach(0..<voicerecord.voicerecordList.count, id: \.self) { idx in
+                            let url = voicerecord.voicerecordList[idx].fileURL
                             HStack {
                                 if recordVM.isEditMode {
                                     radioButton(url)
                                         .padding(.leading, 8)
                                 }
                                 ZStack {
-                                    RecordListCard(record: voicerecordVM.voicerecordList[idx], playerVM: player)
+                                    RecordListCard(record: voicerecord.voicerecordList[idx], player: player)
                                     if recordVM.isEditMode {
                                         blendButton
                                             .onTapGesture {
@@ -46,7 +46,7 @@ struct RecordView: View {
             Divider()
         }
         .onAppear {
-            voicerecordVM.fetchVoicerecordFile()
+            voicerecord.fetchVoicerecordFile()
         }
         .onDisappear {
             recordVM.reset()
@@ -74,7 +74,7 @@ struct RecordView: View {
                     Button("확인", role: .none) {
                         if !recordVM.deleteURLs.isEmpty {
                             let _ = recordVM.deleteURLs.map {
-                                voicerecordVM.deleteRecording($0)
+                                voicerecord.deleteRecording($0)
                             }
                             
                             recordVM.deleteURLs = []

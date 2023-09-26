@@ -10,12 +10,10 @@ import SwiftUI
 
 struct ReadView: View {
     let step: TrainingSteps
+    //화면전환용 탭
     @Binding var selection: Int
     @StateObject private var readVM = ReadVM()
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    
-    
-    @StateObject var voicerecordVM = VoicerecordVM()
     
     var body: some View {
         ZStack {
@@ -72,10 +70,12 @@ struct ReadView: View {
         .onAppear {
             readVM.numberOfWords = step.wordCard.count
             readVM.step = step
+            readVM.voicePlayer.soundOff()
         }
         .onDisappear {
             guard let timer = readVM.timer else { return }
             timer.invalidate()
+            readVM.voicePlayer.stopPlaying()
             readVM.recoder.stopRecording()
         }
         .navigationTitle(step.title)
@@ -154,7 +154,7 @@ struct ReadView: View {
     
     var soundButton: some View {
         Button {
-            readVM.isSoundOn.toggle()
+            readVM.toggleSound()
         } label: {
             RoundedRectangle(cornerRadius: 100)
                 .frame(width: UIScreen.getWidth(97), height: UIScreen.getHeight(38))

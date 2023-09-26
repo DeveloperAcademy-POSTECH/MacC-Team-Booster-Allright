@@ -18,9 +18,9 @@ struct HomeView: View {
             VStack(spacing: UIScreen.getHeight(16)) {
                 topBanner
                 Spacer()
-                HomeStepCard(step: .step1, selection: $selection)
-                HomeStepCard(step: .step2, selection: $selection)
-                HomeStepCard(step: .sentence, selection: $selection)
+                ForEach(TrainingSteps.allCases, id: \.self) {
+                    HomeStepCard(step: $0, selection: $selection)
+                }
                 Spacer()
                 Spacer().frame(height: UITabBarController().height)
             }

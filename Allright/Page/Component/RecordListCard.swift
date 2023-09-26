@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RecordListCard: View {
     let record: Voicerecord
-    @ObservedObject var playerVM: VoicePlayerVM
+    @ObservedObject var player: VoicePlayer
     
     var body: some View {
         ZStack {
@@ -44,34 +44,34 @@ struct RecordListCard: View {
                 .gesture(
                     DragGesture()
                         .onChanged { value in
-                            switch playerVM.playerState {
+                            switch player.playerState {
                             case .play:
-                                playerVM.stopPlaying(.pause)
+                                player.stopPlaying(.pause)
                             case .pause:
-                                playerVM.playOffset = value.location.x
+                                player.playOffset = value.location.x
                             case .stop: break
                             }
                         }
                         .onEnded { value in
-                            switch playerVM.playerState {
+                            switch player.playerState {
                             case .play: break
                             case .pause:
-                                playerVM.playOffset = value.location.x
-                                playerVM.startPlaying(record: record)
+                                player.playOffset = value.location.x
+                                player.startPlaying(record: record)
                             case .stop: break
                             }
                         }
                 )
                 .mask {
-                    if record.fileURL == playerVM.playingURL {
+                    if record.fileURL == player.playingURL {
                         Color.black
-                            .frame(width: UIScreen.getWidth(playerVM.playOffset))
+                            .frame(width: UIScreen.getWidth(player.playOffset))
                             .frame(minWidth: 0, maxWidth: UIScreen.getWidth(342), alignment: .leading)
                     }
                 } //: - Mask
         }
         .onDisappear {
-            playerVM.stopPlaying()
+            player.stopPlaying()
         }
     }
     
@@ -106,22 +106,22 @@ struct RecordListCard: View {
             Text(record.playtime)
             
             Button {
-                if playerVM.playingURL == record.fileURL {
-                    switch playerVM.playerState {
-                    case .play: return playerVM.stopPlaying(.pause)
-                    case .pause: return playerVM.startPlaying(record: record, state: .pause)
-                    case .stop: return playerVM.startPlaying(record: record)
+                if player.playingURL == record.fileURL {
+                    switch player.playerState {
+                    case .play: return player.stopPlaying(.pause)
+                    case .pause: return player.startPlaying(record: record, state: .pause)
+                    case .stop: return player.startPlaying(record: record)
                     }
                 }
                 else {
-                    switch playerVM.playerState {
-                    case .play: return playerVM.startPlaying(record: record)
-                    case .pause: return playerVM.startPlaying(record: record)
-                    case .stop: return playerVM.startPlaying(record: record)
+                    switch player.playerState {
+                    case .play: return player.startPlaying(record: record)
+                    case .pause: return player.startPlaying(record: record)
+                    case .stop: return player.startPlaying(record: record)
                     }
                 }
             } label: {
-                if playerVM.playerState == .play && playerVM.playingURL == record.fileURL {
+                if player.playerState == .play && player.playingURL == record.fileURL {
                     Image(systemName: "pause.fill")
                 }
                 else {
