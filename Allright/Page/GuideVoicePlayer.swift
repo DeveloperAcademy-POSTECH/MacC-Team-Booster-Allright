@@ -10,37 +10,33 @@ import AVFoundation
 import UIKit
 
 class GuideVoicePlayer: NSObject, ObservableObject {
-    var step: TrainingSteps?
     var player = AVAudioPlayer()
-    var playList: [URL] = []
+    var step1PlayList: [URL] = []
+    var step2PlayList: [URL] = []
     
-    @Published var isIndex = 0
+    static let shared = GuideVoicePlayer()
     
     override init() {
-        guard let step = self.step else { return }
-        
-        switch step {
-        case .step1:
-            for idx in 1...196 {
-                let path = Bundle.main.path(forResource: "Step1_\(idx).mp3", ofType: nil)!
-                playList.append(URL(filePath: path))
-            }
-        case .step2:
-            for idx in 1...28 {
-                let path = Bundle.main.path(forResource: "Step2_\(idx).mp3", ofType: nil)!
-                playList.append(URL(filePath: path))
-            }
-        case .sentence:
-            break
+        for idx in 1...196 {
+            let path = Bundle.main.path(forResource: "Step1_\(idx).mp3", ofType: nil)!
+            step1PlayList.append(URL(filePath: path))
+        }
+        for idx in 1...28 {
+            let path = Bundle.main.path(forResource: "Step2_\(idx).mp3", ofType: nil)!
+            step2PlayList.append(URL(filePath: path))
         }
     }
     
-    func startPlaying() {
+    func startPlaying(step: TrainingSteps, index: Int) {
         do {
-            player = try AVAudioPlayer(contentsOf: playList[isIndex])
+            switch step {
+            case .step1: player = try AVAudioPlayer(contentsOf: step1PlayList[index])
+            case .step2: player = try AVAudioPlayer(contentsOf: step2PlayList[index])
+            case .sentence: return
+            }
+            
             player.prepareToPlay()
             player.play()
-            isIndex += 1
         } catch {
             print(error.localizedDescription)
         }
