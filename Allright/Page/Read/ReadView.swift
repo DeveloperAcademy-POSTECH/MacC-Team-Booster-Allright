@@ -225,8 +225,8 @@ struct ReadView: View {
                     .frame(width: UIScreen.getWidth(290), height: UIScreen.getHeight(301))
                     .foregroundColor(.clear)
                     .overlay {
-                        if idx == 0 {
-                            if readVM.currentIndex == idx {
+                        if readVM.currentIndex == idx {
+                            if idx == 0 {
                                 timerNumberView
                                     .foregroundColor(Colors.orange)
                                     .mask {
@@ -236,30 +236,27 @@ struct ReadView: View {
                                         }
                                     }
                             }
-                        }
-                        else {
-                            switch step {
-                            case .step1:
-                                Text(step.wordCard[idx])
-                                    .font(.cardBig())
-                                    .multilineTextAlignment(.center)
-                                    .foregroundColor(Colors.orange)
-                                    .mask {
-                                        if readVM.currentIndex == idx {
+                            else {
+                                switch step {
+                                case .step1:
+                                    Text(step.wordCard[idx])
+                                        .font(.cardBig())
+                                        .multilineTextAlignment(.center)
+                                        .foregroundColor(Colors.orange)
+                                        .mask {
                                             GeometryReader { proxy in
                                                 Colors.orange
                                                     .frame(width: proxy.frame(in: .local).width * CGFloat(readVM.animationWidthGague))
                                             }
+                                            
                                         }
-                                    }
-                            case .step2:
-                                Text(step.wordCard[idx])
-                                    .font(.cardMedium())
-                                    .multilineTextAlignment(.center)
-                                    .foregroundColor(Colors.orange)
-                                    .padding()
-                                    .mask {
-                                        if readVM.currentIndex == idx {
+                                case .step2:
+                                    Text(step.wordCard[idx])
+                                        .font(.cardMedium())
+                                        .multilineTextAlignment(.center)
+                                        .foregroundColor(Colors.orange)
+                                        .padding()
+                                        .mask {
                                             GeometryReader { proxy in
                                                 VStack(alignment: .leading) {
                                                     Colors.orange
@@ -267,29 +264,25 @@ struct ReadView: View {
                                                     Colors.orange
                                                         .frame(width: proxy.frame(in: .local).width * CGFloat(readVM.animationSecondLineWidthGague))
                                                 }
+                                                
                                             }
                                         }
-                                    }
-                            case .sentence:
-                                Text(step.wordCard[idx])
-                                    .font(.cardSmall())
-                                    .multilineTextAlignment(.center)
-                                    .foregroundColor(Colors.orange)
-                                    .padding()
-                                    .mask {
-                                        if readVM.currentIndex == idx {
+                                case .sentence:
+                                    Text(step.wordCard[idx])
+                                        .font(.cardSmall())
+                                        .multilineTextAlignment(.center)
+                                        .foregroundColor(Colors.orange)
+                                        .padding()
+                                        .mask {
                                             GeometryReader { proxy in
                                                 Colors.orange
                                                     .frame(width: proxy.frame(in: .local).width * CGFloat(readVM.animationWidthGague))
                                             }
                                         }
-                                        
-                                    }
+                                }
                             }
                         }
                     }
-                    .opacity(readVM.currentIndex == idx ? 1.0 : 0.7)
-                    .scaleEffect(readVM.currentIndex == idx ? 1 : 0.8)
                     .offset(x: CGFloat(idx - readVM.currentIndex) * UIScreen.getWidth(280) + CGFloat(readVM.dragOffset))
             }
         }
