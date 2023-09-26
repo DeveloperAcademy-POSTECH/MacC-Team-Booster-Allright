@@ -16,7 +16,7 @@ class GuideVoicePlayer: NSObject, ObservableObject {
     
     static let shared = GuideVoicePlayer()
     
-    override init() {
+    private override init() {
         for idx in 1...196 {
             let path = Bundle.main.path(forResource: "Step1_\(idx).mp3", ofType: nil)!
             step1PlayList.append(URL(filePath: path))

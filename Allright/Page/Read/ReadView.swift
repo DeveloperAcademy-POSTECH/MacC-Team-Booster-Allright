@@ -10,12 +10,10 @@ import SwiftUI
 
 struct ReadView: View {
     let step: TrainingSteps
+    //화면전환용 탭
     @Binding var selection: Int
     @StateObject private var readVM = ReadVM()
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    
-    
-    @StateObject var voicerecordVM = VoiceRecorder()
     
     var body: some View {
         ZStack {

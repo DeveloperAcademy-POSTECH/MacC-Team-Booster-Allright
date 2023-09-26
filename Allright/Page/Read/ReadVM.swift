@@ -75,6 +75,7 @@ class ReadVM: ObservableObject {
     
     func startAnimation() {
         isPlaying = true
+        isPaused = false
         self.animationWidthGague = 0
         
         if currentIndex == 0 {
