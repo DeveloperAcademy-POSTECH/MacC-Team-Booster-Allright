@@ -28,7 +28,10 @@ struct ReadView: View {
                 Spacer()
             }
             VStack(spacing: 14) {
-                wordCard
+                ZStack {
+                    wordCard
+                    wordCardMask
+                }
                 progressbar
                 Spacer().frame(height: UITabBarController().height)
             }
@@ -185,6 +188,44 @@ struct ReadView: View {
                         if idx == 0 {
                             timerNumberView
                                 .foregroundColor(Colors.black)
+                        }
+                        else {
+                            switch step {
+                            case .step1:
+                                Text(step.wordCard[idx])
+                                    .font(.cardBig())
+                                    .multilineTextAlignment(.center)
+                                    .foregroundColor(Colors.black)
+                            case .step2:
+                                Text(step.wordCard[idx])
+                                    .font(.cardMedium())
+                                    .multilineTextAlignment(.center)
+                                    .foregroundColor(Colors.black)
+                                    .padding()
+                            case .sentence:
+                                Text(step.wordCard[idx])
+                                    .font(.cardSmall())
+                                    .multilineTextAlignment(.center)
+                                    .foregroundColor(Colors.black)
+                                    .padding()
+                            }
+                        }
+                    }
+                    .opacity(readVM.currentIndex == idx ? 1.0 : 0.7)
+                    .scaleEffect(readVM.currentIndex == idx ? 1 : 0.8)
+                    .offset(x: CGFloat(idx - readVM.currentIndex) * UIScreen.getWidth(280) + CGFloat(readVM.dragOffset))
+            }
+        }
+    }
+    
+    var wordCardMask: some View {
+        ZStack {
+            ForEach(0..<step.wordCard.count, id: \.self) { idx in
+                RoundedRectangle(cornerRadius: 20)
+                    .frame(width: UIScreen.getWidth(290), height: UIScreen.getHeight(301))
+                    .foregroundColor(.clear)
+                    .overlay {
+                        if idx == 0 {
                             if readVM.currentIndex == idx {
                                 timerNumberView
                                     .foregroundColor(Colors.orange)
@@ -202,10 +243,6 @@ struct ReadView: View {
                                 Text(step.wordCard[idx])
                                     .font(.cardBig())
                                     .multilineTextAlignment(.center)
-                                    .foregroundColor(Colors.black)
-                                Text(step.wordCard[idx])
-                                    .font(.cardBig())
-                                    .multilineTextAlignment(.center)
                                     .foregroundColor(Colors.orange)
                                     .mask {
                                         if readVM.currentIndex == idx {
@@ -216,11 +253,6 @@ struct ReadView: View {
                                         }
                                     }
                             case .step2:
-                                Text(step.wordCard[idx])
-                                    .font(.cardMedium())
-                                    .multilineTextAlignment(.center)
-                                    .foregroundColor(Colors.black)
-                                    .padding()
                                 Text(step.wordCard[idx])
                                     .font(.cardMedium())
                                     .multilineTextAlignment(.center)
@@ -239,11 +271,6 @@ struct ReadView: View {
                                         }
                                     }
                             case .sentence:
-                                Text(step.wordCard[idx])
-                                    .font(.cardSmall())
-                                    .multilineTextAlignment(.center)
-                                    .foregroundColor(Colors.black)
-                                    .padding()
                                 Text(step.wordCard[idx])
                                     .font(.cardSmall())
                                     .multilineTextAlignment(.center)
