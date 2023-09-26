@@ -191,7 +191,7 @@ struct ReadView: View {
                                     .mask {
                                         GeometryReader { proxy in
                                             Colors.orange
-                                                .frame(width: proxy.frame(in: .local).width * readVM.animationWidthGague)
+                                                .frame(width: proxy.frame(in: .local).width * CGFloat(readVM.animationWidthGague))
                                         }
                                     }
                             }
@@ -211,7 +211,7 @@ struct ReadView: View {
                                         if readVM.currentIndex == idx {
                                             GeometryReader { proxy in
                                                 Colors.orange
-                                                    .frame(width: proxy.frame(in: .local).width * readVM.animationWidthGague)
+                                                    .frame(width: proxy.frame(in: .local).width * CGFloat(readVM.animationWidthGague))
                                             }
                                         }
                                     }
@@ -231,9 +231,9 @@ struct ReadView: View {
                                             GeometryReader { proxy in
                                                 VStack(alignment: .leading) {
                                                     Colors.orange
-                                                        .frame(width: proxy.frame(in: .local).width * readVM.animationWidthGague)
+                                                        .frame(width: proxy.frame(in: .local).width * CGFloat(readVM.animationWidthGague))
                                                     Colors.orange
-                                                        .frame(width: proxy.frame(in: .local).width * readVM.animationSecondLineWidthGague)
+                                                        .frame(width: proxy.frame(in: .local).width * CGFloat(readVM.animationSecondLineWidthGague))
                                                 }
                                             }
                                         }
@@ -253,7 +253,7 @@ struct ReadView: View {
                                         if readVM.currentIndex == idx {
                                             GeometryReader { proxy in
                                                 Colors.orange
-                                                    .frame(width: proxy.frame(in: .local).width * readVM.animationWidthGague)
+                                                    .frame(width: proxy.frame(in: .local).width * CGFloat(readVM.animationWidthGague))
                                             }
                                         }
                                         
