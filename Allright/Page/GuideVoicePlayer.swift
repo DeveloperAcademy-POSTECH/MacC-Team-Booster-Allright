@@ -14,9 +14,7 @@ class GuideVoicePlayer: NSObject, ObservableObject {
     var step1PlayList: [URL] = []
     var step2PlayList: [URL] = []
     
-    static let shared = GuideVoicePlayer()
-    
-    private override init() {
+    override init() {
         for idx in 1...196 {
             let path = Bundle.main.path(forResource: "Step1_\(idx).mp3", ofType: nil)!
             step1PlayList.append(URL(filePath: path))
@@ -27,12 +25,18 @@ class GuideVoicePlayer: NSObject, ObservableObject {
         }
     }
     
-    func startPlaying(step: TrainingSteps, index: Int) {
+    func startPlaying(step: TrainingSteps, index: Int, isSoundOn: Bool) {
         do {
             switch step {
             case .step1: player = try AVAudioPlayer(contentsOf: step1PlayList[index - 1])
             case .step2: player = try AVAudioPlayer(contentsOf: step2PlayList[index - 1])
             case .sentence: return
+            }
+            if isSoundOn {
+                self.soundOn()
+            }
+            else {
+                self.soundOff()
             }
             
             player.prepareToPlay()
@@ -44,5 +48,13 @@ class GuideVoicePlayer: NSObject, ObservableObject {
     
     func stopPlaying() {
         player.stop()
+    }
+    
+    func soundOn() {
+        player.setVolume(1.0, fadeDuration: 0)
+    }
+    
+    func soundOff() {
+        player.setVolume(0.0, fadeDuration: 0)
     }
 }

@@ -70,10 +70,12 @@ struct ReadView: View {
         .onAppear {
             readVM.numberOfWords = step.wordCard.count
             readVM.step = step
+            readVM.voicePlayer.soundOff()
         }
         .onDisappear {
             guard let timer = readVM.timer else { return }
             timer.invalidate()
+            readVM.voicePlayer.stopPlaying()
             readVM.recoder.stopRecording()
         }
         .navigationTitle(step.title)
@@ -152,7 +154,7 @@ struct ReadView: View {
     
     var soundButton: some View {
         Button {
-            readVM.isSoundOn.toggle()
+            readVM.toggleSound()
         } label: {
             RoundedRectangle(cornerRadius: 100)
                 .frame(width: UIScreen.getWidth(97), height: UIScreen.getHeight(38))
@@ -292,7 +294,6 @@ struct ReadView: View {
     
     var backButton: some View {
         Button {
-            GuideVoicePlayer.shared.stopPlaying()
             self.presentationMode.wrappedValue.dismiss()
         } label: {
             Image(systemName: "chevron.backward")
