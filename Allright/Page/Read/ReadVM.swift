@@ -136,7 +136,7 @@ class ReadVM: ObservableObject {
             }
         }
         
-        timer = Timer.scheduledTimer(withTimeInterval: 1.4, repeats: true) { timer in
+        timer = Timer.scheduledTimer(withTimeInterval: 1.5, repeats: true) { timer in
             self.animationWidthGague = 0
             
             if !self.isPlaying {
@@ -186,10 +186,10 @@ class ReadVM: ObservableObject {
             }
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4, execute: self.upperAnimation!)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5.4, execute: self.lowerAnimation!)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: self.upperAnimation!)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5.5, execute: self.lowerAnimation!)
         
-        timer = Timer.scheduledTimer(withTimeInterval: 10.4, repeats: true) { timer in
+        timer = Timer.scheduledTimer(withTimeInterval: 10.5, repeats: true) { timer in
             self.animationWidthGague = 0
             self.animationSecondLineWidthGague = 0
             
@@ -208,8 +208,8 @@ class ReadVM: ObservableObject {
                 withAnimation(.linear(duration: 0.4)) {
                     self.currentIndex += 1
                 }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4, execute: self.upperAnimation!)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 5.4, execute: self.lowerAnimation!)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: self.upperAnimation!)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 5.5, execute: self.lowerAnimation!)
             }
             else {
                 self.stopAnimation()

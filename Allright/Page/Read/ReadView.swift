@@ -174,6 +174,7 @@ struct ReadView: View {
                     .foregroundColor(Colors.white)
                 }
         }
+        .opacity(step == .sentence ? 0 : 1)
     }
     
     var wordCard: some View {
@@ -210,7 +211,6 @@ struct ReadView: View {
                                         .multilineTextAlignment(.center)
                                         .foregroundColor(Colors.orange)
                                         .mask {
-                                            
                                             GeometryReader { proxy in
                                                 Colors.orange
                                                     .frame(width: proxy.frame(in: .local).width * readVM.animationWidthGague)
@@ -230,7 +230,6 @@ struct ReadView: View {
                                         .foregroundColor(Colors.orange)
                                         .padding()
                                         .mask {
-                                            
                                             GeometryReader { proxy in
                                                 VStack(alignment: .leading) {
                                                     Colors.orange
@@ -259,7 +258,6 @@ struct ReadView: View {
                                                     .frame(width: proxy.frame(in: .local).width * readVM.animationWidthGague)
                                             }
                                         }
-                                    
                                 }
                             }
                         }
