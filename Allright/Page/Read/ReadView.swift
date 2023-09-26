@@ -178,7 +178,7 @@ struct ReadView: View {
     }
     
     var wordCard: some View {
-        ZStack {
+        ZStack(content: {
             ForEach(0..<step.wordCard.count, id: \.self) { idx in
                 RoundedRectangle(cornerRadius: 20)
                     .frame(width: UIScreen.getWidth(290), height: UIScreen.getHeight(301))
@@ -266,7 +266,7 @@ struct ReadView: View {
                     .scaleEffect(readVM.currentIndex == idx ? 1 : 0.8)
                     .offset(x: CGFloat(idx - readVM.currentIndex) * UIScreen.getWidth(280) + CGFloat(readVM.dragOffset))
             }
-        }
+        })
     }
     
     var backButton: some View {
