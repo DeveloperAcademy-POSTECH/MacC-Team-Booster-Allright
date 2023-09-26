@@ -183,6 +183,21 @@ struct ReadView: View {
         ZStack {
             ForEach(0..<step.wordCard.count, id: \.self) { idx in
                 RoundedRectangle(cornerRadius: 20)
+                    .gesture(
+                            DragGesture()
+                                .onEnded({ value in
+                                    let threshold: CGFloat = 20
+                                    if step.type == "Sentence", value.translation.width > threshold {
+                                        withAnimation {
+                                            readVM.currentIndex = max(0, readVM.currentIndex - 1)
+                                        }
+                                    } else if step.type == "Sentence", value.translation.width < -threshold {
+                                        withAnimation {
+                                            readVM.currentIndex = min(step.wordCard.count - 1, readVM.currentIndex + 1)
+                                        }
+                                    }
+                                })
+                            )
                     .frame(width: UIScreen.getWidth(290), height: UIScreen.getHeight(301))
                     .foregroundColor(Colors.white)
                     .overlay {
@@ -282,6 +297,21 @@ struct ReadView: View {
                                                     .frame(width: CGFloat(proxy.frame(in: .local).width) * CGFloat(readVM.animationWidthGague))
                                             }
                                         }
+                                        .gesture(
+                                                DragGesture()
+                                                    .onEnded({ value in
+                                                        let threshold: CGFloat = 50
+                                                        if step.type == "Sentence", value.translation.width > threshold {
+                                                            withAnimation {
+                                                                readVM.currentIndex = max(0, readVM.currentIndex - 1)
+                                                            }
+                                                        } else if step.type == "Sentence", value.translation.width < -threshold {
+                                                            withAnimation {
+                                                                readVM.currentIndex = min(step.wordCard.count - 1, readVM.currentIndex + 1)
+                                                            }
+                                                        }
+                                                    })
+                                                )
                                 }
                             }
                         }

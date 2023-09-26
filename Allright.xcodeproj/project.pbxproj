@@ -1414,6 +1414,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Allright/Info.plist;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "\"올바름\"이 음성 녹음을 통해 자신의 녹음기록을 기록하고, 재생할수 있도록 음성 녹음 기능을 허용합니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1446,6 +1447,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Allright/Info.plist;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "\"올바름\"이 음성 녹음을 통해 자신의 녹음기록을 기록하고, 재생할수 있도록 음성 녹음 기능을 허용합니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
