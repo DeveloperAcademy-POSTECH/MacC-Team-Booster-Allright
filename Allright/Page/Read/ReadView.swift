@@ -61,7 +61,7 @@ struct ReadView: View {
         .alert("연습을 중단할까요?", isPresented: $readVM.isPaused, actions: {
             Button("취소", role: .none) {
                 readVM.isPlaying = true
-                readVM.startCountdownAnimation()
+                readVM.startAnimation()
             }
             Button("중단하기", role: .cancel) {
                 readVM.resetReadVM()
@@ -176,6 +176,7 @@ struct ReadView: View {
                     .foregroundColor(Colors.white)
                 }
         }
+        .opacity(step == .sentence ? 0 : 1)
     }
     
     var wordCard: some View {
@@ -246,7 +247,6 @@ struct ReadView: View {
                                                 Colors.orange
                                                     .frame(width: CGFloat(proxy.frame(in: .local).width) * CGFloat(readVM.animationWidthGague))
                                             }
-                                            
                                         }
                                 case .step2:
                                     Text(step.wordCard[idx])
@@ -255,13 +255,20 @@ struct ReadView: View {
                                         .padding()
                                         .mask {
                                             GeometryReader { proxy in
-                                                VStack(alignment: .leading) {
-                                                    Colors.orange
-                                                        .frame(width: CGFloat(proxy.frame(in: .local).width) * CGFloat(readVM.animationWidthGague))
-                                                    Colors.orange
-                                                        .frame(width: CGFloat(proxy.frame(in: .local).width) * CGFloat(readVM.animationSecondLineWidthGague))
+                                                VStack(alignment: .leading, spacing: 0) {
+                                                    if readVM.currentIndex.quotientAndRemainder(dividingBy: 2).remainder == 0 {
+                                                        Colors.orange
+                                                            .frame(width: CGFloat(proxy.frame(in: .local).width) * CGFloat(readVM.animationWidthGague))
+                                                    }
+                                                    else {
+                                                        Colors.orange
+                                                            .frame(width: CGFloat(proxy.frame(in: .local).width) * CGFloat(readVM.animationFirstLineWidthGague))
+                                                        Colors.orange
+                                                            .frame(width: CGFloat(proxy.frame(in: .local).width) * CGFloat(readVM.animationSecondLineWidthGague))
+                                                        Colors.orange
+                                                            .frame(width: CGFloat(proxy.frame(in: .local).width) * CGFloat(readVM.animationThirdLineWidthGague))
+                                                    }
                                                 }
-                                                
                                             }
                                         }
                                 case .sentence:

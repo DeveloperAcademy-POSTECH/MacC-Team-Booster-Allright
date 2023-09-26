@@ -11,8 +11,10 @@ import SwiftUI
 class ReadVM: ObservableObject {
     
     var step: TrainingSteps?
-    var upperAnimation: DispatchWorkItem?
-    var lowerAnimation: DispatchWorkItem?
+    var step2SoloLineAnimation: DispatchWorkItem?
+    var step2FirstLineAnimation: DispatchWorkItem?
+    var step2SecondLineAnimation: DispatchWorkItem?
+    var step2ThirdLineAnimation: DispatchWorkItem?
     
     @Published var isSoundOn = false
     @Published var numberOfWords: Int = 0
@@ -24,7 +26,9 @@ class ReadVM: ObservableObject {
     @Published var isFinished = false
     @Published var isPaused = false
     @Published var animationWidthGague = 0.0
+    @Published var animationFirstLineWidthGague = 0.0
     @Published var animationSecondLineWidthGague = 0.0
+    @Published var animationThirdLineWidthGague = 0.0
     
     let recoder = VoicerecordVM()
     
@@ -33,7 +37,7 @@ class ReadVM: ObservableObject {
             stopAnimation()
         }
         else {
-            startCountdownAnimation()
+            startAnimation()
         }
     }
     
@@ -41,7 +45,9 @@ class ReadVM: ObservableObject {
         currentIndex = 0
         startCountDown = 3
         animationWidthGague = 0
+        animationFirstLineWidthGague = 0
         animationSecondLineWidthGague = 0
+        animationThirdLineWidthGague = 0
         stopAnimation()
     }
     
@@ -54,8 +60,10 @@ class ReadVM: ObservableObject {
         }
         else if self.currentIndex >= 1, currentIndex != numberOfWords - 1 {
             if self.step == .step2 {
-                upperAnimation?.cancel()
-                lowerAnimation?.cancel()
+                step2SoloLineAnimation?.cancel()
+                step2FirstLineAnimation?.cancel()
+                step2SecondLineAnimation?.cancel()
+                step2ThirdLineAnimation?.cancel()
             }
             isPaused = true
             self.currentIndex -= 1
@@ -63,44 +71,51 @@ class ReadVM: ObservableObject {
         }
     }
     
-    func startCountdownAnimation() {
+    func startAnimation() {
         isPlaying = true
+        self.animationWidthGague = 0
         
-        withAnimation(.linear(duration: 1.0)) {
-            self.animationWidthGague = 1.0
+        if currentIndex == 0 {
+            withAnimation(.linear(duration: 1.0)) {
+                self.animationWidthGague = 1.0
+            }
         }
         
-        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { localTimer in
             self.animationWidthGague = 0
-            self.animationSecondLineWidthGague = 0
             
             if !self.isPlaying {
-                timer.invalidate()
+                localTimer.invalidate()
+                self.stopAnimation()
             }
             else if self.startCountDown > 1, self.currentIndex == 0 {
                 self.startCountDown -= 1
-                
                 withAnimation(.linear(duration: 1.0)) {
                     self.animationWidthGague = 1.0
                 }
             }
             else {
-                timer.invalidate()
+                localTimer.invalidate()
                 
-                switch self.step {
-                case .step1: self.startStep1Animation()
-                case .step2: self.startStep2Animation()
-                case .sentence: self.startSentenceAnimation()
-                case .none: self.startStep1Animation()
+                if self.currentIndex == 0 {
+                    withAnimation(.linear(duration: 0.4)) {
+                        self.currentIndex += 1
+                    }
+                }
+                
+                guard let step = self.step else { return }
+                switch step {
+                case .step1: self.step1Animation()
+                case .step2: self.step2Animation()
+                case .sentence: self.sentenceAnimation()
                 }
             }
         }
     }
     
-    func startStep1Animation() {
-        withAnimation(.linear(duration: 0.4)) {
-            self.currentIndex += 1
-        }
+    func step1Animation() {
+        self.animationWidthGague = 0
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
             if self.isPlaying {
                 withAnimation(.linear(duration: 1.0)) {
@@ -109,15 +124,16 @@ class ReadVM: ObservableObject {
             }
         }
         
-        timer = Timer.scheduledTimer(withTimeInterval: 1.5, repeats: true) { timer in
+        timer = Timer.scheduledTimer(withTimeInterval: 1.6, repeats: true) { localTimer in
             self.animationWidthGague = 0
             
             if !self.isPlaying {
-                timer.invalidate()
+                localTimer.invalidate()
                 self.stopAnimation()
             }
-            else if self.startCountDown == 1, self.isPlaying, (self.currentIndex != self.numberOfWords - 1) {
+            else if (self.currentIndex != self.numberOfWords - 1) {
                 guard let step = self.step else { return }
+                
                 if self.currentIndex == 1 {
                     self.recoder.startRecording(typeIs: step.type)
                 }
@@ -125,6 +141,7 @@ class ReadVM: ObservableObject {
                     self.isPaused = false
                     self.recoder.resumeRecording()
                 }
+                
                 withAnimation(.linear(duration: 0.4)) {
                     self.currentIndex += 1
                 }
@@ -135,42 +152,71 @@ class ReadVM: ObservableObject {
                 }
             }
             else {
+                localTimer.invalidate()
                 self.stopAnimation()
             }
         }
     }
     
-    func startStep2Animation() {
-        withAnimation(.linear(duration: 0.4)) {
-            self.currentIndex += 1
-        }
-        upperAnimation = DispatchWorkItem {
+    func step2Animation() {
+        self.animationWidthGague = 0
+        self.animationFirstLineWidthGague = 0
+        self.animationSecondLineWidthGague = 0
+        self.animationThirdLineWidthGague = 0.25
+        
+        step2SoloLineAnimation = DispatchWorkItem {
             if self.isPlaying {
-                withAnimation(.linear(duration: 5)) {
+                withAnimation(.linear(duration: 2.4)) {
                     self.animationWidthGague = 1.0
                 }
             }
         }
-        lowerAnimation = DispatchWorkItem {
+        step2FirstLineAnimation = DispatchWorkItem {
             if self.isPlaying {
-                withAnimation(.linear(duration: 5)) {
+                withAnimation(.linear(duration: 2.4)) {
+                    self.animationFirstLineWidthGague = 1.0
+                }
+            }
+        }
+        step2SecondLineAnimation = DispatchWorkItem {
+            if self.isPlaying {
+                withAnimation(.linear(duration: 2.4)) {
                     self.animationSecondLineWidthGague = 1.0
                 }
             }
         }
+        step2ThirdLineAnimation = DispatchWorkItem {
+            if self.isPlaying {
+                withAnimation(.linear(duration: 1.2)) {
+                    self.animationThirdLineWidthGague = 0.75
+                }
+            }
+        }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4, execute: self.upperAnimation!)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5.4, execute: self.lowerAnimation!)
+        var animationTimeInterval = 7.0
         
-        timer = Timer.scheduledTimer(withTimeInterval: 10.5, repeats: true) { timer in
+        if self.currentIndex.quotientAndRemainder(dividingBy: 2).remainder == 0 {
+            animationTimeInterval = 3.0
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4, execute: self.step2SoloLineAnimation!)
+        }
+        else {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4, execute: self.step2FirstLineAnimation!)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.8, execute: self.step2SecondLineAnimation!)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5.2, execute: self.step2ThirdLineAnimation!)
+        }
+        
+        timer = Timer.scheduledTimer(withTimeInterval: animationTimeInterval, repeats: true) { localTimer in
             self.animationWidthGague = 0
+            self.animationFirstLineWidthGague = 0
             self.animationSecondLineWidthGague = 0
+            self.animationThirdLineWidthGague = 0.25
             
             if !self.isPlaying {
-                timer.invalidate()
+                localTimer.invalidate()
             }
-            else if self.startCountDown == 1, self.isPlaying, (self.currentIndex != self.numberOfWords - 1) {
+            else if (self.currentIndex != self.numberOfWords - 1) {
                 guard let step = self.step else { return }
+                
                 if self.currentIndex == 1 {
                     self.recoder.startRecording(typeIs: step.type)
                 }
@@ -178,27 +224,28 @@ class ReadVM: ObservableObject {
                     self.isPaused = false
                     self.recoder.resumeRecording()
                 }
+                
+                localTimer.invalidate()
+                
                 withAnimation(.linear(duration: 0.4)) {
                     self.currentIndex += 1
                 }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4, execute: self.upperAnimation!)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 5.4, execute: self.lowerAnimation!)
+                
+                self.step2Animation()
             }
             else {
+                localTimer.invalidate()
                 self.stopAnimation()
             }
         }
     }
     
-    func startSentenceAnimation() {
-        withAnimation(.linear(duration: 0.4)) {
-            self.currentIndex += 1
-        }
+    func sentenceAnimation() {
         guard let step = self.step else { return }
         
-        timer = Timer.scheduledTimer(withTimeInterval: CGFloat(step.wordCard[self.currentIndex].count) + 0.5, repeats: true) { timer in
+        timer = Timer.scheduledTimer(withTimeInterval: CGFloat(step.wordCard[self.currentIndex].count) + 0.6, repeats: true) { localTimer in
             if !self.isPlaying {
-                timer.invalidate()
+                localTimer.invalidate()
             }
             else if self.startCountDown == 1, self.isPlaying, (self.currentIndex != self.numberOfWords - 1) {
                 if self.currentIndex == 1 {
@@ -208,6 +255,7 @@ class ReadVM: ObservableObject {
                     self.isPaused = false
                     self.recoder.resumeRecording()
                 }
+                
                 withAnimation(.linear(duration: 0.4)) {
                     self.currentIndex += 1
                 }
