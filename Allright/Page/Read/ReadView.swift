@@ -294,6 +294,7 @@ struct ReadView: View {
     
     var backButton: some View {
         Button {
+            GuideVoicePlayer.shared.stopPlaying()
             self.presentationMode.wrappedValue.dismiss()
         } label: {
             Image(systemName: "chevron.backward")

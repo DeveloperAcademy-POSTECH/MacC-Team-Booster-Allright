@@ -34,6 +34,7 @@ class ReadVM: ObservableObject {
     
     func toggleAnimation() {
         if self.isPlaying {
+            GuideVoicePlayer.shared.stopPlaying()
             stopAnimation()
         }
         else {
@@ -53,6 +54,7 @@ class ReadVM: ObservableObject {
     
     func stopAnimation() {
         isPlaying = false
+        
         timer!.invalidate()
         if self.currentIndex == numberOfWords - 1 {
             isFinished = true
@@ -117,7 +119,11 @@ class ReadVM: ObservableObject {
         self.animationWidthGague = 0
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-            if self.isPlaying {
+            if self.isPlaying, self.currentIndex != 0 {
+                if self.isSoundOn {
+                    GuideVoicePlayer.shared.startPlaying(step: .step1, index: self.currentIndex)
+                }
+                
                 withAnimation(.linear(duration: 1.0)) {
                     self.animationWidthGague = 1.0
                 }
@@ -146,6 +152,10 @@ class ReadVM: ObservableObject {
                     self.currentIndex += 1
                 }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                    if self.isSoundOn {
+                        GuideVoicePlayer.shared.startPlaying(step: .step1, index: self.currentIndex)
+                    }
+                    
                     withAnimation(.linear(duration: 1.0)) {
                         self.animationWidthGague = 1.0
                     }
@@ -166,13 +176,26 @@ class ReadVM: ObservableObject {
         
         step2SoloLineAnimation = DispatchWorkItem {
             if self.isPlaying {
+                if self.currentIndex != 0 {
+                    if self.isSoundOn {
+                        GuideVoicePlayer.shared.startPlaying(step: .step2, index: self.currentIndex)
+                    }
+                }
+                
                 withAnimation(.linear(duration: 2.4)) {
                     self.animationWidthGague = 1.0
                 }
             }
         }
+        
         step2FirstLineAnimation = DispatchWorkItem {
             if self.isPlaying {
+                if self.currentIndex != 0 {
+                    if self.isSoundOn {
+                        GuideVoicePlayer.shared.startPlaying(step: .step2, index: self.currentIndex)
+                    }
+                }
+                
                 withAnimation(.linear(duration: 2.4)) {
                     self.animationFirstLineWidthGague = 1.0
                 }
@@ -201,8 +224,8 @@ class ReadVM: ObservableObject {
         }
         else {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.4, execute: self.step2FirstLineAnimation!)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.8, execute: self.step2SecondLineAnimation!)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 5.2, execute: self.step2ThirdLineAnimation!)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.4, execute: self.step2SecondLineAnimation!)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 4.4, execute: self.step2ThirdLineAnimation!)
         }
         
         timer = Timer.scheduledTimer(withTimeInterval: animationTimeInterval, repeats: true) { localTimer in

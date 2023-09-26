@@ -30,8 +30,8 @@ class GuideVoicePlayer: NSObject, ObservableObject {
     func startPlaying(step: TrainingSteps, index: Int) {
         do {
             switch step {
-            case .step1: player = try AVAudioPlayer(contentsOf: step1PlayList[index])
-            case .step2: player = try AVAudioPlayer(contentsOf: step2PlayList[index])
+            case .step1: player = try AVAudioPlayer(contentsOf: step1PlayList[index - 1])
+            case .step2: player = try AVAudioPlayer(contentsOf: step2PlayList[index - 1])
             case .sentence: return
             }
             
@@ -40,5 +40,9 @@ class GuideVoicePlayer: NSObject, ObservableObject {
         } catch {
             print(error.localizedDescription)
         }
+    }
+    
+    func stopPlaying() {
+        player.stop()
     }
 }
