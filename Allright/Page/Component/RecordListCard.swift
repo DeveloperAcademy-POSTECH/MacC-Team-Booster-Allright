@@ -44,21 +44,25 @@ struct RecordListCard: View {
                 .gesture(
                     DragGesture()
                         .onChanged { value in
-                            switch player.playerState {
-                            case .play:
-                                player.stopPlaying(.pause)
-                            case .pause:
-                                player.playOffset = value.location.x
-                            case .stop: break
+                            if record.fileURL == player.playingURL {
+                                switch player.playerState {
+                                case .play:
+                                    player.stopPlaying(.pause)
+                                case .pause:
+                                    player.playOffset = value.location.x
+                                case .stop: break
+                                }
                             }
                         }
                         .onEnded { value in
-                            switch player.playerState {
-                            case .play: break
-                            case .pause:
-                                player.playOffset = value.location.x
-                                player.startPlaying(record: record)
-                            case .stop: break
+                            if record.fileURL == player.playingURL {
+                                switch player.playerState {
+                                case .play: break
+                                case .pause:
+                                    player.playOffset = value.location.x
+                                    player.startPlaying(record: record)
+                                case .stop: break
+                                }
                             }
                         }
                 )
