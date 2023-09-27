@@ -115,7 +115,7 @@ struct RecordListCard: View {
                 }
                 else {
                     switch player.playerState {
-                    case .play: return player.startPlaying(record: record)
+                    case .play: return player.startPlaying(record: record, state: .play)
                     case .pause: return player.startPlaying(record: record)
                     case .stop: return player.startPlaying(record: record)
                     }
