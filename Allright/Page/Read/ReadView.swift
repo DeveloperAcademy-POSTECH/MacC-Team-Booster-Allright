@@ -73,10 +73,16 @@ struct ReadView: View {
             readVM.voicePlayer.soundOff()
         }
         .onDisappear {
-            guard let timer = readVM.timer else { return }
-            timer.invalidate()
-            readVM.voicePlayer.stopPlaying()
-            readVM.recoder.stopRecording()
+            if step == .sentence {
+                readVM.voicePlayer.stopPlaying()
+                readVM.recoder.stopRecording()
+            }
+            else {
+                guard let timer = readVM.timer else { return }
+                timer.invalidate()
+                readVM.voicePlayer.stopPlaying()
+                readVM.recoder.stopRecording()
+            }
         }
         .navigationTitle(step.title)
         .navigationBarBackButtonHidden(true)
