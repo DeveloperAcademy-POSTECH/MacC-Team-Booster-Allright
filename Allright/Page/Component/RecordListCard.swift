@@ -96,7 +96,9 @@ struct RecordListCard: View {
     }
     
     func recordDate(_ color: Color) -> some View {
-        Text(record.createdAt.description)
+        var description = record.createdAt.description.map { String($0) }
+        description.removeSubrange(14..<description.count)
+        return Text(description.joined())
             .foregroundColor(color)
             .font(Font.body())
     }

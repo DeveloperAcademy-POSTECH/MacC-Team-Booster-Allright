@@ -14,7 +14,6 @@ struct HomeView: View {
     var body: some View {
         ZStack {
             Colors.white
-            
             VStack(spacing: UIScreen.getHeight(16)) {
                 topBanner
                 Spacer()

@@ -15,9 +15,9 @@ class ReadVM: ObservableObject {
     var step2FirstLineAnimation: DispatchWorkItem?
     var step2SecondLineAnimation: DispatchWorkItem?
     var step2ThirdLineAnimation: DispatchWorkItem?
-    
     let voicePlayer = GuideVoicePlayer()
     
+    @Published var randomCard = ["", ""]
     @Published var isSoundOn = false
     @Published var numberOfWords: Int = 0
     @Published var currentIndex: Int = 0
@@ -33,6 +33,22 @@ class ReadVM: ObservableObject {
     @Published var animationThirdLineWidthGague = 0.0
     
     let recoder = VoiceRecorder()
+    
+    func makeRandomCard() -> [String] {
+        let randomIdx = Int.random(in: 0..<19)
+        var result: [String] = []
+        // 홀수값이면 -1해줘야함
+        guard let step = step else { return result }
+        if randomIdx % 2 == 1 {
+            result.append(step.wordCard[randomIdx - 1])
+            result.append(step.wordCard[randomIdx])
+        }
+        else {
+            result.append(step.wordCard[randomIdx])
+            result.append(step.wordCard[randomIdx + 1])
+        }
+        return result
+    }
     
     func toggleAnimation() {
         if self.isPlaying {

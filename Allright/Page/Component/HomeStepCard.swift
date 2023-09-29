@@ -19,10 +19,9 @@ struct HomeStepCard: View {
             .frame(width: UIScreen.getWidth(342), height: UIScreen.getHeight(128))
             .foregroundColor(Colors.gray100)
             .overlay {
-                ZStack {
+                HStack {
                     titles
                     practiceButton
-                    
                 }
             }
     }
@@ -69,7 +68,6 @@ struct HomeStepCard: View {
                             }
                         }
                 }
-                
             }
             .padding()
         }
