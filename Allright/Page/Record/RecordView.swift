@@ -94,7 +94,7 @@ struct RecordView: View {
             Text("셀프피드백")
                 .foregroundColor(Colors.gray600)
                 .font(Font.body())
-                .padding(.bottom, 17)
+                .padding(.bottom, 10)
             Text("녹음기록")
                 .foregroundColor(Colors.black)
                 .font(Font.largeTitle())

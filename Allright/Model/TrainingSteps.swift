@@ -12,8 +12,8 @@ enum TrainingSteps: CaseIterable {
     
     var title: String {
         switch self {
-        case .step1: return "음절읽기1"
-        case .step2: return "음절읽기2"
+        case .step1: return "음절읽기 1"
+        case .step2: return "음절읽기 2"
         case .sentence: return "문장읽기"
         }
     }

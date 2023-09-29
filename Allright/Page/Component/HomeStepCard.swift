@@ -19,15 +19,15 @@ struct HomeStepCard: View {
             .frame(width: UIScreen.getWidth(342), height: UIScreen.getHeight(128))
             .foregroundColor(Colors.gray100)
             .overlay {
-                HStack {
+                HStack(alignment: .center) {
                     titles
+                    Spacer()
                     practiceButton
                 }
             }
     }
-//MARK: - UIcomponents
+    //MARK: - UIcomponents
     var titles: some View {
-        HStack {
             VStack(alignment: .leading, spacing: 5) {
                 Text(step.title)
                     .font(.selectionTitle())
@@ -35,44 +35,37 @@ struct HomeStepCard: View {
                 Text(step.description)
                     .font(.title2())
                     .foregroundColor(Colors.gray500)
-                Spacer()
-            }
-            .padding(.top, 10)
-            .padding(.leading, 5)
-            Spacer()
         }.padding()
     }
     var practiceButton: some View {
-        HStack {
-            Spacer()
-            VStack {
-                Spacer()
-                NavigationLink {
-                    switch step {
-                    case .step1: ReadView(step: step, selection: $selection)
-                    case .step2: ReadView(step: step, selection: $selection)
-                    case .sentence: ReadView(step: step, selection: $selection)
-                    }
-                } label: {
-                    RoundedRectangle(cornerRadius: 1000)
-                        .frame(width: UIScreen.getWidth(109), height: UIScreen.getHeight(42))
-                        .foregroundColor(Colors.green400)
-                        .shadow(radius: 1)
-                        .overlay {
-                            HStack {
-                                Text("연습하기")
-                                    .foregroundColor(Colors.white)
-                                    .font(Font.title2())
-                                Image(systemName: "play.fill")
-                                    .foregroundColor(Colors.white)
-                            }
-                        }
+        NavigationLink {
+            switch step {
+            case .step1: ReadView(step: step, selection: $selection)
+            case .step2: ReadView(step: step, selection: $selection)
+            case .sentence: ReadView(step: step, selection: $selection)
+            }
+        } label: {
+            RoundedRectangle(cornerRadius: 1000)
+                .frame(width: UIScreen.getWidth(109), height: UIScreen.getHeight(42))
+                .foregroundColor(step.blockColor)
+                .padding()
+                .overlay {
+                    HStack {
+                        Text("연습하기")
+                            .foregroundColor(Colors.white)
+                            .font(Font.title2())
+                        Image(systemName: "play.fill")
+                            .foregroundColor(Colors.white)
                 }
             }
-            .padding()
         }
     }
-    
-
 }
 
+
+struct HomeView_Preview: PreviewProvider {
+    static var previews: some View {
+        @State var selection = 1
+        HomeStepCard(step: .step1, selection: $selection)
+    }
+}

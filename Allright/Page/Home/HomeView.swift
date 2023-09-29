@@ -33,16 +33,16 @@ struct HomeView: View {
         Rectangle()
             .ignoresSafeArea()
             .foregroundColor(Colors.gray700)
-            .frame(height: UIScreen.getHeight(155))
+            .frame(height: UIScreen.getHeight(163))
             .overlay {
                 HStack {
-                    VStack(alignment: .leading, spacing: 8) {
+                    VStack(alignment: .leading, spacing: 10) {
                         Spacer()
                         Text(homeVM.today)
                             .font(Font.body())
                         Text("발음 연습")
                             .font(Font.largeTitle())
-                    }.padding(.bottom, UIScreen.getHeight(20))
+                    }.padding(.bottom, UIScreen.getHeight(10))
                     Spacer()
                 }.padding()
             }.foregroundColor(Colors.white)

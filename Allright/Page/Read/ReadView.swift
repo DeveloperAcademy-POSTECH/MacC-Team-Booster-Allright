@@ -80,6 +80,7 @@ struct ReadView: View {
             Text("현재까지의 녹음 기록은 저장돼요")
         })
         .onAppear {
+            VoiceRecorder.requestMicrophonePermission()
             readVM.numberOfWords = step.wordCard.count
             readVM.step = step
             readVM.voicePlayer.soundOff()
