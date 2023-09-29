@@ -61,11 +61,3 @@ struct HomeStepCard: View {
         }
     }
 }
-
-
-struct HomeView_Preview: PreviewProvider {
-    static var previews: some View {
-        @State var selection = 1
-        HomeStepCard(step: .step1, selection: $selection)
-    }
-}
