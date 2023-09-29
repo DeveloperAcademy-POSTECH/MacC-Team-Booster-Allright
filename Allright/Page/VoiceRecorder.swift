@@ -76,7 +76,7 @@ class VoiceRecorder: NSObject, ObservableObject {
         let recordingSession = AVAudioSession.sharedInstance()
         
         do {
-            try recordingSession.setCategory(.record, mode: .default)
+            try recordingSession.setCategory(.playAndRecord, mode: .default)
             try recordingSession.setActive(true)
         } catch {
             print("Cannot setup the Recording")
