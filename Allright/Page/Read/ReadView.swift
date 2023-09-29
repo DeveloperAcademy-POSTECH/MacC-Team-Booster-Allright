@@ -86,6 +86,10 @@ struct ReadView: View {
             readVM.randomCard = readVM.makeRandomCard()
         }
         .onDisappear {
+            if step == .sentence {
+                readVM.voicePlayer.stopPlaying()
+                readVM.recoder.stopRecording()
+            }
             guard let timer = readVM.timer else { return }
             timer.invalidate()
             readVM.voicePlayer.stopPlaying()

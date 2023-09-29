@@ -80,6 +80,13 @@ class ReadVM: ObservableObject {
     func stopAnimation() {
         isPlaying = false
         
+        if self.step == .sentence {
+            isPaused = true
+            recoder.pauseRecording()
+            
+            return
+        }
+        
         timer!.invalidate()
         if self.currentIndex == numberOfWords - 1 {
             isFinished = true
@@ -99,6 +106,13 @@ class ReadVM: ObservableObject {
     
     func startAnimation() {
         isPlaying = true
+        
+        guard let step = self.step else { return }
+        if step == .sentence {
+            sentenceAnimation()
+            return
+        }
+        
         self.animationWidthGague = 0
         
         if currentIndex == 0 {
@@ -140,7 +154,7 @@ class ReadVM: ObservableObject {
                 switch step {
                 case .step1: self.step1Animation()
                 case .step2: self.step2Animation()
-                case .sentence: self.sentenceAnimation()
+                case .sentence: break
                 }
             }
         }
@@ -269,18 +283,12 @@ class ReadVM: ObservableObject {
     func sentenceAnimation() {
         guard let step = self.step else { return }
         
-        timer = Timer.scheduledTimer(withTimeInterval: CGFloat(step.wordCard[self.currentIndex].count) + 0.6, repeats: true) { localTimer in
-            if !self.isPlaying {
-                localTimer.invalidate()
-            }
-            else if self.startCountDown == 1, self.isPlaying, (self.currentIndex != self.numberOfWords - 1) {
-                withAnimation(.linear(duration: 0.4)) {
-                    self.currentIndex += 1
-                }
-            }
-            else {
-                self.stopAnimation()
-            }
+        if isPaused {
+            self.isPaused = false
+            self.recoder.resumeRecording()
+        }
+        else {
+            self.recoder.startRecording(typeIs: step.type)
         }
     }
     
