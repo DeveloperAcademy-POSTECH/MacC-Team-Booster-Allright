@@ -24,7 +24,7 @@ struct RecordView: View {
                             HStack {
                                 if recordVM.isEditMode {
                                     radioButton(url)
-                                        .padding(.leading, 8)
+                                        .padding(.leading, 10)
                                 }
                                 ZStack {
                                     RecordListCard(record: voicerecord.voicerecordList[idx], player: player)
@@ -34,6 +34,9 @@ struct RecordView: View {
                                                 recordVM.appendDelete(url)
                                             }
                                     }
+                                }
+                                if recordVM.isEditMode {
+                                    Spacer().frame(width: UIScreen.getWidth(20), height: UIScreen.getHeight(20))
                                 }
                             }
                         }
@@ -91,7 +94,7 @@ struct RecordView: View {
             Text("셀프피드백")
                 .foregroundColor(Colors.gray600)
                 .font(Font.body())
-                .padding(.bottom, 17)
+                .padding(.bottom, 10)
             Text("녹음기록")
                 .foregroundColor(Colors.black)
                 .font(Font.largeTitle())
@@ -123,12 +126,13 @@ struct RecordView: View {
             .foregroundColor(Colors.orange)
             .frame(width: UIScreen.getWidth(97), height: UIScreen.getHeight(38))
             .overlay {
-                HStack(spacing: 0) {
+                HStack(spacing: 3) {
                     Image(systemName: "trash.fill")
+                        .font(Font.caption1())
                     Text("삭제하기")
+                        .font(Font.body())
                 }
                 .foregroundColor(Colors.white)
-                .font(Font.title2())
             }
     }
     
