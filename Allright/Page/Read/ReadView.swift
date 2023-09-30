@@ -10,6 +10,8 @@ import SwiftUI
 
 struct ReadView: View {
     let step: TrainingSteps
+    //StateObject로 만들어두니까, object가 바뀔때마다
+//    @State var readVM.randomCard: [String] = ["", ""]
     //화면전환용 탭
     @Binding var selection: Int
     @StateObject private var readVM = ReadVM()
@@ -30,7 +32,17 @@ struct ReadView: View {
                     wordCard
                     wordCardMask
                 }
-                progressbar
+                if step != .sentence {
+                    progressbar
+                }
+                if step == .sentence {
+                    //빈 화면입니다. 높이 맞추기 위해서 추가했습니다.
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 100)
+                            .frame(height: UIScreen.getHeight(4))
+                            .foregroundColor(.clear)
+                    }
+                }
                 Spacer().frame(height: UITabBarController().height)
             }
             VStack {
@@ -68,11 +80,17 @@ struct ReadView: View {
             Text("현재까지의 녹음 기록은 저장돼요")
         })
         .onAppear {
+            VoiceRecorder.requestMicrophonePermission()
             readVM.numberOfWords = step.wordCard.count
             readVM.step = step
             readVM.voicePlayer.soundOff()
+            readVM.randomCard = readVM.makeRandomCard()
         }
         .onDisappear {
+            if step == .sentence {
+                readVM.voicePlayer.stopPlaying()
+                readVM.recoder.stopRecording()
+            }
             guard let timer = readVM.timer else { return }
             timer.invalidate()
             readVM.voicePlayer.stopPlaying()
@@ -102,8 +120,7 @@ struct ReadView: View {
             return Text("\(readVM.startCountDown)")
                 .font(.cardBig())
         case .sentence:
-            return Text("\(readVM.startCountDown)")
-                .font(.cardBig())
+            return Text("")
         }
     }
     
@@ -142,13 +159,13 @@ struct ReadView: View {
     }
     
     var progressbar: some View {
-        ZStack(alignment: .leading) {
-            RoundedRectangle(cornerRadius: 100)
-                .frame(width: UIScreen.getWidth(280), height: UIScreen.getHeight(4))
-                .foregroundColor(Colors.green800)
-            RoundedRectangle(cornerRadius: 100)
-                .frame(width: UIScreen.getWidth(280) / CGFloat(step.wordCard.count - 1) * CGFloat(readVM.currentIndex), height: UIScreen.getHeight(4))
-                .foregroundColor(Colors.green100)
+            ZStack(alignment: .leading) {
+                RoundedRectangle(cornerRadius: 100)
+                    .frame(width: UIScreen.getWidth(280), height: UIScreen.getHeight(4))
+                    .foregroundColor(Colors.green800)
+                RoundedRectangle(cornerRadius: 100)
+                    .frame(width: UIScreen.getWidth(280) / CGFloat(step.wordCard.count - 1) * CGFloat(readVM.currentIndex), height: UIScreen.getHeight(4))
+                    .foregroundColor(Colors.green100)
         }
     }
     
@@ -181,9 +198,10 @@ struct ReadView: View {
     
     var wordCard: some View {
         ZStack {
-            ForEach(0..<step.wordCard.count, id: \.self) { idx in
-                RoundedRectangle(cornerRadius: 20)
-                    .gesture(
+            if step != .sentence {
+                ForEach(0..<step.wordCard.count, id: \.self) { idx in
+                    RoundedRectangle(cornerRadius: 20)
+                        .gesture(
                             DragGesture()
                                 .onEnded({ value in
                                     let threshold: CGFloat = 20
@@ -197,39 +215,93 @@ struct ReadView: View {
                                         }
                                     }
                                 })
-                            )
-                    .frame(width: UIScreen.getWidth(290), height: UIScreen.getHeight(301))
-                    .foregroundColor(Colors.white)
-                    .overlay {
-                        if idx == 0 {
-                            timerNumberView
-                                .foregroundColor(Colors.black)
-                        }
-                        else {
-                            switch step {
-                            case .step1:
-                                Text(step.wordCard[idx])
-                                    .font(.cardBig())
-                                    .multilineTextAlignment(.center)
+                        )
+                        .frame(width: UIScreen.getWidth(290), height: UIScreen.getHeight(301))
+                        .foregroundColor(Colors.white)
+                        .overlay {
+                            if idx == 0, step != TrainingSteps.sentence {
+                                timerNumberView
                                     .foregroundColor(Colors.black)
-                            case .step2:
-                                Text(step.wordCard[idx])
-                                    .font(.cardMedium())
-                                    .multilineTextAlignment(.center)
-                                    .foregroundColor(Colors.black)
-                                    .padding()
-                            case .sentence:
-                                Text(step.wordCard[idx])
-                                    .font(.cardSmall())
-                                    .multilineTextAlignment(.center)
-                                    .foregroundColor(Colors.black)
-                                    .padding()
+                            }
+                            else {
+                                switch step {
+                                case .step1:
+                                    Text(step.wordCard[idx])
+                                        .font(.cardBig())
+                                        .multilineTextAlignment(.center)
+                                        .foregroundColor(Colors.black)
+                                case .step2:
+                                    Text(step.wordCard[idx])
+                                        .font(.cardMedium())
+                                        .multilineTextAlignment(.center)
+                                        .foregroundColor(Colors.black)
+                                        .padding()
+                                case .sentence:
+                                    Text(step.wordCard[idx])
+                                }
                             }
                         }
-                    }
-                    .opacity(readVM.currentIndex == idx ? 1.0 : 0.7)
-                    .scaleEffect(readVM.currentIndex == idx ? 1 : 0.8)
-                    .offset(x: CGFloat(idx - readVM.currentIndex) * UIScreen.getWidth(280) + CGFloat(readVM.dragOffset))
+                        .opacity(readVM.currentIndex == idx ? 1.0 : 0.7)
+                        .scaleEffect(readVM.currentIndex == idx ? 1 : 0.8)
+                        .offset(x: CGFloat(idx - readVM.currentIndex) * UIScreen.getWidth(280) + CGFloat(readVM.dragOffset))
+                }
+            }
+            else {
+                ForEach(0..<readVM.randomCard.count, id: \.self) { idx in
+                    RoundedRectangle(cornerRadius: 20)
+                        .gesture(
+                            DragGesture()
+                                .onEnded({ value in
+                                    let threshold: CGFloat = 20
+                                    if step.type == "Sentence", value.translation.width > threshold {
+                                        withAnimation {
+                                            if readVM.currentIndex != 0 {
+                                                readVM.currentIndex = 0
+                                            }
+                                        }
+                                    } else if step.type == "Sentence", value.translation.width < -threshold {
+                                        withAnimation {
+                                            if readVM.currentIndex == 0 {
+                                                readVM.currentIndex = 1
+                                            }
+                                        }
+                                    }
+                                })
+                        )
+                        .frame(width: UIScreen.getWidth(290), height: UIScreen.getHeight(301))
+                        .foregroundColor(Colors.white)
+                        .overlay {
+                            Text("\(readVM.randomCard[idx])")
+                                .font(.cardSmall())
+                                .multilineTextAlignment(.center)
+                                .lineSpacing(1.5)
+                                .foregroundColor(Colors.black)
+                                .padding()
+                                .gesture(
+                                    DragGesture()
+                                        .onEnded({ value in
+                                            let threshold: CGFloat = 20
+                                            if step.type == "Sentence", value.translation.width > threshold {
+                                                withAnimation {
+                                                    if readVM.currentIndex != 0 {
+                                                        readVM.currentIndex = 0
+                                                    }
+                                                }
+                                            }
+                                            else if step.type == "Sentence", value.translation.width < -threshold {
+                                                withAnimation {
+                                                    if readVM.currentIndex == 0 {
+                                                        readVM.currentIndex = 1
+                                                    }
+                                                }
+                                            }
+                                        })
+                                )
+                        }
+                        .opacity(readVM.currentIndex == idx ? 1.0 : 0.7)
+                        .scaleEffect(readVM.currentIndex == idx ? 1 : 0.8)
+                        .offset(x: CGFloat(idx - readVM.currentIndex) * UIScreen.getWidth(280) + CGFloat(readVM.dragOffset))
+                }
             }
         }
     }
@@ -241,8 +313,8 @@ struct ReadView: View {
                     .frame(width: UIScreen.getWidth(290), height: UIScreen.getHeight(301))
                     .foregroundColor(.clear)
                     .overlay {
-                        if readVM.currentIndex == idx {
-                            if idx == 0 {
+                        if readVM.currentIndex == idx, step != TrainingSteps.sentence {
+                            if idx == 0  {
                                 timerNumberView
                                     .mask {
                                         GeometryReader { proxy in
@@ -287,31 +359,7 @@ struct ReadView: View {
                                             }
                                         }
                                 case .sentence:
-                                    Text(step.wordCard[idx])
-                                        .font(.cardSmall())
-                                        .multilineTextAlignment(.center)
-                                        .padding()
-                                        .mask {
-                                            GeometryReader { proxy in
-                                                Colors.orange
-                                                    .frame(width: CGFloat(proxy.frame(in: .local).width) * CGFloat(readVM.animationWidthGague))
-                                            }
-                                        }
-                                        .gesture(
-                                                DragGesture()
-                                                    .onEnded({ value in
-                                                        let threshold: CGFloat = 50
-                                                        if step.type == "Sentence", value.translation.width > threshold {
-                                                            withAnimation {
-                                                                readVM.currentIndex = max(0, readVM.currentIndex - 1)
-                                                            }
-                                                        } else if step.type == "Sentence", value.translation.width < -threshold {
-                                                            withAnimation {
-                                                                readVM.currentIndex = min(step.wordCard.count - 1, readVM.currentIndex + 1)
-                                                            }
-                                                        }
-                                                    })
-                                                )
+                                    Text("")
                                 }
                             }
                         }

@@ -15,9 +15,9 @@ class ReadVM: ObservableObject {
     var step2FirstLineAnimation: DispatchWorkItem?
     var step2SecondLineAnimation: DispatchWorkItem?
     var step2ThirdLineAnimation: DispatchWorkItem?
-    
     let voicePlayer = GuideVoicePlayer()
     
+    @Published var randomCard = ["", ""]
     @Published var isSoundOn = false
     @Published var numberOfWords: Int = 0
     @Published var currentIndex: Int = 0
@@ -33,6 +33,22 @@ class ReadVM: ObservableObject {
     @Published var animationThirdLineWidthGague = 0.0
     
     let recoder = VoiceRecorder()
+    
+    func makeRandomCard() -> [String] {
+        let randomIdx = Int.random(in: 0..<19)
+        var result: [String] = []
+        // 홀수값이면 -1해줘야함
+        guard let step = step else { return result }
+        if randomIdx % 2 == 1 {
+            result.append(step.wordCard[randomIdx - 1])
+            result.append(step.wordCard[randomIdx])
+        }
+        else {
+            result.append(step.wordCard[randomIdx])
+            result.append(step.wordCard[randomIdx + 1])
+        }
+        return result
+    }
     
     func toggleAnimation() {
         if self.isPlaying {
@@ -64,6 +80,13 @@ class ReadVM: ObservableObject {
     func stopAnimation() {
         isPlaying = false
         
+        if self.step == .sentence {
+            isPaused = true
+            recoder.pauseRecording()
+            
+            return
+        }
+        
         timer!.invalidate()
         if self.currentIndex == numberOfWords - 1 {
             isFinished = true
@@ -83,6 +106,13 @@ class ReadVM: ObservableObject {
     
     func startAnimation() {
         isPlaying = true
+        
+        guard let step = self.step else { return }
+        if step == .sentence {
+            sentenceAnimation()
+            return
+        }
+        
         self.animationWidthGague = 0
         
         if currentIndex == 0 {
@@ -124,7 +154,7 @@ class ReadVM: ObservableObject {
                 switch step {
                 case .step1: self.step1Animation()
                 case .step2: self.step2Animation()
-                case .sentence: self.sentenceAnimation()
+                case .sentence: break
                 }
             }
         }
@@ -253,18 +283,12 @@ class ReadVM: ObservableObject {
     func sentenceAnimation() {
         guard let step = self.step else { return }
         
-        timer = Timer.scheduledTimer(withTimeInterval: CGFloat(step.wordCard[self.currentIndex].count) + 0.6, repeats: true) { localTimer in
-            if !self.isPlaying {
-                localTimer.invalidate()
-            }
-            else if self.startCountDown == 1, self.isPlaying, (self.currentIndex != self.numberOfWords - 1) {
-                withAnimation(.linear(duration: 0.4)) {
-                    self.currentIndex += 1
-                }
-            }
-            else {
-                self.stopAnimation()
-            }
+        if isPaused {
+            self.isPaused = false
+            self.recoder.resumeRecording()
+        }
+        else {
+            self.recoder.startRecording(typeIs: step.type)
         }
     }
     

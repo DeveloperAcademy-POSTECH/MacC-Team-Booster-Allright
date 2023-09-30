@@ -44,21 +44,25 @@ struct RecordListCard: View {
                 .gesture(
                     DragGesture()
                         .onChanged { value in
-                            switch player.playerState {
-                            case .play:
-                                player.stopPlaying(.pause)
-                            case .pause:
-                                player.playOffset = value.location.x
-                            case .stop: break
+                            if record.fileURL == player.playingURL {
+                                switch player.playerState {
+                                case .play:
+                                    player.stopPlaying(.pause)
+                                case .pause:
+                                    player.playOffset = value.location.x
+                                case .stop: break
+                                }
                             }
                         }
                         .onEnded { value in
-                            switch player.playerState {
-                            case .play: break
-                            case .pause:
-                                player.playOffset = value.location.x
-                                player.startPlaying(record: record)
-                            case .stop: break
+                            if record.fileURL == player.playingURL {
+                                switch player.playerState {
+                                case .play: break
+                                case .pause:
+                                    player.playOffset = value.location.x
+                                    player.startPlaying(record: record)
+                                case .stop: break
+                                }
                             }
                         }
                 )
@@ -96,7 +100,9 @@ struct RecordListCard: View {
     }
     
     func recordDate(_ color: Color) -> some View {
-        Text(record.createdAt.description)
+        var description = record.createdAt.description.map { String($0) }
+        description.removeSubrange(14..<description.count)
+        return Text(description.joined())
             .foregroundColor(color)
             .font(Font.body())
     }
