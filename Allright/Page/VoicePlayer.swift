@@ -27,6 +27,7 @@ class VoicePlayer: NSObject, ObservableObject, AVAudioPlayerDelegate {
         
         do {
             try playSession.setCategory(.playAndRecord, mode: .default, options: [.allowBluetooth, .allowBluetoothA2DP])
+            try playSession.overrideOutputAudioPort(.none)
             try playSession.setActive(true)
             
         } catch {
