@@ -51,7 +51,7 @@ class GuideVoicePlayer: NSObject, ObservableObject {
     }
     
     func soundOn() {
-        player.setVolume(1.0, fadeDuration: 0)
+        player.setVolume(3.0, fadeDuration: 0)
     }
     
     func soundOff() {

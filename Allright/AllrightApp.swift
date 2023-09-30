@@ -16,6 +16,7 @@ struct AllrightApp: App {
             MainView()
                 .onAppear {
                     Font.registerFonts()
+                    VoicePlayer.setSession()
 //                    VoiceRecorder.requestMicrophonePermission()
                 }
         }
