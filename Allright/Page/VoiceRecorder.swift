@@ -118,6 +118,7 @@ class VoiceRecorder: NSObject, ObservableObject {
     
     func stopRecording() {
         audioRecorder.stop()
+        VoicePlayer.setSession()
         isRecording = false
         fetchVoicerecordFile()
     }
