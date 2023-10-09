@@ -23,6 +23,19 @@ class VoicePlayer: NSObject, ObservableObject, AVAudioPlayerDelegate {
         super.init()
     }
     
+    static func setSession() {
+        let playSession = AVAudioSession.sharedInstance()
+        
+        do {
+            try playSession.setCategory(.playAndRecord, mode: .default, options: [.allowBluetooth, .allowBluetoothA2DP])
+            try playSession.overrideOutputAudioPort(.none)
+            try playSession.setActive(true)
+            
+        } catch {
+            print("Playing failed in Device")
+        }
+    }
+    
     func startPlaying(record: Voicerecord, state: PlayerState? = nil) {
         if playerState == .play {
             if playingURL == URL(string: "") { return }
