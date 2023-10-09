@@ -42,7 +42,6 @@ struct ReadView: View {
                         Text("스와이프해서 원래 문장보기 >>")
                             .font(.body())
                             .foregroundColor(Colors.green100)
-//MARK: - 여기 opacity 현재 값에서 변경해줘야함
                             .opacity(readVM.currentIndex == 1 ? 0 : 1)
                     }.padding(.trailing)
                 }
