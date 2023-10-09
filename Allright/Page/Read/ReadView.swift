@@ -10,8 +10,6 @@ import SwiftUI
 
 struct ReadView: View {
     let step: TrainingSteps
-    //StateObject로 만들어두니까, object가 바뀔때마다
-//    @State var readVM.randomCard: [String] = ["", ""]
     //화면전환용 탭
     @Binding var selection: Int
     @StateObject private var readVM = ReadVM()
@@ -25,6 +23,8 @@ struct ReadView: View {
                 Text(step.description)
                     .font(.title1())
                     .foregroundColor(Colors.white)
+                    .multilineTextAlignment(.center)
+                    .lineSpacing(5)
                 Spacer()
             }
             VStack(spacing: 14) {
@@ -37,11 +37,13 @@ struct ReadView: View {
                 }
                 if step == .sentence {
                     //빈 화면입니다. 높이 맞추기 위해서 추가했습니다.
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 100)
-                            .frame(height: UIScreen.getHeight(4))
-                            .foregroundColor(.clear)
-                    }
+                    HStack {
+                        Spacer()
+                        Text("스와이프해서 원래 문장보기 >>")
+                            .font(.body())
+                            .foregroundColor(Colors.green100)
+                            .opacity(readVM.currentIndex == 1 ? 0 : 1)
+                    }.padding(.trailing)
                 }
                 Spacer().frame(height: UITabBarController().height)
             }
@@ -69,16 +71,19 @@ struct ReadView: View {
             Text("녹음기록을 바로 들어볼까요?")
         })
         .alert("연습을 중단할까요?", isPresented: $readVM.isPaused, actions: {
-            Button("취소", role: .none) {
+              Button("취소", role: .none) {
                 readVM.isPlaying = true
                 readVM.startAnimation()
-            }
-            Button("중단하기", role: .cancel) {
+              }
+              Button("중단하기", role: .cancel) {
+                  if readVM.isGoBack {
+                  self.presentationMode.wrappedValue.dismiss()
+                }
                 readVM.resetReadVM()
-            }
-        }, message: {
-            Text("현재까지의 녹음 기록은 저장돼요")
-        })
+              }
+            }, message: {
+              Text("현재까지의 녹음 기록은 저장돼요")
+            })
         .onAppear {
             VoiceRecorder.requestMicrophonePermission()
             readVM.numberOfWords = step.wordCard.count
@@ -96,7 +101,7 @@ struct ReadView: View {
             readVM.voicePlayer.stopPlaying()
             readVM.recoder.stopRecording()
         }
-        .navigationTitle(step.title)
+        .navigationTitle(step.title).font(.title2())
         .navigationBarBackButtonHidden(true)
         .navigationBarColor(backgroundColor: .clear, titleColor: UIColor.white)
         .toolbar {
@@ -274,7 +279,7 @@ struct ReadView: View {
                             Text("\(readVM.randomCard[idx])")
                                 .font(.cardSmall())
                                 .multilineTextAlignment(.center)
-                                .lineSpacing(1.5)
+                                .lineSpacing(4)
                                 .foregroundColor(Colors.black)
                                 .padding()
                                 .gesture(
@@ -372,10 +377,17 @@ struct ReadView: View {
     
     var backButton: some View {
         Button {
+          if readVM.isPlaying {
+            readVM.isPaused = true
+            readVM.stopAnimation()
+              readVM.isGoBack.toggle()
+          }
+          else {
             self.presentationMode.wrappedValue.dismiss()
+          }
         } label: {
-            Image(systemName: "chevron.backward")
-                .foregroundColor(Colors.white)
+          Image(systemName: "chevron.backward")
+            .foregroundColor(Colors.white)
         }
-    }
+      }
 }

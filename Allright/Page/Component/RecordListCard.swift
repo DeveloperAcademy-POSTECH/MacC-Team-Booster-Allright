@@ -14,6 +14,7 @@ struct RecordListCard: View {
     var body: some View {
         ZStack {
             recordRectangle(Colors.white)
+                .padding(.horizontal, UIScreen.getWidth(20))
                 .overlay {
                     HStack {
                         VStack(alignment: .leading, spacing: 6) {
@@ -23,8 +24,8 @@ struct RecordListCard: View {
                         Spacer()
                         recordPlayStatus(Colors.gray700)
                     }
-                    .padding(.leading, 16)
-                    .padding(.trailing, 28)
+                    .padding(.leading, 36)
+                    .padding(.trailing, 48)
                 }
             
             // MARK: - Mask
@@ -81,8 +82,9 @@ struct RecordListCard: View {
     
     func recordRectangle(_ color: Color) -> some View {
         RoundedRectangle(cornerRadius: 12)
-            .frame(width: UIScreen.getWidth(342), height: UIScreen.getHeight(70))
+            .frame( height: UIScreen.getHeight(70))
             .foregroundColor(color)
+
     }
     
     var recordListBlock: some View {
@@ -90,7 +92,7 @@ struct RecordListCard: View {
             .foregroundColor(Colors.gray50)
             .frame(width: UIScreen.getWidth(record.type.blockSize.width), height: UIScreen.getHeight(record.type.blockSize.height))
             .overlay {
-                HStack {
+                HStack(spacing: 2) {
                     Text(record.type.blockWord)
                     record.type.blockImage
                 }
