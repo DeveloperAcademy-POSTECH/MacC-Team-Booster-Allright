@@ -17,32 +17,7 @@ struct RecordView: View {
             Colors.gray100.ignoresSafeArea()
             VStack(spacing: 0) {
                 topBanner
-                ScrollView(.vertical) {
-                    VStack {
-                        ForEach(0..<voicerecord.voicerecordList.count, id: \.self) { idx in
-                            let url = voicerecord.voicerecordList[idx].fileURL
-                            HStack {
-                                if recordVM.isEditMode {
-                                    radioButton(url)
-                                        .padding(.leading, 10)
-                                }
-                                ZStack {
-                                    RecordListCard(record: voicerecord.voicerecordList[idx], player: player)
-                                    if recordVM.isEditMode {
-                                        blendButton
-                                            .onTapGesture {
-                                                recordVM.appendDelete(url)
-                                            }
-                                    }
-                                }
-                                if recordVM.isEditMode {
-                                    Spacer().frame(width: UIScreen.getWidth(20), height: UIScreen.getHeight(20))
-                                }
-                            }
-                        }
-                    }
-                }
-                .scrollIndicators(.hidden)
+                listView
             }
         }
         .overlay(alignment: .bottom) {
@@ -54,6 +29,42 @@ struct RecordView: View {
         .onDisappear {
             recordVM.reset()
         }
+    }
+    
+    var listView: some View {
+        ScrollView(.vertical) {
+            VStack {
+                if voicerecord.voicerecordList.count == 0 {
+                    Spacer().frame(height: UIScreen.screenHeight * 0.22)
+                    Text("아직 녹음기록이 없어요")
+                        .font(.title2())
+                        .foregroundColor(Colors.gray700)
+                }
+                else {
+                    ForEach(0..<voicerecord.voicerecordList.count, id: \.self) { idx in
+                        let url = voicerecord.voicerecordList[idx].fileURL
+                        HStack {
+                            if recordVM.isEditMode {
+                                radioButton(url)
+                                    .padding(.leading, 15)
+                                    .padding(.trailing, -15)
+                            }
+                            ZStack {
+                                RecordListCard(record: voicerecord.voicerecordList[idx], player: player)
+                                if recordVM.isEditMode {
+                                    blendButton
+                                        .onTapGesture {
+                                            recordVM.appendDelete(url)
+                                        }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .scrollDisabled(voicerecord.voicerecordList.count == 0 ? true : false)
+        .scrollIndicators(.hidden)
     }
     
     var blendButton: some View {
@@ -86,8 +97,12 @@ struct RecordView: View {
                         recordVM.isEditMode = false
                     }
                 }
-                
-                editButton
+                if voicerecord.voicerecordList.count != 0 {
+                    editButton
+                }
+                else {
+                    Spacer()
+                }
             }
             .padding(.top, 62)
             .padding(.bottom, 28)
@@ -95,6 +110,7 @@ struct RecordView: View {
                 .foregroundColor(Colors.gray600)
                 .font(Font.body())
                 .padding(.bottom, 10)
+                .padding(.leading, 2)
             Text("녹음기록")
                 .foregroundColor(Colors.black)
                 .font(Font.largeTitle())
