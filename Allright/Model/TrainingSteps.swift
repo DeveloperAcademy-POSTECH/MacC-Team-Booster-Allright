@@ -22,7 +22,7 @@ enum TrainingSteps: CaseIterable {
         switch self {
         case .step1: return "한 음절씩 천천히 읽기"
         case .step2: return "한 호흡에 전부 읽기"
-        case .sentence: return "하루 한 문장 도전"
+        case .sentence: return "모음 위주 문장 읽은 후\n원래 문장 읽기"
         }
     }
     

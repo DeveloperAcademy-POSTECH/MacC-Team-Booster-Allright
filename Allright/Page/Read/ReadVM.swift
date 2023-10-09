@@ -11,22 +11,38 @@ import SwiftUI
 class ReadVM: ObservableObject {
     
     var step: TrainingSteps?
-    var step2SoloLineAnimation: DispatchWorkItem?
-    var step2FirstLineAnimation: DispatchWorkItem?
-    var step2SecondLineAnimation: DispatchWorkItem?
-    var step2ThirdLineAnimation: DispatchWorkItem?
+    private var step2SoloLineAnimation: DispatchWorkItem?
+    private var step2FirstLineAnimation: DispatchWorkItem?
+    private var step2SecondLineAnimation: DispatchWorkItem?
+    private var step2ThirdLineAnimation: DispatchWorkItem?
     let voicePlayer = GuideVoicePlayer()
+    
+    ///뒤로가기 버튼을 위한 변수
+    @Published var isGoBack = false
     
     @Published var randomCard = ["", ""]
     @Published var isSoundOn = false
+    
+    ///스탭 카드 갯수, 현재 인덱스
+    ///currentIndex와 카드 갯수를 비교해서 끄
     @Published var numberOfWords: Int = 0
     @Published var currentIndex: Int = 0
+    
+    ///드래그 제스쳐를 위한 값
     @GestureState var dragOffset = 0
+    
+    ///시작 카운트 다운 변수
     @Published var startCountDown = 3
+    
+    ///녹음이 되고있는지 변수값
     @Published var isPlaying = false
     @Published var timer: Timer?
+    
+    // 알람창관련
     @Published var isFinished = false
     @Published var isPaused = false
+    
+    //마스크를 위한 게이지 측정값
     @Published var animationWidthGague = 0.0
     @Published var animationFirstLineWidthGague = 0.0
     @Published var animationSecondLineWidthGague = 0.0
@@ -79,14 +95,12 @@ class ReadVM: ObservableObject {
     
     func stopAnimation() {
         isPlaying = false
-        
         if self.step == .sentence {
             isPaused = true
             recoder.pauseRecording()
             
             return
         }
-        
         timer!.invalidate()
         if self.currentIndex == numberOfWords - 1 {
             isFinished = true
@@ -160,6 +174,7 @@ class ReadVM: ObservableObject {
         }
     }
     
+    ///step1 게이지 애니메이션과 카드가 1초마다 스와이핑 되는 애니메이션
     func step1Animation() {
         self.animationWidthGague = 0
         
@@ -199,6 +214,7 @@ class ReadVM: ObservableObject {
         }
     }
     
+    ///step2  게이지 애니메이션과 카드가 1초마다 스와이핑 되는 애니메이션
     func step2Animation() {
         self.animationWidthGague = 0
         self.animationFirstLineWidthGague = 0
@@ -228,6 +244,7 @@ class ReadVM: ObservableObject {
                 }
             }
         }
+        
         step2SecondLineAnimation = DispatchWorkItem {
             if self.isPlaying {
                 withAnimation(.linear(duration: 2.4)) {
@@ -235,6 +252,7 @@ class ReadVM: ObservableObject {
                 }
             }
         }
+        
         step2ThirdLineAnimation = DispatchWorkItem {
             if self.isPlaying {
                 withAnimation(.linear(duration: 1.2)) {

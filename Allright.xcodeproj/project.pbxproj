@@ -643,8 +643,8 @@
 		0DE7C2902AB83E52007701E6 /* Read */ = {
 			isa = PBXGroup;
 			children = (
-				0DE7C2802AB5DED5007701E6 /* ReadView.swift */,
 				0DE7C2862AB78D5E007701E6 /* ReadVM.swift */,
+				0DE7C2802AB5DED5007701E6 /* ReadView.swift */,
 			);
 			path = Read;
 			sourceTree = "<group>";

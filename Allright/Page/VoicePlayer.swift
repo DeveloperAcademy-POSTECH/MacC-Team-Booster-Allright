@@ -12,6 +12,7 @@ import UIKit
 class VoicePlayer: NSObject, ObservableObject, AVAudioPlayerDelegate {
     var audioPlayer = AVAudioPlayer()
     
+    @Published var currentPlayingURL: URL?
     @Published var playingURL: URL?
     @Published var playerState: PlayerState = .stop
     @Published var playOffset: CGFloat = 0
@@ -42,8 +43,21 @@ class VoicePlayer: NSObject, ObservableObject, AVAudioPlayerDelegate {
                 playStopSetting()
             }
         }
-        
         playingURL = record.fileURL
+        if currentPlayingURL != playingURL {
+            playingURL = record.fileURL
+            currentPlayingURL = playingURL
+            playOffset = 0
+            currentTime = 0
+        }
+        
+        let playSession = AVAudioSession.sharedInstance()
+        
+        do {
+            try playSession.setCategory(.playAndRecord, mode: .default, options: [.allowBluetooth, .allowBluetoothA2DP, .defaultToSpeaker])
+        } catch {
+            print("Playing failed in Device")
+        }
         
         do {
             audioPlayer = try AVAudioPlayer(contentsOf: playingURL!)
