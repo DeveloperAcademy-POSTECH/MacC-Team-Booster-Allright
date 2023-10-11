@@ -30,6 +30,7 @@ struct RecordListCard: View {
             
             // MARK: - Mask
             recordRectangle(record.type.blockColor)
+                .padding(.horizontal, UIScreen.getWidth(20))
                 .overlay {
                     HStack {
                         VStack(alignment: .leading, spacing: 6) {
@@ -39,8 +40,8 @@ struct RecordListCard: View {
                         Spacer()
                         recordPlayStatus(Colors.white)
                     }
-                    .padding(.leading, 16)
-                    .padding(.trailing, 28)
+                    .padding(.leading, 36)
+                    .padding(.trailing, 48)
                 }
                 .gesture(
                     DragGesture()
@@ -71,7 +72,7 @@ struct RecordListCard: View {
                     if record.fileURL == player.playingURL {
                         Color.black
                             .frame(width: UIScreen.getWidth(player.playOffset))
-                            .frame(minWidth: 0, maxWidth: UIScreen.getWidth(342), alignment: .leading)
+                            .frame(minWidth: 0, maxWidth: UIScreen.getWidth(400), alignment: .leading)
                     }
                 } //: - Mask
         }
