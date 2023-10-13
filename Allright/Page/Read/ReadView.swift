@@ -49,12 +49,11 @@ struct ReadView: View {
             }
             VStack {
                 Spacer()
-                LottieView(isPlay: $readVM.isPlaying)
-                    .frame(width: UIScreen.getWidth(200), height: UIScreen.getHeight(200))
-            }
-            VStack {
-                Spacer()
-                playButton
+                ZStack {
+                    LottieView(isPlay: $readVM.isPlaying)
+                    playButton
+                }
+                .frame(width: UIScreen.getWidth(200), height: UIScreen.getHeight(200))
                 Spacer().frame(height: UITabBarController().height)
             }
         }
