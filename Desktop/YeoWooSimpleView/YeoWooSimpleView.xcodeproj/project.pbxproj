@@ -1,0 +1,436 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D57ED2AE2A612EBC00670C31 /* YeoWooSimpleViewApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57ED2AD2A612EBC00670C31 /* YeoWooSimpleViewApp.swift */; };
+		D57ED2B02A612EBC00670C31 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57ED2AF2A612EBC00670C31 /* ContentView.swift */; };
+		D57ED2B22A612EBE00670C31 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D57ED2B12A612EBE00670C31 /* Assets.xcassets */; };
+		D57ED2B52A612EBE00670C31 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D57ED2B42A612EBE00670C31 /* Preview Assets.xcassets */; };
+		D57ED2BF2A612F2000670C31 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57ED2BE2A612F2000670C31 /* SettingView.swift */; };
+		D57ED2C22A612F6500670C31 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57ED2C12A612F6500670C31 /* MainView.swift */; };
+		D57ED2C42A61305900670C31 /* InvitationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57ED2C32A61305900670C31 /* InvitationView.swift */; };
+		D57ED2C62A61306600670C31 /* RoleSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57ED2C52A61306600670C31 /* RoleSelectView.swift */; };
+		D57ED2C82A61307800670C31 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57ED2C72A61307800670C31 /* NotificationView.swift */; };
+		D57ED2CB2A61565700670C31 /* ColorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57ED2CA2A61565700670C31 /* ColorModel.swift */; };
+		D57ED2CE2A615B0000670C31 /* TextFieldModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57ED2CD2A615B0000670C31 /* TextFieldModifier.swift */; };
+		D57ED2D02A616D1400670C31 /* NotiCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57ED2CF2A616D1400670C31 /* NotiCardView.swift */; };
+		D57ED2D22A61711400670C31 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57ED2D12A61711400670C31 /* Font.swift */; };
+		D57ED2D42A6172B400670C31 /* CardViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57ED2D32A6172B400670C31 /* CardViewModifier.swift */; };
+		D57ED2D62A617E5B00670C31 /* NotiCardContentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57ED2D52A617E5B00670C31 /* NotiCardContentsView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		D57ED2AA2A612EBC00670C31 /* YeoWooSimpleView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YeoWooSimpleView.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D57ED2AD2A612EBC00670C31 /* YeoWooSimpleViewApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YeoWooSimpleViewApp.swift; sourceTree = "<group>"; };
+		D57ED2AF2A612EBC00670C31 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		D57ED2B12A612EBE00670C31 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D57ED2B42A612EBE00670C31 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		D57ED2BE2A612F2000670C31 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		D57ED2C12A612F6500670C31 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		D57ED2C32A61305900670C31 /* InvitationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitationView.swift; sourceTree = "<group>"; };
+		D57ED2C52A61306600670C31 /* RoleSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleSelectView.swift; sourceTree = "<group>"; };
+		D57ED2C72A61307800670C31 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
+		D57ED2CA2A61565700670C31 /* ColorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorModel.swift; sourceTree = "<group>"; };
+		D57ED2CD2A615B0000670C31 /* TextFieldModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldModifier.swift; sourceTree = "<group>"; };
+		D57ED2CF2A616D1400670C31 /* NotiCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotiCardView.swift; sourceTree = "<group>"; };
+		D57ED2D12A61711400670C31 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
+		D57ED2D32A6172B400670C31 /* CardViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModifier.swift; sourceTree = "<group>"; };
+		D57ED2D52A617E5B00670C31 /* NotiCardContentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotiCardContentsView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D57ED2A72A612EBC00670C31 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D57ED2A12A612EBC00670C31 = {
+			isa = PBXGroup;
+			children = (
+				D57ED2AC2A612EBC00670C31 /* YeoWooSimpleView */,
+				D57ED2AB2A612EBC00670C31 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D57ED2AB2A612EBC00670C31 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D57ED2AA2A612EBC00670C31 /* YeoWooSimpleView.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D57ED2AC2A612EBC00670C31 /* YeoWooSimpleView */ = {
+			isa = PBXGroup;
+			children = (
+				D57ED2CC2A615AE200670C31 /* Component */,
+				D57ED2C92A61564A00670C31 /* Model */,
+				D57ED2BB2A612EE600670C31 /* Notification */,
+				D57ED2BC2A612EF700670C31 /* Role */,
+				D57ED2C02A612F5900670C31 /* Root */,
+				D57ED2BD2A612EFE00670C31 /* Setting */,
+				D57ED2AD2A612EBC00670C31 /* YeoWooSimpleViewApp.swift */,
+				D57ED2AF2A612EBC00670C31 /* ContentView.swift */,
+				D57ED2B12A612EBE00670C31 /* Assets.xcassets */,
+				D57ED2B32A612EBE00670C31 /* Preview Content */,
+			);
+			path = YeoWooSimpleView;
+			sourceTree = "<group>";
+		};
+		D57ED2B32A612EBE00670C31 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				D57ED2B42A612EBE00670C31 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		D57ED2BB2A612EE600670C31 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				D57ED2C72A61307800670C31 /* NotificationView.swift */,
+				D57ED2CF2A616D1400670C31 /* NotiCardView.swift */,
+				D57ED2D52A617E5B00670C31 /* NotiCardContentsView.swift */,
+			);
+			path = Notification;
+			sourceTree = "<group>";
+		};
+		D57ED2BC2A612EF700670C31 /* Role */ = {
+			isa = PBXGroup;
+			children = (
+				D57ED2C32A61305900670C31 /* InvitationView.swift */,
+				D57ED2C52A61306600670C31 /* RoleSelectView.swift */,
+			);
+			path = Role;
+			sourceTree = "<group>";
+		};
+		D57ED2BD2A612EFE00670C31 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				D57ED2BE2A612F2000670C31 /* SettingView.swift */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		D57ED2C02A612F5900670C31 /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				D57ED2C12A612F6500670C31 /* MainView.swift */,
+			);
+			path = Root;
+			sourceTree = "<group>";
+		};
+		D57ED2C92A61564A00670C31 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D57ED2CA2A61565700670C31 /* ColorModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		D57ED2CC2A615AE200670C31 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				D57ED2CD2A615B0000670C31 /* TextFieldModifier.swift */,
+				D57ED2D12A61711400670C31 /* Font.swift */,
+				D57ED2D32A6172B400670C31 /* CardViewModifier.swift */,
+			);
+			path = Component;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D57ED2A92A612EBC00670C31 /* YeoWooSimpleView */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D57ED2B82A612EBE00670C31 /* Build configuration list for PBXNativeTarget "YeoWooSimpleView" */;
+			buildPhases = (
+				D57ED2A62A612EBC00670C31 /* Sources */,
+				D57ED2A72A612EBC00670C31 /* Frameworks */,
+				D57ED2A82A612EBC00670C31 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = YeoWooSimpleView;
+			productName = YeoWooSimpleView;
+			productReference = D57ED2AA2A612EBC00670C31 /* YeoWooSimpleView.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D57ED2A22A612EBC00670C31 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1430;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					D57ED2A92A612EBC00670C31 = {
+						CreatedOnToolsVersion = 14.3.1;
+					};
+				};
+			};
+			buildConfigurationList = D57ED2A52A612EBC00670C31 /* Build configuration list for PBXProject "YeoWooSimpleView" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D57ED2A12A612EBC00670C31;
+			productRefGroup = D57ED2AB2A612EBC00670C31 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D57ED2A92A612EBC00670C31 /* YeoWooSimpleView */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D57ED2A82A612EBC00670C31 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D57ED2B52A612EBE00670C31 /* Preview Assets.xcassets in Resources */,
+				D57ED2B22A612EBE00670C31 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D57ED2A62A612EBC00670C31 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D57ED2BF2A612F2000670C31 /* SettingView.swift in Sources */,
+				D57ED2D22A61711400670C31 /* Font.swift in Sources */,
+				D57ED2CE2A615B0000670C31 /* TextFieldModifier.swift in Sources */,
+				D57ED2C22A612F6500670C31 /* MainView.swift in Sources */,
+				D57ED2D02A616D1400670C31 /* NotiCardView.swift in Sources */,
+				D57ED2C82A61307800670C31 /* NotificationView.swift in Sources */,
+				D57ED2C62A61306600670C31 /* RoleSelectView.swift in Sources */,
+				D57ED2D42A6172B400670C31 /* CardViewModifier.swift in Sources */,
+				D57ED2B02A612EBC00670C31 /* ContentView.swift in Sources */,
+				D57ED2CB2A61565700670C31 /* ColorModel.swift in Sources */,
+				D57ED2AE2A612EBC00670C31 /* YeoWooSimpleViewApp.swift in Sources */,
+				D57ED2D62A617E5B00670C31 /* NotiCardContentsView.swift in Sources */,
+				D57ED2C42A61305900670C31 /* InvitationView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		D57ED2B62A612EBE00670C31 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		D57ED2B72A612EBE00670C31 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D57ED2B92A612EBE00670C31 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"YeoWooSimpleView/Preview Content\"";
+				DEVELOPMENT_TEAM = 33F2H2TBU4;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ADA.YeoWooSimpleView;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D57ED2BA2A612EBE00670C31 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"YeoWooSimpleView/Preview Content\"";
+				DEVELOPMENT_TEAM = 33F2H2TBU4;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ADA.YeoWooSimpleView;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D57ED2A52A612EBC00670C31 /* Build configuration list for PBXProject "YeoWooSimpleView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D57ED2B62A612EBE00670C31 /* Debug */,
+				D57ED2B72A612EBE00670C31 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D57ED2B82A612EBE00670C31 /* Build configuration list for PBXNativeTarget "YeoWooSimpleView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D57ED2B92A612EBE00670C31 /* Debug */,
+				D57ED2BA2A612EBE00670C31 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D57ED2A22A612EBC00670C31 /* Project object */;
+}
